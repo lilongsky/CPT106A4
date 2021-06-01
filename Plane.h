@@ -1,34 +1,27 @@
 #pragma once
-#include<iostream>
+#include <iostream>
+
 class Plane
 {
 private:
 	std::string planeID;
 	std::string planeType;
-	int seat;
+	// TODO seat
+
 public:
-	Plane(std::string, std::string, int);
-	void setPlaneID(std::string);
-	void setPlaneType(std::string);
-	void setSeat(int);
+	Plane(std::string p_ID, std::string p_type);
+
 	std::string getPlaneID();
 	std::string getPlaneType();
-	/*char[][] getSeat();*/
 };
-Plane::Plane(std::string p_planeID, std::string p_planeType, int p_seat) {
-	planeID = p_planeID;
-	planeType = p_planeType;
-	seat = p_seat;
+
+/* Plane class */
+
+Plane::Plane(std::string p_ID, std::string p_type) {
+	planeID = p_ID;
+	planeType = p_type;
 }
-void Plane::setPlaneID(std::string p_planeID) {
-	this->planeID = p_planeID;
-}
-void Plane::setPlaneType(std::string p_planeTypr) {
-	this->planeType = p_planeTypr;
-}
-void Plane::setSeat(int p_seat) {
-	this->seat = p_seat;
-}
+
 std::string Plane::getPlaneID() {
 	return this->planeID;
 }

@@ -1,32 +1,46 @@
 #pragma once
-#include"Plane.h"
-#include"Route.h"
+#include <iostream>
+#include "Plane.h"
+#include "Route.h"
+
 class Flight
 {
 private:
-	std::string ID;
-	Plane* plane_ptr;
+	std::string flightID;
+	Plane* planePtr;
+	Route* routePtr;
 	time_t takeOffTime;
 	time_t landingTime;
-	Route* routr_ptr;
 	int price;
+
 public:
-	Flight(std::string, Plane*, time_t, time_t, Route* £¬int);
+	Flight();
+
 	void setID(std::string);
-	void setPlane(Plane*);
+	void setPlane(Plane);
+	void setRoute(Route);
 	void setTakeOffPlane(time_t);
 	void setLandingTime(time_t);
-	void setRoute(Route*);
 	void setPrice(int);
+
 	std::string getID();
-	Plane* getPlanePtr();
+	Plane getPlanePtr();
 	time_t getTakeOffTime();
 	time_t getLandingTime();
-	Route* getRoutePtr();
+	Route getRoutePtr();
 	int getPrice();
 };
-Flight::Flight(std::string p_ID, Plane* p_PlanePtr, time_t p_TakeOffTime, time_t p_landingTime,) {
 
+/* Flight class */
+
+Flight::Flight() {
+	planePtr = nullptr;
+	routePtr = nullptr;
 }
 
-
+void Flight::setID(std::string p_ID) {
+	flightID = p_ID;
+}
+void Flight::setPlane(Plane p_plane) {
+	planePtr = &p_plane;
+}
