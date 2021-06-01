@@ -1,45 +1,42 @@
 #pragma once
-#include"Airport.h"
+#include "Airport.h"
 #include <time.h>
+
 class Route
 {
 private:
-	Airport* source;
-	Airport* destination;
-	time_t durition;
+	Airport* DEP_AP_Ptr;
+	Airport* DEST_AP_Ptr;
+	time_t duration;
+
 public:
-	Route(Airport, Airport, time_t);
-	void setSource(Airport);
-	void setDestination(Airport);
-	void setDuretion(time_t);
-	Airport* getSourcePtr();
-	Airport* getDestinationPtr();
-	time_t getDurition();
+	Route();
+	Route(Airport p_DEP_AP, Airport p_DEST_AP, time_t p_duration);
+
+	Airport getDEP_AP();
+	Airport getDEST_AP();
+	time_t getDuration();
 };
-Route::Route(Airport src, Airport dest, time_t duri)
-{
-	source = &src;
-	destination = &dest;
-	durition = duri;
+
+/* Route class */
+
+Route::Route() {
+	DEP_AP_Ptr = nullptr;
+	DEST_AP_Ptr = nullptr;
+	duration = 0;
 }
-void Route:: setSource(Airport src) {
-	this->source = &src;
-}
-void Route::setDestination(Airport dest) {
-	this->destination = &dest;
-}
-void Route::setDuretion(time_t duri){
-	this->durition = duri;
-}
-Airport* Route::getSourcePtr() {
-	return source;
-}
-Airport* Route::getDestinationPtr() {
-	return destination;
-}
-time_t Route::getDurition() {
-	return durition;
+Route::Route(Airport p_DEP_AP, Airport p_DEST_AP, time_t p_duration) {
+	DEP_AP_Ptr = &p_DEP_AP;
+	DEST_AP_Ptr = &p_DEST_AP;
+	duration = p_duration;
 }
 
-
-
+Airport Route::getDEP_AP() {
+	return *DEP_AP_Ptr;
+}
+Airport Route::getDEST_AP() {
+	return *DEST_AP_Ptr;
+}
+time_t Route::getDuration() {
+	return duration;
+}
