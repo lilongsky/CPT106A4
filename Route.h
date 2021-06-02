@@ -4,6 +4,7 @@
 
 class Route
 {
+	friend class Routes;
 private:
 	Airport* DEP_AP_Ptr;
 	Airport* DEST_AP_Ptr;

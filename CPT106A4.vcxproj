@@ -139,13 +139,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileOp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Airport.h" />
+    <ClInclude Include="Airports.h" />
+    <ClInclude Include="FileOp.h" />
     <ClInclude Include="Flight.h" />
+    <ClInclude Include="Flights.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="Planes.h" />
     <ClInclude Include="Route.h" />
+    <ClInclude Include="Routes.h" />
+    <ClInclude Include="Ticket.h" />
+    <ClInclude Include="Tickets.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="Users.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,7 @@
 
 class Flight
 {
+	friend class Filghts;
 private:
 	std::string flightID;
 	Plane* planePtr;

@@ -3,6 +3,7 @@
 
 class Plane
 {
+	friend class Planes;
 private:
 	std::string planeID;
 	std::string planeType;
