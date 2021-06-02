@@ -3,6 +3,8 @@
 
 class Airport
 {
+friend class Airports;
+
 private:
 	std::string name;
 
