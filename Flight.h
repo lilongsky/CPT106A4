@@ -8,10 +8,10 @@ private:
 	Plane* plane_ptr;
 	time_t takeOffTime;
 	time_t landingTime;
-	Route* routr_ptr;
+	Route* route_ptr;
 	int price;
 public:
-	Flight(std::string, Plane*, time_t, time_t, Route* £¬int);
+	Flight(std::string p_ID, Plane* p_PlanePtr, time_t p_TakeOffTime, time_t p_landingTime, Route* p_RoutePtr, int p_price);
 	void setID(std::string);
 	void setPlane(Plane*);
 	void setTakeOffPlane(time_t);
@@ -25,8 +25,13 @@ public:
 	Route* getRoutePtr();
 	int getPrice();
 };
-Flight::Flight(std::string p_ID, Plane* p_PlanePtr, time_t p_TakeOffTime, time_t p_landingTime,) {
-
+Flight::Flight(std::string p_ID, Plane* p_PlanePtr, time_t p_TakeOffTime, time_t p_landingTime,Route* p_RoutePtr,int p_price) {
+	ID = p_ID;
+	plane_ptr = p_PlanePtr;
+	takeOffTime = p_TakeOffTime;
+	landingTime = p_landingTime;
+	route_ptr = p_RoutePtr;
+	price = p_price;
 }
 
 
