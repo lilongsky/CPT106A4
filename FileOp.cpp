@@ -4,7 +4,7 @@ FileOp::FileOp(std::string){
 	this->fileName = fileName;
 }
 // All File should be "data1 data2 data3 .....datafinal\n"
-// For pointer in file it shows as the index in the 
+// For pointer in file it shows the real data of the pointer 
 void FileOp::updateFile(Airports p_Airports){
 	file.open("Airports.txt", ios::out);
 }
@@ -24,7 +24,7 @@ void FileOp::updateFile(Tickets p_Tickets){
 void FileOp::updateFile(Users p_Users){
 }
 
-
+// Infile 'AirportName \n'
 Airports FileOp::readAirportsFromFile(){
 	file.open("Airports.txt", ios::in);
 	string tempAirportName;
@@ -37,13 +37,13 @@ Airports FileOp::readAirportsFromFile(){
 	}
 	return tempAirports;
 }
-
+// Infile 'PlaneId PlaneType \n'
 Planes FileOp::readPlanesFromFIle(){
 	file.open("Airports.txt", ios::in);
 	string tempPlaneType,tempPlaneId;
 	Planes tempPlanes;
 	while (!file.eof()){
-		file >> tempPlaneType>>tempPlaneId;
+		file >> tempPlaneId >> tempPlaneType;
 		Plane tempPlane(tempPlaneId,tempPlaneType);
 		tempPlanes.add(tempPlane);
 	}
@@ -51,12 +51,17 @@ Planes FileOp::readPlanesFromFIle(){
 }
 
 Flights FileOp::readFlightsFromFIle(){
+	file.open("Flights.txt");
 
 
 	return Flights();
 }
 
 Routes FileOp::readRoutesFromFile(){
+	file.open("Routes.txt", ios::in);
+	std::string tempSrc, tempDest;
+	int tempDuri;
+	file >> tempSrc >> tempDest >> tempDuri;
 	return Routes();
 }
 

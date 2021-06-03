@@ -45,3 +45,24 @@ void Flight::setID(std::string p_ID) {
 void Flight::setPlane(Plane p_plane) {
 	planePtr = &p_plane;
 }
+std::string Flight::getID(){
+	return this->flightID;
+}
+Plane Flight::getPlanePtr(){
+	return *(this->planePtr);
+}
+time_t Flight::getTakeOffTime(){
+	return this->takeOffTime;
+}
+
+time_t Flight::getLandingTime(){
+	return this->landingTime;
+}
+
+Route Flight::getRoutePtr(){
+	return *(this->routePtr);
+}
+
+int Flight::getPrice(){
+	return this->price;
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<fstream>
+#include<vector>
 #include"Airports.h"
 #include"Planes.h"
 #include"Flights.h"
