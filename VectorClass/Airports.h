@@ -18,6 +18,7 @@ public:
   Airports() {}
 
   bool isAPNameExistent(std::string p_APName);
+  bool isSameAPExistent(Airport p_AP);
 
   void add(Airport& p_airport);
   void remove(int index);
@@ -36,6 +37,9 @@ bool Airports::isAPNameExistent(std::string p_APName) {
     }
   }
   return ans;
+}
+bool Airports::isSameAPExistent(Airport p_AP) {
+  return isAPNameExistent(p_AP.airportName);
 }
 
 void Airports::add(Airport& p_airport) {

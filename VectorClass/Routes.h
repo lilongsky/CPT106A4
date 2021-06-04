@@ -1,44 +1,41 @@
 #pragma once
-#ifndef ROUTES_H
-#define ROUTES_H
+#include "../BasicDataClass/Route.h"
 
+class Routes
+{
+  friend class DataOp;
 
-#include"../BasicDataClass/Route.h"
-class Routes{
-	friend class DataOp;
 private:
-    // RouteVector
-    std::vector<Route> RVector;
+  // RouteVector
+  std::vector<Route> routeVector;
 
 public:
-    Routes(){}
+  Routes() {}
 
-   /* bool isRNameExistent(std::string p_APName);*/
+  bool isSameAPIncluded(Airport p_AP);
 
-    void add(Route& p_route);
-    void remove(int index);
+  void add(Route &p_route);
+  void remove(int index);
 };
 
-/* Airports class */
+/* Routes class */
 
-// Check if RVector includes the airport with name p_APName.
-//bool Routes::isRPNameExistent(std::string p_APName){
-//    bool ans = false;
-//    for (int i = 0; i < RVector.size(); i++){
-//        if (RVector.at(i).name == p_APName){
-//            ans = true;
-//            break;
-//        }
-//    }
-//    return ans;
-//}
+bool Routes::isSameAPIncluded(Airport p_AP) {
+	bool ans = false;
+	for (int i = 0; i < routeVector.size(); i++) {
+		if (routeVector.at(i).isSameAPIncluded(p_AP)) {
+			ans = true;
+			break;
+		}
+	}
+	return ans;
+}
 
-void Routes::add(Route& p_route){
-    RVector.push_back(p_route);
+void Routes::add(Route &p_route) {
+  routeVector.push_back(p_route);
 }
 // index starts from 0
 // e.g. Routes::remove(0) removes the first element
-void Routes::remove(int index){
-    RVector.erase(RVector.begin() + index);
+void Routes::remove(int index) {
+  routeVector.erase(routeVector.begin() + index);
 }
-#endif // !ROUTES_H
