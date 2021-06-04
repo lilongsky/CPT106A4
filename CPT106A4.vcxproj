@@ -18,6 +18,25 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BasicDataClass\Airport.h" />
+    <ClInclude Include="BasicDataClass\Flight.h" />
+    <ClInclude Include="BasicDataClass\Plane.h" />
+    <ClInclude Include="BasicDataClass\Route.h" />
+    <ClInclude Include="BasicDataClass\Ticket.h" />
+    <ClInclude Include="BasicDataClass\User.h" />
+    <ClInclude Include="FileOp.h" />
+    <ClInclude Include="VectorClass\Airports.h" />
+    <ClInclude Include="VectorClass\Flights.h" />
+    <ClInclude Include="VectorClass\Planes.h" />
+    <ClInclude Include="VectorClass\Routes.h" />
+    <ClInclude Include="VectorClass\Tickets.h" />
+    <ClInclude Include="VectorClass\Users.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FileOp.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,25 +157,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="FileOp.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Airport.h" />
-    <ClInclude Include="Airports.h" />
-    <ClInclude Include="FileOp.h" />
-    <ClInclude Include="Flight.h" />
-    <ClInclude Include="Flights.h" />
-    <ClInclude Include="Plane.h" />
-    <ClInclude Include="Planes.h" />
-    <ClInclude Include="Route.h" />
-    <ClInclude Include="Routes.h" />
-    <ClInclude Include="Ticket.h" />
-    <ClInclude Include="Tickets.h" />
-    <ClInclude Include="User.h" />
-    <ClInclude Include="Users.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

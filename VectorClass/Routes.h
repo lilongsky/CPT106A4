@@ -1,5 +1,9 @@
 #pragma once
-#include"Route.h"
+#ifndef ROUTES_H
+#define ROUTES_H
+
+
+#include"../BasicDataClass/Route.h"
 class Routes{
 	friend class DataOp;
 private:
@@ -11,7 +15,7 @@ public:
 
    /* bool isRNameExistent(std::string p_APName);*/
 
-    void add(Route& p_airport);
+    void add(Route& p_route);
     void remove(int index);
 };
 
@@ -37,4 +41,4 @@ void Routes::add(Route& p_route){
 void Routes::remove(int index){
     RVector.erase(RVector.begin() + index);
 }
-
+#endif // !ROUTES_H

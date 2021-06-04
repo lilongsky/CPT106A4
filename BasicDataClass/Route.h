@@ -1,5 +1,9 @@
 #pragma once
-#include "Airport.h"
+#ifndef ROUTE_H
+#define ROUTE_H
+
+
+//#include "Airport.h"
 
 class Route
 {
@@ -17,6 +21,7 @@ public:
 	Airport getDEST_AP();
 	int getDuration();
 };
+
 
 /* Route class */
 
@@ -40,3 +45,4 @@ Airport Route::getDEST_AP() {
 int Route::getDuration() {
 	return duration;
 }
+#endif // !#ROUTE_H

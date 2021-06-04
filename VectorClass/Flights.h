@@ -1,5 +1,9 @@
 #pragma once
-#include"Flight.h"
+#ifndef FILGHTS_H
+#define FLIGHTS_H
+
+// #include <vector>
+#include"../BasicDataClass/Flight.h"
 class Flights{
 	friend class DataOp;
 private:
@@ -41,6 +45,6 @@ void Flights::add(Flight & p_Flight){
 void Flights::remove(int index){
     FVector.erase(FVector.begin() + index);
 }
-
+#endif // !FILGHTS_H
 
 

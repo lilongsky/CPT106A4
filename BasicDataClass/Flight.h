@@ -1,7 +1,10 @@
 #pragma once
-#include <iostream>
-#include "Plane.h"
-#include "Route.h"
+#ifndef FLIGHT_H
+#define FLIGHT_H
+
+
+#include "../BasicDataClass/Plane.h"
+#include "../BasicDataClass/Route.h"
 
 class Flight
 {
@@ -31,6 +34,7 @@ public:
 	Route getRoutePtr();
 	int getPrice();
 };
+
 
 /* Flight class */
 
@@ -66,3 +70,4 @@ Route Flight::getRoutePtr(){
 int Flight::getPrice(){
 	return this->price;
 }
+#endif // !FLIGHT_H

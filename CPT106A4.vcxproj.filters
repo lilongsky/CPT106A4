@@ -13,57 +13,60 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="头文件\basic data class">
-      <UniqueIdentifier>{e7d7feba-1cf3-4fef-bd69-1f181fcdca9f}</UniqueIdentifier>
+    <Filter Include="头文件\BasicDataClass">
+      <UniqueIdentifier>{16008c84-9b7c-422a-a1ef-502dc07ba97b}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="FileOp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <Filter Include="头文件\VectorClass">
+      <UniqueIdentifier>{56be5e6e-fce2-43f4-ba29-fdad2ad66663}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileOp.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Airports.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="BasicDataClass\Airport.h">
+      <Filter>头文件\BasicDataClass</Filter>
     </ClInclude>
-    <ClInclude Include="Flights.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="BasicDataClass\Flight.h">
+      <Filter>头文件\BasicDataClass</Filter>
     </ClInclude>
-    <ClInclude Include="Planes.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="BasicDataClass\Plane.h">
+      <Filter>头文件\BasicDataClass</Filter>
     </ClInclude>
-    <ClInclude Include="Routes.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="BasicDataClass\Route.h">
+      <Filter>头文件\BasicDataClass</Filter>
     </ClInclude>
-    <ClInclude Include="Airport.h">
-      <Filter>头文件\basic data class</Filter>
+    <ClInclude Include="BasicDataClass\Ticket.h">
+      <Filter>头文件\BasicDataClass</Filter>
     </ClInclude>
-    <ClInclude Include="Flight.h">
-      <Filter>头文件\basic data class</Filter>
+    <ClInclude Include="BasicDataClass\User.h">
+      <Filter>头文件\BasicDataClass</Filter>
     </ClInclude>
-    <ClInclude Include="Plane.h">
-      <Filter>头文件\basic data class</Filter>
+    <ClInclude Include="VectorClass\Flights.h">
+      <Filter>头文件\VectorClass</Filter>
     </ClInclude>
-    <ClInclude Include="Route.h">
-      <Filter>头文件\basic data class</Filter>
+    <ClInclude Include="VectorClass\Airports.h">
+      <Filter>头文件\VectorClass</Filter>
     </ClInclude>
-    <ClInclude Include="Ticket.h">
-      <Filter>头文件\basic data class</Filter>
+    <ClInclude Include="VectorClass\Planes.h">
+      <Filter>头文件\VectorClass</Filter>
     </ClInclude>
-    <ClInclude Include="Tickets.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="VectorClass\Routes.h">
+      <Filter>头文件\VectorClass</Filter>
     </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="VectorClass\Tickets.h">
+      <Filter>头文件\VectorClass</Filter>
     </ClInclude>
-    <ClInclude Include="Users.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="VectorClass\Users.h">
+      <Filter>头文件\VectorClass</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FileOp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

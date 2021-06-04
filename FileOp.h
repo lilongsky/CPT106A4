@@ -1,19 +1,21 @@
 #pragma once
-#include<iostream>
+#ifndef FILE_OP_H
+#define FILE_OP_H
+
+
 #include<fstream>
-#include<vector>
-#include"Airports.h"
-#include"Planes.h"
-#include"Flights.h"
-#include"Routes.h"
-#include"Tickets.h"
-#include"Users.h"
+#include"../CPT106A4/VectorClass/Airports.h"
+#include"VectorClass/Flights.h"
+#include"VectorClass/Planes.h"
+#include"VectorClass/Routes.h"
+#include"VectorClass/Tickets.h"
+#include"VectorClass/Users.h"
 class FileOp{
 private:
 	std::string fileName;
 	std::fstream file;
 public:
-	FileOp(std::string name);
+	FileOp(std::string p_fileName);
 	void updateFile(Airports p_Airports);
 	void updateFile(Planes p_Planes);
 	void updateFile(Flights p_Flights);
@@ -27,4 +29,6 @@ public:
 	Tickets readTicketsFromFile();
 	Users readUsersFromFile();
 };
+#endif // !FILE_OP_H
+
 

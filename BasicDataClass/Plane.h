@@ -1,5 +1,7 @@
 #pragma once
-#include <iostream>
+#ifndef PLANE_H
+#define PLANE_H
+
 
 class Plane
 {
@@ -16,6 +18,7 @@ public:
 	std::string getPlaneType();
 };
 
+
 /* Plane class */
 
 Plane::Plane(std::string p_ID, std::string p_type) {
@@ -29,3 +32,4 @@ std::string Plane::getPlaneID() {
 std::string Plane::getPlaneType() {
 	return this->planeType;
 }
+#endif //!PLANE_H

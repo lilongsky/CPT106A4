@@ -1,6 +1,10 @@
 #pragma once
-#include <vector>
-#include"Plane.h"
+#ifndef PLANES_H
+#define PLANES_H
+
+
+//#include <vector>
+#include"../BasicDataClass/Plane.h"
 class Planes{
 	friend class DataOp;
 private:
@@ -13,6 +17,7 @@ public:
 	void add(Plane p_airport);
 	void remove(int index);
 };
+
 bool Planes::isPNameExistent(std::string p_PName){
 	bool ans = false;
 	for (int i = 0; i < PVector.size(); i++){
@@ -23,9 +28,10 @@ bool Planes::isPNameExistent(std::string p_PName){
 	}
 	return ans;
 }
-inline void Planes::add(Plane p_plane){
+void Planes::add(Plane p_plane){
 	PVector.push_back(p_plane);
 }
-inline void Planes::remove(int index){
+void Planes::remove(int index){
 	PVector.erase(PVector.begin() + index);
 }
+#endif // !PLANES_H
