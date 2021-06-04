@@ -1,9 +1,10 @@
 #pragma once
-#ifndef TICKETS_H
-#define TICKERS_H
 
+#include <vector>
+#include "../BasicDataClass/Ticket.h"
 
-#include"../BasicDataClass/Ticket.h"
-class Tickets{
+class Tickets
+{
+private:
+  std::vector<Ticket> ticketVector;
 };
-#endif // !TICKETS_H

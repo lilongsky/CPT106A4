@@ -1,8 +1,9 @@
 #pragma once
-#ifndef USER_H
-#define USER_H
 
-
-class User{
+class User
+{
+private:
+  std::string userID;
+  std::string realName;
+  std::string role;
 };
-#endif // !USER_H
