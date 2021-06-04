@@ -8,9 +8,9 @@ FileOp::FileOp(std::string p_fileName){
 	this->fileName = p_fileName;
 }
 // All File should be "data1 data2 data3 .....datafinal\n"
-// For pointer in file it shows the real data of the pointer 
+// For pointer in file it shows the real data of the pointer
 void FileOp::updateFile(Airports p_Airports){
-	file.open("Airports.txt", std::ios::out,std::ios::trunc);
+	file.open("Airports.txt", std::ios::out | std::ios::trunc);
 }
 
 void FileOp::updateFile(Planes p_Planes){
