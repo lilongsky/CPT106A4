@@ -2,12 +2,20 @@
 #include <iostream>
 #include "VectorClass/Airports.h"
 #include "VectorClass/Routes.h"
+#include "VectorClass/Planes.h"
+#include "VectorClass/Flights.h"
+#include "VectorClass/Tickets.h"
+#include "VectorClass/Users.h"
 
 class DataOp
 {
 private:
   Airports* airportsPtr;
   Routes* routesPtr;
+  Planes* planesPtr;
+  Flights* flightsPtr;
+  Tickets* ticketsPtr;
+  Users* usersPtr;
 
 public:
   DataOp();
