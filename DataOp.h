@@ -29,7 +29,7 @@ public:
 /* DataOp class */
 
 void DataOp::addAirport(std::string APName) {
-  if (airportsPtr->isAPNameExistent(APName)) {
+  if (airportsPtr->isSameAPIncluded(APName)) {
     Airport newAP(APName);
     airportsPtr->add(newAP);
   }
@@ -37,7 +37,7 @@ void DataOp::addAirport(std::string APName) {
 }
 
 void DataOp::removeAirport(Airport p_AP) {
-  if (not airportsPtr->isSameAPExistent(p_AP)) {
+  if (not airportsPtr->isSameAPIncluded(p_AP)) {
     // throw
   } else if (routesPtr->isSameAPIncluded(p_AP)) {
     // throw
