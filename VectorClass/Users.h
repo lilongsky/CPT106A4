@@ -1,9 +1,21 @@
 #pragma once
-#ifndef USERS_H
-#define USERS_H
 
+#include <vector>
+#include "../BasicDataClass/User.h"
 
-#include"../BasicDataClass/User.h"
-class Users{
+class Users
+{
+private:
+  std::vector<User> userVector;
+
+public:
+  Users() {}
+
+  void add(User &p_user);
 };
-#endif // !USERS_H
+
+/* Users class */
+
+void Users::add(User &p_user) {
+  userVector.push_back(p_user);
+}
