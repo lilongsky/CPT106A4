@@ -21,7 +21,7 @@ public:
   int findSameAPIndex(Airport p_AP);
   bool isSameAPIncluded(Airport p_AP);
 
-  void add(Airport p_airport);
+  void add(Airport &p_airport);
   void remove(int index);
 };
 
@@ -51,10 +51,8 @@ bool Airports::isSameAPIncluded(Airport p_AP) {
 }
 
 // ? new or not new
-void Airports::add(Airport p_airport) {
-  Airport newAirport;
-  newAirport.hardcopy(p_airport);
-  APVector.push_back(newAirport);
+void Airports::add(Airport &p_airport) {
+  APVector.push_back(p_airport);
 }
 
 // index starts from 0

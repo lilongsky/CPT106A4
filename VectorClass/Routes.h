@@ -17,7 +17,7 @@ public:
   int findSameRouteIndex(Route p_route);
   bool isRouteIncluded(Route p_route);
 
-  void add(Route p_route);
+  void add(Route &p_route);
   void remove(int index);
 };
 
@@ -54,10 +54,8 @@ bool Routes::isRouteIncluded(Route p_route) {
   }
 }
 
-void Routes::add(Route p_route) {
-  Route newRoute;
-  newRoute.hardcopy(p_route);
-  routeVector.push_back(newRoute);
+void Routes::add(Route &p_route) {
+  routeVector.push_back(p_route);
 }
 // index starts from 0
 // e.g. Routes::remove(0) removes the first element
