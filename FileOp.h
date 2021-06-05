@@ -1,108 +1,80 @@
 #pragma once
 #ifndef FILE_OP_H
 #define FILE_OP_H
-
 #include <fstream>
-#include "VectorClass/Airports.h"
-#include "VectorClass/Flights.h"
-#include "VectorClass/Planes.h"
-#include "VectorClass/Routes.h"
-#include "VectorClass/Tickets.h"
-#include "VectorClass/Users.h"
+//#include "VectorClass/Airports.h"
+//#include "VectorClass/Flights.h"
+//#include "VectorClass/Planes.h"
+//#include "VectorClass/Routes.h"
+//#include "VectorClass/Tickets.h"
+//#include "VectorClass/Users.h"
+#include"DataOp.h"
 
 class FileOp
 {
 private:
-	std::string fileName;
 	std::fstream file;
+	DataOp* dataOpPtr;
 
 public:
-	FileOp(std::string p_fileName);
-	void updateFile(Airports p_Airports);
-	void updateFile(Planes p_Planes);
-	void updateFile(Flights p_Flights);
-	void updateFile(Routes p_Routes);
-	void updateFile(Tickets p_Tickets);
-	void updateFile(Users p_Users);
-	Airports readAirportsFromFile();
-	Planes readPlanesFromFIle();
-	Flights readFlightsFromFIle();
-	Routes readRoutesFromFile();
-	Tickets readTicketsFromFile();
-	Users readUsersFromFile();
+	FileOp();
+
+	void updateAirportsFile(std::vector<Airport> p_Airports);
+	void updatePlanesFile(std::vector<Plane> p_Planes);
+	void updateFlightsFile(std::vector<Flight> p_Flights);
+	void updateRoutesFile(std::vector<Route>  p_Routes);
+	void updateTicketsFile(std::vector<Ticket>  p_Tickets);
+	void updateUsersFile(std::vector<User> p_Users);
+
+	void readAirportsFromFile();
+	void readPlanesFromFIle();
+	void readFlightsFromFIle();
+	void readRoutesFromFile();
+	void readTicketsFromFile();
+	void readUsersFromFile();
 };
-FileOp::FileOp(std::string p_fileName){
-	this->fileName = p_fileName;
-}
+FileOp::FileOp(){}
 // All File should be "data1 data2 data3 .....datafinal\n"
 // For pointer in file it shows the real data of the pointer 
-void FileOp::updateFile(Airports p_Airports){
-	file.open("Airports.txt", std::ios::out, std::ios::trunc);
-}
-
-void FileOp::updateFile(Planes p_Planes){
-
-}
-
-void FileOp::updateFile(Flights p_Flights){
-
-}
-
-void FileOp::updateFile(Routes p_Routes){
-}
-
-void FileOp::updateFile(Tickets p_Tickets){
-}
-
-void FileOp::updateFile(Users p_Users){
+void FileOp::updateAirportsFile(std::vector<Airport> p_Airports){
+	file.open("Airport.txt", std::ios::out | std::ios::trunc);
+	for (int i = 0 ; i < p_Airports.size(); i++){
+		file << p_Airports.at(i).getAirportName() << std::endl;
+	}
 }
 
 // Infile 'AirportName \n'
-Airports FileOp::readAirportsFromFile(){
+void FileOp::readAirportsFromFile(){
 	file.open("Airports.txt", std::ios::in);
-	std::string tempAirportName;
-	Airport tempAirport(tempAirportName);
-	Airports tempAirports;
+	std::string temp_APName;
 	while (!file.eof()){
-		file >> tempAirportName;
-		tempAirport.setAirport(tempAirportName);
-		tempAirports.add(tempAirport);
+		file >> temp_APName;
+		dataOpPtr->addAirport(temp_APName);
 	}
-	return tempAirports;
+	file.close();
 }
 // Infile 'PlaneId PlaneType \n'
-Planes FileOp::readPlanesFromFIle(){
-	file.open("Airports.txt", std::ios::in);
-	std::string tempPlaneType, tempPlaneId;
-	Planes tempPlanes;
-	while (!file.eof()){
-		file >> tempPlaneId >> tempPlaneType;
-		Plane tempPlane(tempPlaneId, tempPlaneType);
-		tempPlanes.add(tempPlane);
-	}
-	return tempPlanes;
+void FileOp::readPlanesFromFIle(){
+	file.open("Planes.txt", std::ios::in);
+
 }
 
-Flights FileOp::readFlightsFromFIle(){
-	file.open("Flights.txt");
+void FileOp::readFlightsFromFIle(){
+	file.open("Flights.txt", std::ios::in);
 
 
-	return Flights();
+
 }
 
-Routes FileOp::readRoutesFromFile(){
+void FileOp::readRoutesFromFile(){
 	file.open("Routes.txt", std::ios::in);
-	std::string tempSrc, tempDest;
-	int tempDuri;
-	file >> tempSrc >> tempDest >> tempDuri;
-	return Routes();
+
+}
+void FileOp::readTicketsFromFile(){
+	file.open("Tickets.txt", std::ios::in);
 }
 
-Tickets FileOp::readTicketsFromFile(){
-	return Tickets();
-}
-
-Users FileOp::readUsersFromFile(){
-	return Users();
+void FileOp::readUsersFromFile(){
+	file.open("Users.txt", std::ios::in);
 }
 #endif // !FILE_OP_H
