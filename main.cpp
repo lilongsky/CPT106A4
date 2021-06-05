@@ -1,5 +1,6 @@
-#include"FileOp.h"
-#include"DataOp.h"
+//#include"FileOp.h"
+//#include"DataOp.h"
+#include"BasicBusiness.h"
 #include<iostream>
 
 #include<stdio.h>
