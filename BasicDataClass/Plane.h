@@ -18,7 +18,7 @@ public:
 	std::string getPlaneType();
 
 	void hardcopy(Plane p_plane);
-	bool isSamePlane(Plane p_P);
+	bool isSamePlane(Plane p_plane);
 };
 
 
@@ -42,9 +42,13 @@ void Plane::hardcopy(Plane p_plane) {
 	this->planeType = p_plane.planeType;
 }
 
-bool Plane::isSamePlane(Plane p_P) {
-	bool ans = (planeID == p_P.planeID);
-	return ans;
+bool Plane::isSamePlane(Plane p_plane) {
+	if ((planeID == p_plane.planeID) && (planeType == p_plane.planeType)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 #endif //!PLANE_H
