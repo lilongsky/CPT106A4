@@ -48,7 +48,7 @@ public:
     std::string flightID,
     std::string planeID,
     std::string TKOF_AP_Name, std::string DEST_AP_Name,
-    time_t takeOffTime, time_t landingTime,
+    time_t TKOFTime, time_t LandTime,
     int price
   );
   // ticket
@@ -70,7 +70,7 @@ public:
     std::string flightID,
     std::string planeID,
     std::string TKOF_AP_Name, std::string DEST_AP_Name,
-    time_t takeOffTime, time_t landingTime,
+    time_t TKOFTime, time_t LandTime,
     int price
   );
   void addTicket(
