@@ -25,7 +25,7 @@ public:
 /* Airports class */
 
 std::vector<Airport> Airports::hardcopyVector() {
-  std::vector new_APVector(APVector);
+  std::vector<Airport> new_APVector(APVector);
   return new_APVector;
 }
 

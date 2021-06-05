@@ -31,10 +31,19 @@ public:
   std::vector<Flight> getFlightVectorCopy();
   std::vector<Ticket> getTicketVectorCopy();
 
+  // user
+  std::vector<User> searchUser(std::string userID);
   std::vector<User> searchUser(std::string userID, std::string realName, std::string role);
+  // airport
   std::vector<Airport> searchAirport(std::string APName);
+  // route
+  std::vector<Route> searchRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name);
   std::vector<Route> searchRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration);
+  // plane
+  std::vector<Plane> searchPlane(std::string planeID);
   std::vector<Plane> searchPlane(std::string planeID, std::string planeType);
+  // flight
+  std::vector<Flight> searchFlight(std::string flightID);
   std::vector<Flight> searchFlight(
     std::string flightID,
     std::string planeID,
@@ -42,6 +51,8 @@ public:
     time_t takeOffTime, time_t landingTime,
     int price
   );
+  // ticket
+  std::vector<Ticket> searchTicket(std::string ticketID);
   std::vector<Ticket> searchTicket(
     std::string ticketID,
     std::string customerID,

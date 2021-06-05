@@ -26,7 +26,7 @@ public:
 /* Routes class */
 
 std::vector<Route> Routes::hardcopyVector() {
-  std::vector new_routeVector(routeVector);
+  std::vector<Route> new_routeVector(routeVector);
   return new_routeVector;
 }
 
