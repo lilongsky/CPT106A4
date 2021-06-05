@@ -1,6 +1,6 @@
 #pragma once
-#ifndef TICKETS_H
-#define TICKETS_H
+#ifndef TICKET_H
+#define TICKET_H
 
 
 //#include<iostream>
@@ -28,4 +28,4 @@ public:
 		int p_price, 
 		User* ticketAgentPtr);
 };
-#endif // !TICKETS_H
+#endif // !TICKET_H

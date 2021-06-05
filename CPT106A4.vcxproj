@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicBusiness.h" />
     <ClInclude Include="BasicDataClass\Airport.h" />
     <ClInclude Include="BasicDataClass\Flight.h" />
     <ClInclude Include="BasicDataClass\Plane.h" />
@@ -34,7 +35,6 @@
     <ClInclude Include="VectorClass\Users.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileOp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
