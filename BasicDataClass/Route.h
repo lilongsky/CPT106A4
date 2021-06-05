@@ -5,6 +5,7 @@
 class Route
 {
 	friend class Routes;
+
 private:
 	Airport* TKOF_AP_Ptr;
 	Airport* DEST_AP_Ptr;
@@ -63,7 +64,8 @@ bool Route::isSameAPIncluded(Airport p_AP) {
 }
 bool Route::isSameRoute(Route p_route) {
   if (TKOF_AP_Ptr->isSameAirport(*(p_route.TKOF_AP_Ptr))
-      && DEST_AP_Ptr->isSameAirport(*(p_route.DEST_AP_Ptr))) {
+      && DEST_AP_Ptr->isSameAirport(*(p_route.DEST_AP_Ptr))
+      && (duration == p_route.duration)) {
     return true;
   } else {
     return false;

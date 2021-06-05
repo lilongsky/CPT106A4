@@ -48,7 +48,7 @@ public:
     std::string flightID,
     std::string planeID,
     std::string TKOF_AP_Name, std::string DEST_AP_Name,
-    time_t takeOffTime, time_t landingTime,
+    time_t TKOFTime, time_t LandTime,
     int price
   );
   // ticket
@@ -70,7 +70,7 @@ public:
     std::string flightID,
     std::string planeID,
     std::string TKOF_AP_Name, std::string DEST_AP_Name,
-    time_t takeOffTime, time_t landingTime,
+    time_t TKOFTime, time_t LandTime,
     int price
   );
   void addTicket(
@@ -81,6 +81,8 @@ public:
     int ticketPrice,
     std::string ticketAgentID
   );
+
+  void editTicketPayTime(std::string TicketID, time_t new_payTime);
 
   void delUser(std::string userID);
   void delAirport(std::string APName);
@@ -127,6 +129,8 @@ void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double
   routesPtr->add(newRoute);
 }
 
+void DataOp::editTicketPayTime(std::string TicketID, time_t new_payTime) {
+}
 
 void DataOp::delAirport(std::string APName) {
   Airport temp_AP(APName);

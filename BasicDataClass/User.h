@@ -4,6 +4,8 @@
 
 class User
 {
+  friend class Users;
+
 private:
   std::string m_userID;
   std::string m_realName;
@@ -12,10 +14,13 @@ private:
 public:
   User() {}
   User(std::string userID, std::string realName, std::string role);
-  void hardcopy(User p_User);
-  std::string getUserId();
+
+  void hardcopy(User p_user);
+
+  std::string getUserID();
   std::string getUserName();
   std::string getUserRole();
+
   bool isSameUser(User p_user);
 };
 
@@ -27,25 +32,29 @@ User::User(std::string userID, std::string realName, std::string role) {
   m_role = role;
 }
 
-void User::hardcopy(User p_User){
-	this->m_realName = p_User.m_realName;
-	this->m_userID = p_User.m_userID;
-	this->m_role = p_User.m_role;
+void User::hardcopy(User p_user) {
+	this->m_realName = p_user.m_realName;
+	this->m_userID = p_user.m_userID;
+	this->m_role = p_user.m_role;
 }
 
-std::string User::getUserId(){
+std::string User::getUserID() {
 	return this->m_userID;
 }
 
-std::string User::getUserName(){
+std::string User::getUserName() {
 	return this->m_realName;
 }
-std::string User::getUserRole(){
+std::string User::getUserRole() {
 	return this->m_role;
 }
 
-bool User::isSameUser(User p_user){
-	bool ans;
-	ans = (this->m_userID == p_user.m_userID);
-	return ans;
+bool User::isSameUser(User p_user) {
+  if ((m_userID == p_user.m_userID)
+      && m_realName == p_user.m_userID
+      && m_role == p_user.m_role) {
+    return true;
+  } else {
+    return false;
+  }
 }
