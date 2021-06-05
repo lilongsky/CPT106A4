@@ -26,6 +26,7 @@
     <ClInclude Include="BasicDataClass\Route.h" />
     <ClInclude Include="BasicDataClass\Ticket.h" />
     <ClInclude Include="BasicDataClass\User.h" />
+    <ClInclude Include="DataOp.h" />
     <ClInclude Include="FileOp.h" />
     <ClInclude Include="VectorClass\Airports.h" />
     <ClInclude Include="VectorClass\Flights.h" />
