@@ -15,7 +15,7 @@ public:
 
   std::vector<Plane> hardcopyVector();
 
-  bool isNewIDUnique(std::string newID);
+  bool isNewIDValid(std::string newID);
 	int findSamePlaneIndex(Plane p_plane);
   bool isSamePlaneIncluded(Plane p_plane);
 
@@ -30,7 +30,7 @@ std::vector<Plane> Planes::hardcopyVector() {
   return new_routeVector;
 }
 
-bool Planes::isNewIDUnique(std::string newID) {
+bool Planes::isNewIDValid(std::string newID) {
   bool ans = true;
   for (int i = 0; i < planeVector.size(); i++) {
     if (planeVector.at(i).planeID == newID) {
