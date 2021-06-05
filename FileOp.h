@@ -159,7 +159,7 @@ void FileOp::readTicketsFromFile(){
 void FileOp::updateUsersFile() {
 	file.open("Users.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getUserVectorCopy().size(); i++) {
-		file << dataOpPtr->getUserVectorCopy().at(i).getUserId() << " "
+		file << dataOpPtr->getUserVectorCopy().at(i).getUserID() << " "
 			<<dataOpPtr->getUserVectorCopy().at(i).getUserName() << " "
 			<< dataOpPtr->getUserVectorCopy().at(i).getUserRole() <<std::endl;
 	}
