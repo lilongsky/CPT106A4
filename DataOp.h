@@ -82,6 +82,8 @@ public:
     std::string ticketAgentID
   );
 
+  void editTicketPayTime(std::string TicketID, time_t new_payTime);
+
   void delUser(std::string userID);
   void delAirport(std::string APName);
   void delRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name);
@@ -127,6 +129,8 @@ void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double
   routesPtr->add(newRoute);
 }
 
+void DataOp::editTicketPayTime(std::string TicketID, time_t new_payTime) {
+}
 
 void DataOp::delAirport(std::string APName) {
   Airport temp_AP(APName);
