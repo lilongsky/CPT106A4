@@ -13,28 +13,17 @@ private:
 public:
   Airports() {}
 
-  bool isSameAPIncluded(Airport p_AP);
   int findSameAPIndex(Airport p_AP);
+  bool isSameAPIncluded(Airport p_AP);
 
-  void add(Airport &p_airport);
+  void add(Airport p_airport);
   void remove(int index);
 };
 
-
 /* Airports class */
 
-// Check if APVector includes the same airport as the given p_AP.
-bool Airports::isSameAPIncluded(Airport p_AP) {
-  bool ans = false;
-  for (int i = 0; i < APVector.size(); i++) {
-    if (APVector.at(i).isSameAirport(p_AP)) {
-      ans = true;
-      break;
-    }
-  }
-  return ans;
-}
-
+// Find the index of the included same airport as the given airport p_AP.
+// Return -1 if p_AP is not included.
 int Airports::findSameAPIndex(Airport p_AP) {
   int ans = -1;
   for (int i = 0; i < APVector.size(); i++) {
@@ -45,10 +34,20 @@ int Airports::findSameAPIndex(Airport p_AP) {
   }
   return ans;
 }
+// Check if APVector includes the same airport as the given airport p_AP.
+bool Airports::isSameAPIncluded(Airport p_AP) {
+  if (findSameAPIndex(p_AP) == -1) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-
-void Airports::add(Airport &p_airport) {
-  APVector.push_back(p_airport);
+// ? new or not new
+void Airports::add(Airport p_airport) {
+  Airport newAirport;
+  newAirport.hardcopy(p_airport);
+  APVector.push_back(newAirport);
 }
 
 // index starts from 0

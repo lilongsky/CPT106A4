@@ -9,9 +9,10 @@ private:
 	std::string airportName;
 
 public:
+  Airport();
 	Airport(std::string p_airportName);
 
-	void setAirportName(std::string p_airportName);
+  void hardcopy(Airport p_airport);
 
 	std::string getAirportName();
 
@@ -20,12 +21,13 @@ public:
 
 /* Airport class */
 
+Airport::Airport() {}
 Airport::Airport(std::string p_airportName) {
 	this->airportName = p_airportName;
 }
 
-void Airport::setAirportName(std::string p_airportName) {
-	this->airportName = p_airportName;
+void Airport::hardcopy(Airport p_airport) {
+  this->airportName = p_airport.airportName;
 }
 
 std::string Airport::getAirportName() {
