@@ -27,6 +27,14 @@ public:
     int p_price,
     User &p_ticketAgent
   );
+  std::string getTickerId();
+  User getCustomerId();
+  Flight getFlight();
+  time_t getBookTime();
+  time_t getPayTime();
+  time_t getExpireTime();
+  int getPrice();
+  User getTAId();
 };
 
 /* Ticket class */
@@ -48,3 +56,33 @@ Ticket::Ticket(
   ticketPrice = p_price;
   ticketAgentPtr = &p_ticketAgent;
 }
+std::string Ticket::getTickerId(){
+    return this->ticketID;
+}
+User Ticket::getCustomerId(){
+    return *(this->customerPtr);
+}
+Flight Ticket::getFlight(){
+    return *(this->flightPtr);
+}
+
+time_t Ticket::getBookTime(){
+    return this->bookTime;
+}
+
+time_t Ticket::getPayTime(){
+    return this->payTime;
+}
+
+time_t Ticket::getExpireTime(){
+    return this->ExpireTime;
+}
+
+int Ticket::getPrice(){
+    return this->ticketPrice;
+}
+
+User Ticket::getTAId(){
+     return *(this->ticketAgentPtr);
+}
+
