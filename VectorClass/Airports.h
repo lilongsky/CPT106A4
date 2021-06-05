@@ -13,10 +13,7 @@ private:
 public:
   Airports() {}
 
-  std::vector<Airport> hardcopyVector() {
-    std::vector new_APVector(APVector);
-    return new_APVector;
-  }
+  std::vector<Airport> hardcopyVector();
 
   int findSameAPIndex(Airport p_AP);
   bool isSameAPIncluded(Airport p_AP);
@@ -27,7 +24,10 @@ public:
 
 /* Airports class */
 
-
+std::vector<Airport> Airports::hardcopyVector() {
+  std::vector new_APVector(APVector);
+  return new_APVector;
+}
 
 // Find the index of the included same airport as the given airport p_AP.
 // Return -1 if p_AP is not included.
