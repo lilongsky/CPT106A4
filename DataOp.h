@@ -23,12 +23,26 @@ private:
 public:
   DataOp() {}
 
+  std::vector<User> getUserVectorCopy();
   std::vector<Airport> getAPVectorCopy();
+  std::vector<Route> getRouteVectorCopy();
+  std::vector<Plane> getPlaneVectorCopy();
+  std::vector<Flight> getFlightVectorCopy();
+  std::vector<Ticket> getTicketVectorCopy();
 
+  void addUser(std::string userID, std::string realName, std::string role);
   void addAirport(std::string APName);
-  void addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double p_duration);
+  void addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration);
+  void addPlane();
+  void addFlight();
+  void addTicket();
 
-  void removeAirport(Airport airport);
+  void delUser();
+  void delAirport(Airport airport);
+  void delRoute();
+  void delPlane();
+  void delFlight();
+  void delTicket();
 };
 
 /* DataOp class */
@@ -44,7 +58,8 @@ void DataOp::addAirport(std::string APName) {
   }
   // else {throw }
 }
-void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double p_duration) {
+
+void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration) {
   Airport temp_TKOF_AP(TKOF_AP_Name);
   int index_TKOF_AP = airportsPtr->findSameAPIndex(temp_TKOF_AP);
   if (index_TKOF_AP == -1) {
@@ -55,24 +70,26 @@ void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double
   if (index_DEST_AP == -1) {
     // throw
   }
-  if (p_duration < 0) {
+  if (duration < 0) {
     // throw
   }
 
   Route newRoute(
     airportsPtr->APVector.at(index_TKOF_AP),
     airportsPtr->APVector.at(index_DEST_AP),
-    p_duration
+    duration
   );
   routesPtr->add(newRoute);
 }
 
-void DataOp::removeAirport(Airport p_AP) {
-  if (not airportsPtr->isSameAPIncluded(p_AP)) {
+
+void DataOp::delAirport(Airport p_AP) {
+  int index_AP = airportsPtr->findSameAPIndex(p_AP);
+  if (index_AP == -1) {
     // throw
   } else if (routesPtr->isSameAPIncluded(p_AP)) {
     // throw
   } else {
-    // TODO
+    airportsPtr->remove(index_AP);
   }
 }
