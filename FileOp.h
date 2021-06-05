@@ -36,16 +36,12 @@ public:
 
 /* external functiohn */
 
-//string TimeToString(time_t ThisTime) {
-//	tm* tm_ = localtime(&ThisTime);
-//
-//}
-
 /* FileOp class */
 
 FileOp::FileOp(){}
 // All File should be "data1 data2 data3 .....datafinal\n"
 // For pointer in file it shows the real data of the pointer 
+
 void FileOp::updateAirportsFile(){
 	file.open("Airport.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0 ; i < dataOpPtr->getAPVectorCopy().size(); i++){
@@ -87,12 +83,12 @@ void FileOp::readPlanesFromFIle(){
 void FileOp::updateFlightsFile() {
 	file.open("Flights.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getFlightVectorCopy().size(); i++) {
-		file << dataOpPtr->getFlightVectorCopy().at(i).getID() << " "
-			<< dataOpPtr->getFlightVectorCopy().at(i).getPlanePtr().getPlaneID() <<" "
-			<< dataOpPtr->getFlightVectorCopy().at(i).getRoutePtr().getTKOF_AP().getAirportName() << " "
-			<< dataOpPtr->getFlightVectorCopy().at(i).getRoutePtr().getDEST_AP().getAirportName() << " "
-			<< dataOpPtr->getFlightVectorCopy().at(i).getTakeOffTime() << " "
-			<< dataOpPtr->getFlightVectorCopy().at(i).getLandingTime() << " "
+		file << dataOpPtr->getFlightVectorCopy().at(i).getFlightID() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getPlane().getPlaneID() <<" "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getRoute().getTKOF_AP().getAirportName() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getRoute().getDEST_AP().getAirportName() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getTKOFTime() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getLandTime() << " "
 			<< dataOpPtr->getFlightVectorCopy().at(i).getPrice() <<std::endl;
 	}
 	file.close();
@@ -135,9 +131,9 @@ void FileOp::readRoutesFromFile(){
 
 void FileOp::updateTicketsFile() {
 	file.open("Tickets.txt", std::ios::out | std::ios::trunc);
-	//for (int i = 0; i < dataOpPtr->getTicketVectorCopy().size(); i++) {
-	//	file << dataOpPtr->getTicketVectorCopy().at(i).
-	//}
+	for (int i = 0; i < dataOpPtr->getTicketVectorCopy().size(); i++) {
+		file << dataOpPtr->getTicketVectorCopy().at(i).getTickerId() << " " << dataOpPtr->getTicketVectorCopy().at(i).getCustomerId().getUserID() << " " << dataOpPtr->getTicketVectorCopy().at(i).getFlight().getFlightID() << " " << dataOpPtr->getTicketVectorCopy().at(i).getBookTime() << " " << dataOpPtr->getTicketVectorCopy().at(i).getPayTime() << " " << dataOpPtr->getTicketVectorCopy().at(i).getExpireTime() << " " << dataOpPtr->getTicketVectorCopy().at(i).getPrice() << " " << dataOpPtr->getTicketVectorCopy().at(i).getTAId().getUserID() << std::endl;
+	}
 	file.close();
 }
 
