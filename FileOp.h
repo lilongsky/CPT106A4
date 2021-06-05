@@ -33,6 +33,16 @@ public:
 	void readTicketsFromFile();
 	void readUsersFromFile();
 };
+
+/* external functiohn */
+
+//string TimeToString(time_t ThisTime) {
+//	tm* tm_ = localtime(&ThisTime);
+//
+//}
+
+/* FileOp class */
+
 FileOp::FileOp(){}
 // All File should be "data1 data2 data3 .....datafinal\n"
 // For pointer in file it shows the real data of the pointer 
@@ -56,9 +66,10 @@ void FileOp::readAirportsFromFile(){
 
 void FileOp::updatePlanesFile() {
 	file.open("Planes.txt", std::ios::out | std::ios::trunc);
-	/*for (int i = 0; i < dataOpPtr->getPVectorCopy().size(); i++) {
-		file << dataOpPtr->getPVectorCopy().at(i).getPlaneID() << " "<<dataOpPtr->getPVectorCopy().at(i).getPlaneType() <<std::endl;
-	}*/
+	for (int i = 0; i < dataOpPtr->getPlaneVectorCopy().size(); i++) {
+		file << dataOpPtr->getPlaneVectorCopy().at(i).getPlaneID() << " "
+			<<dataOpPtr->getPlaneVectorCopy().at(i).getPlaneType() <<std::endl;
+	}
 	file.close();
 }
 
@@ -68,56 +79,90 @@ void FileOp::readPlanesFromFIle(){
 	std::string temp_PID,temp_PType;
 	while (!file.eof()) {
 		file >> temp_PID >> temp_PType;
-		/*dataOpPtr->addPlaneID(temp_PID);
-		daraOpPtr->addPlaneType(temp_PType)*/
+		dataOpPtr->addPlane(temp_PID,temp_PType);
 	}
 	file.close();
 }
 
 void FileOp::updateFlightsFile() {
 	file.open("Flights.txt", std::ios::out | std::ios::trunc);
-	/*for (int i = 0; i < dataOpPtr->getFVectorCopy().size(); i++) {
-		file << dataOpPtr->getFVectorCopy().at(i).getPlaneID() << " "<<dataOpPtr->getPVectorCopy().at(i).getPlaneType() <<std::endl;
-	}*/
+	for (int i = 0; i < dataOpPtr->getFlightVectorCopy().size(); i++) {
+		file << dataOpPtr->getFlightVectorCopy().at(i).getID() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getPlanePtr().getPlaneID() <<" "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getRoutePtr().getTKOF_AP().getAirportName() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getRoutePtr().getDEST_AP().getAirportName() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getTakeOffTime() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getLandingTime() << " "
+			<< dataOpPtr->getFlightVectorCopy().at(i).getPrice() <<std::endl;
+	}
 	file.close();
 }
 
 void FileOp::readFlightsFromFIle(){
 	file.open("Flights.txt", std::ios::in);
+	std::string temp_FID, temp_PID, temp_TKOF_AP, temp_DEST_AP;
+	time_t temp_TKOF_Time, temp_LAND_Time;
+	int temp_Price;
+	
+	while (!file.eof()) {
+		file >> temp_FID >> temp_PID >> temp_TKOF_AP >> temp_DEST_AP >> temp_TKOF_Time >> temp_LAND_Time;
+		dataOpPtr->addFlight(temp_FID, temp_PID, temp_TKOF_AP, temp_DEST_AP, temp_TKOF_Time, temp_LAND_Time, temp_Price);
+	}
 	file.close();
 
 }
 
 void FileOp::updateRoutesFile() {
 	file.open("Routes.txt", std::ios::out | std::ios::trunc);
-	//for (int i = 0; i < dataOpPtr->getRVectorCopy().size(); i++) {
-	//	
-	//}
+	for (int i = 0; i < dataOpPtr->getRouteVectorCopy().size(); i++) {
+		file<< dataOpPtr->getRouteVectorCopy().at(i).getTKOF_AP().getAirportName() << " "
+			<< dataOpPtr->getRouteVectorCopy().at(i).getDEST_AP().getAirportName() << " "
+			<< dataOpPtr->getRouteVectorCopy().at(i).getDuration() << std::endl;
+	}
 	file.close();
 }
 
 void FileOp::readRoutesFromFile(){
 	file.open("Routes.txt", std::ios::in);
+	std::string temp_TKOF_AP, temp_DEST_AP;
+	double temp_duration;
+	while (!file.eof()) {
+		file >> temp_TKOF_AP >> temp_DEST_AP >> temp_duration;
+		dataOpPtr->addRoute(temp_TKOF_AP, temp_DEST_AP, temp_duration);
+	}
 	file.close();
-
 }
 
 void FileOp::updateTicketsFile() {
 	file.open("Tickets.txt", std::ios::out | std::ios::trunc);
+	//for (int i = 0; i < dataOpPtr->getTicketVectorCopy().size(); i++) {
+	//	file << dataOpPtr->getTicketVectorCopy().at(i).
+	//}
 	file.close();
 }
 
 void FileOp::readTicketsFromFile(){
 	file.open("Tickets.txt", std::ios::in);
+	std::string temp_ticketID, temp_customerID, temp_flightID; 
+	time_t temp_bookTime, temp_payTime, temp_dateOfExp;
+	int temp_ticketPrice;
+	std::string temp_ticketAgentPtr;
+	while (!file.eof()) {
+		file >> temp_ticketID >> temp_customerID >> temp_flightID >> temp_bookTime >> temp_payTime >> temp_dateOfExp 
+			>> temp_ticketPrice >> temp_ticketAgentPtr;
+		dataOpPtr->addTicket(temp_ticketID, temp_customerID, temp_flightID, temp_bookTime, temp_payTime
+			, temp_dateOfExp, temp_ticketPrice, temp_ticketAgentPtr);
+	}
 	file.close();
 }
 
 void FileOp::updateUsersFile() {
 	file.open("Users.txt", std::ios::out | std::ios::trunc);
-	/*for (int i = 0; i < dataOpPtr->getFVectorCopy().size(); i++) {
-		file << dataOpPtr->getUVectorCopy().at(i).getUserId() << " "<<dataOpPtr->getUVectorCopy().at(i).getUserName() 
-			<<" "<< dataOpPtr->getAPVectorCopy().at(i).getUserRole <<std::endl;
-	}*/
+	for (int i = 0; i < dataOpPtr->getUserVectorCopy().size(); i++) {
+		file << dataOpPtr->getUserVectorCopy().at(i).getUserId() << " "
+			<<dataOpPtr->getUserVectorCopy().at(i).getUserName() << " "
+			<< dataOpPtr->getUserVectorCopy().at(i).getUserRole() <<std::endl;
+	}
 	file.close();
 }
 
@@ -125,12 +170,10 @@ void FileOp::updateUsersFile() {
 void FileOp::readUsersFromFile(){
 	file.open("Users.txt", std::ios::in);
 	std::string temp_UID, temp_UName, temp_URole;
-	//while (!file.eof()) {
-	//	file >> temp_UID >> temp_UName >> temp_URole;
-	//	dataOpPtr->addUserID(temp_UID);
-	//	dataOpPtr->addUserName(temp_UName);
-	//	dataOpPtr->addUserRole(temp_URole);
-	//}
+	while (!file.eof()) {
+		file >> temp_UID >> temp_UName >> temp_URole;
+		dataOpPtr->addUser(temp_UID, temp_UName, temp_URole);
+	}
 	file.close();
 }
 #endif // !FILE_OP_H
