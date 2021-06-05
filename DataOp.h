@@ -20,13 +20,19 @@ private:
 public:
   DataOp();
 
+  std::vector<Airport> getAPVectorCopy();
+
   void addAirport(std::string APName);
-  void addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name);
+  void addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double p_duration);
 
   void removeAirport(Airport airport);
 };
 
 /* DataOp class */
+
+std::vector<Airport> DataOp::getAPVectorCopy() {
+  return airportsPtr->hardcopyVector();
+}
 
 void DataOp::addAirport(std::string APName) {
   if (airportsPtr->isSameAPIncluded(APName)) {
