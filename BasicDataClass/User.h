@@ -1,8 +1,23 @@
 #pragma once
-#ifndef USER_H
-#define USER_H
 
+#include <string>
 
-class User{
+class User
+{
+private:
+  std::string m_userID;
+  std::string m_realName;
+  std::string m_role;
+
+public:
+  User() {}
+  User(std::string userID, std::string realName, std::string role);
 };
-#endif // !USER_H
+
+/* User class */
+
+User::User(std::string userID, std::string realName, std::string role) {
+  m_userID = userID;
+  m_realName = realName;
+  m_role = role;
+}

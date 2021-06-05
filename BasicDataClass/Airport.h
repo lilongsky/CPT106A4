@@ -1,9 +1,5 @@
 #pragma once
-#ifndef AIRPORT_H
-#define AIRPORT_H
-
-
-//#include <iostream>
+#include <iostream>
 
 class Airport
 {
@@ -15,9 +11,11 @@ private:
 public:
 	Airport(std::string p_airportName);
 
-	void setAirport(std::string p_airportName);
+	void setAirportName(std::string p_airportName);
 
-	std::string getAirport();
+	std::string getAirportName();
+
+  bool isSameAirport(Airport p_AP);
 };
 
 /* Airport class */
@@ -26,11 +24,15 @@ Airport::Airport(std::string p_airportName) {
 	this->airportName = p_airportName;
 }
 
-void Airport::setAirport(std::string p_airportName) {
+void Airport::setAirportName(std::string p_airportName) {
 	this->airportName = p_airportName;
 }
 
-std::string Airport::getAirport() {
+std::string Airport::getAirportName() {
 	return this->airportName;
 }
-#endif // !AIRPORT_H
+
+bool Airport::isSameAirport(Airport p_AP) {
+	bool ans = (airportName == p_AP.airportName);
+	return ans;
+}
