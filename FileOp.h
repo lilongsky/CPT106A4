@@ -2,12 +2,6 @@
 #ifndef FILE_OP_H
 #define FILE_OP_H
 #include <fstream>
-//#include "VectorClass/Airports.h"
-//#include "VectorClass/Flights.h"
-//#include "VectorClass/Planes.h"
-//#include "VectorClass/Routes.h"
-//#include "VectorClass/Tickets.h"
-//#include "VectorClass/Users.h"
 #include"DataOp.h"
 
 class FileOp
@@ -35,8 +29,6 @@ public:
 };
 
 /* external functiohn */
-
-/* FileOp class */
 
 FileOp::FileOp(){}
 // All File should be "data1 data2 data3 .....datafinal\n"
