@@ -1,8 +1,6 @@
 #pragma once
-#ifndef TICKET_H
-#define TICKET_H
 
-#include <iostream>
+#include <string>
 #include "../BasicDataClass/User.h"
 #include "../BasicDataClass/Flight.h"
 
@@ -12,45 +10,41 @@ class Ticket
 
 private:
   std::string ticketID;
-  int customerID;
-  std::string flightID;
+  User* customerPtr;
+  Flight* flightPtr;
   time_t bookTime;
   time_t payTime;
-  time_t dateOfExp;
+  time_t ExpireTime;
   int ticketPrice;
   User *ticketAgentPtr;
 
 public:
   Ticket(
-    int p_customerID,
-    std::string p_flightID,
     std::string p_ticketID,
-    time_t p_bookTime,
-    time_t p_payTime,
-    time_t p_dateOfExp,
+    User &p_customer,
+    Flight &p_flight,
+    time_t p_bookTime, time_t p_payTime, time_t p_expireTime,
     int p_price,
-    User *ticketAgentPtr);
+    User &p_ticketAgent
+  );
 };
 
 /* Ticket class */
 
 Ticket::Ticket(
-  int p_customerID,
-  std::string p_flightID,
   std::string p_ticketID,
-  time_t p_bookTime,
-  time_t p_payTime,
-  time_t p_dateOfExp,
+  User &p_customer,
+  Flight &p_flight,
+  time_t p_bookTime, time_t p_payTime, time_t p_expireTime,
   int p_price,
-  User *ticketAgentPtr)
-{
-  customerID = p_customerID;
-  flightID = p_flightID;
+  User &p_ticketAgent
+) {
   ticketID = p_ticketID;
+  customerPtr = &p_customer;
+  flightPtr = &p_flight;
   bookTime = p_bookTime;
   payTime = p_payTime;
-  dateOfExp = p_dateOfExp;
+  ExpireTime = p_expireTime;
   ticketPrice = p_price;
-  this->ticketAgentPtr = ticketAgentPtr;
+  ticketAgentPtr = &p_ticketAgent;
 }
-#endif // !TICKET_H
