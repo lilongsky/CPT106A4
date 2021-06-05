@@ -11,11 +11,11 @@ private:
 public:
 	Airport(std::string p_airportName);
 
-	void setAirport(std::string p_airportName);
+	void setAirportName(std::string p_airportName);
 
-	std::string getAirport();
+	std::string getAirportName();
 
-  bool isSameAP(Airport p_AP);
+  bool isSameAirport(Airport p_AP);
 };
 
 /* Airport class */
@@ -24,15 +24,15 @@ Airport::Airport(std::string p_airportName) {
 	this->airportName = p_airportName;
 }
 
-void Airport::setAirport(std::string p_airportName) {
+void Airport::setAirportName(std::string p_airportName) {
 	this->airportName = p_airportName;
 }
 
-std::string Airport::getAirport() {
+std::string Airport::getAirportName() {
 	return this->airportName;
 }
 
-bool Airport::isSameAP(Airport p_AP) {
+bool Airport::isSameAirport(Airport p_AP) {
 	bool ans = (airportName == p_AP.airportName);
 	return ans;
 }

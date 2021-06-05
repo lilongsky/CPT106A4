@@ -38,7 +38,7 @@ Airports FileOp::readAirportsFromFile(){
 	Airports tempAirports;
 	while (!file.eof())	{
 		file >> tempAirportName;
-		tempAirport.setAirport(tempAirportName);
+		tempAirport.setAirportName(tempAirportName);
 		tempAirports.add(tempAirport);
 	}
 	return tempAirports;

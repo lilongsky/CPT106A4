@@ -45,5 +45,5 @@ int Route::getDuration() {
 }
 
 bool Route::isSameAPIncluded(Airport p_AP) {
-	return TKOF_AP_Ptr->isSameAP(p_AP) || DEST_AP_Ptr->isSameAP(p_AP);
+	return TKOF_AP_Ptr->isSameAirport(p_AP) || DEST_AP_Ptr->isSameAirport(p_AP);
 }
