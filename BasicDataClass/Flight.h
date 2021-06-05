@@ -1,40 +1,38 @@
 #pragma once
-#ifndef FLIGHT_H
-#define FLIGHT_H
 
-
-#include "../BasicDataClass/Plane.h"
-#include "../BasicDataClass/Route.h"
+#include <string>
+#include "Route.h"
+#include "Plane.h"
 
 class Flight
 {
-	friend class Filghts;
+	friend class Flights;
+
 private:
 	std::string flightID;
 	Plane* planePtr;
 	Route* routePtr;
-	time_t takeOffTime;
-	time_t landingTime;
+	time_t TKOFTime;
+	time_t LandTime;
 	int price;
 
 public:
 	Flight();
+  Flight(
+    std::string p_flightID,
+    Plane &p_plane,
+    Route &p_route,
+    time_t p_TKOFTime, time_t p_LandTime,
+    int p_price
+  );
 
-	void setID(std::string);
-	void setPlane(Plane);
-	void setRoute(Route);
-	void setTakeOffPlane(time_t);
-	void setLandingTime(time_t);
-	void setPrice(int);
-
-	std::string getID();
-	Plane getPlanePtr();
-	time_t getTakeOffTime();
-	time_t getLandingTime();
-	Route getRoutePtr();
+	std::string getFlightID();
+	Plane getPlane();
+	Route getRoute();
+	time_t getTKOFTime();
+	time_t getLandTime();
 	int getPrice();
 };
-
 
 /* Flight class */
 
@@ -42,32 +40,24 @@ Flight::Flight() {
 	planePtr = nullptr;
 	routePtr = nullptr;
 }
-
-void Flight::setID(std::string p_ID) {
-	flightID = p_ID;
-}
-void Flight::setPlane(Plane p_plane) {
-	planePtr = &p_plane;
-}
-std::string Flight::getID(){
-	return this->flightID;
-}
-Plane Flight::getPlanePtr(){
-	return *(this->planePtr);
-}
-time_t Flight::getTakeOffTime(){
-	return this->takeOffTime;
+Flight::Flight(
+  std::string p_flightID,
+  Plane &p_plane,
+  Route &p_route,
+  time_t p_TKOFTime, time_t p_LandTime,
+  int p_price
+) {
+  flightID = p_flightID;
+  planePtr = &p_plane;
+  routePtr = &p_route;
+  TKOFTime = p_TKOFTime;
+  LandTime = p_LandTime;
+  price = p_price;
 }
 
-time_t Flight::getLandingTime(){
-	return this->landingTime;
-}
-
-Route Flight::getRoutePtr(){
-	return *(this->routePtr);
-}
-
-int Flight::getPrice(){
-	return this->price;
-}
-#endif // !FLIGHT_H
+std::string Flight::getFlightID() { return this->flightID; }
+Plane Flight::getPlane() { return *planePtr; }
+time_t Flight::getTKOFTime() { return this->TKOFTime; }
+time_t Flight::getLandTime() { return this->LandTime; }
+Route Flight::getRoute() { return *routePtr; }
+int Flight::getPrice() { return this->price; }

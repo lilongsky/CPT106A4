@@ -1,50 +1,45 @@
 #pragma once
-#ifndef FILGHTS_H
-#define FLIGHTS_H
 
-// #include <vector>
-#include"../BasicDataClass/Flight.h"
-class Flights{
+#include <vector>
+#include "../BasicDataClass/Flight.h"
+
+class Flights
+{
 	friend class DataOp;
+
 private:
-    // flightVector
-    std::vector<Flight> FVector;
+  std::vector<Flight> flightVector;
 
 public:
-    Flights(){}
+  Flights() {}
 
-    bool isFNameExistent(std::string p_FName);
+  std::vector<Flight> hardcopyVector();
 
-    void add(Flight& p_Flight);
-    void remove(int index);
+  int findSameFlightIndex(Flight p_flight);
 
+  void add(Flight &p_flight);
+  void remove(int index);
 };
 
 /* Flights class */
 
-// Check if FVector includes the airport with name P_Fid.
-bool Flights::isFNameExistent(std::string p_Fid){
-    bool ans = false;
-    for (int i = 0; i < FVector.size(); i++){
-        if (FVector.at(i).getID() == p_Fid){
-            ans = true;
-            break;
-        }
-    }
-    return ans;
+std::vector<Flight> Flights::hardcopyVector() {
+  std::vector<Flight> new_flightVector(flightVector);
+  return new_flightVector;
 }
 
-void Flights::add(Flight & p_Flight){
-    //if (p_Flight.getTakeOffTime()> p_Flight.getLandingTime())	{
-    //    throw "LandingTimeError";
-    //}
-    FVector.push_back(p_Flight);
+// int Flights::findSameFlightIndex(Flight p_flight) {
+//   int ans = -1;
+//   for (int i = 0; i < flightVector.size(); i++) {
+//   }
+// }
+
+void Flights::add(Flight &p_flight) {
+  flightVector.push_back(p_flight);
 }
+
 // index starts from 0
 // e.g. Flights::remove(0) removes the first element
 void Flights::remove(int index){
-    FVector.erase(FVector.begin() + index);
+  flightVector.erase(flightVector.begin() + index);
 }
-#endif // !FILGHTS_H
-
-

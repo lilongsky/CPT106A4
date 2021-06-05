@@ -1,37 +1,66 @@
 #pragma once
-#ifndef PLANES_H
-#define PLANES_H
 
+#include <vector>
+#include "../BasicDataClass/Plane.h"
 
-//#include <vector>
-#include"../BasicDataClass/Plane.h"
-class Planes{
+class Planes
+{
 	friend class DataOp;
+
 private:
-	std::vector<Plane> PVector;
+	std::vector<Plane> planeVector;
+
 public:
-	Planes(){}
+	Planes() {}
 
-	bool isPNameExistent(std::string p_PName);
+  std::vector<Plane> hardcopyVector();
 
-	void add(Plane p_airport);
+  bool isNewIDUnique(std::string newID);
+	int findSamePlaneIndex(Plane p_plane);
+  bool isSamePlaneIncluded(Plane p_plane);
+
+	void add(Plane &p_airport);
 	void remove(int index);
 };
 
-bool Planes::isPNameExistent(std::string p_PName){
-	bool ans = false;
-	for (int i = 0; i < PVector.size(); i++){
-		if (PVector.at(i).planeID == p_PName){
-			ans = true;
-			break;
-		}
-	}
-	return ans;
+/* Planes class */
+
+std::vector<Plane> Planes::hardcopyVector() {
+  std::vector<Plane> new_routeVector(planeVector);
+  return new_routeVector;
 }
-void Planes::add(Plane p_plane){
-	PVector.push_back(p_plane);
+
+bool Planes::isNewIDUnique(std::string newID) {
+  bool ans = true;
+  for (int i = 0; i < planeVector.size(); i++) {
+    if (planeVector.at(i).planeID == newID) {
+      ans = false;
+      break;
+    }
+  }
+  return ans;
 }
-void Planes::remove(int index){
-	PVector.erase(PVector.begin() + index);
+int Planes::findSamePlaneIndex(Plane p_plane) {
+  int ans = -1;
+  for (int i = 0; i < planeVector.size(); i++) {
+    if (planeVector.at(i).isSamePlane(p_plane)) {
+      ans = i;
+      break;
+    }
+  }
+  return ans;
 }
-#endif // !PLANES_H
+bool Planes::isSamePlaneIncluded(Plane p_plane) {
+  if (findSamePlaneIndex(p_plane) == -1) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+void Planes::add(Plane &p_plane) {
+	planeVector.push_back(p_plane);
+}
+void Planes::remove(int index) {
+	planeVector.erase(planeVector.begin() + index);
+}
