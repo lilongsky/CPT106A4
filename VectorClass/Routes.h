@@ -13,6 +13,8 @@ private:
 public:
   Routes() {}
 
+  std::vector<Route> hardcopyVector();
+
   bool isSameAPIncluded(Airport p_AP);
   int findSameRouteIndex(Route p_route);
   bool isRouteIncluded(Route p_route);
@@ -22,6 +24,11 @@ public:
 };
 
 /* Routes class */
+
+std::vector<Route> Routes::hardcopyVector() {
+  std::vector new_routeVector(routeVector);
+  return new_routeVector;
+}
 
 bool Routes::isSameAPIncluded(Airport p_AP) {
 	bool ans = false;
