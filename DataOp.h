@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <ctime>
 #include "VectorClass/Users.h"
 #include "VectorClass/Airports.h"
 #include "VectorClass/Routes.h"
@@ -30,19 +31,52 @@ public:
   std::vector<Flight> getFlightVectorCopy();
   std::vector<Ticket> getTicketVectorCopy();
 
+  std::vector<User> searchUser(std::string userID, std::string realName, std::string role);
+  std::vector<Airport> searchAirport(std::string APName);
+  std::vector<Route> searchRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration);
+  std::vector<Plane> searchPlane(std::string planeID, std::string planeType);
+  std::vector<Flight> searchFlight(
+    std::string flightID,
+    std::string planeID,
+    std::string TKOF_AP_Name, std::string DEST_AP_Name,
+    time_t takeOffTime, time_t landingTime,
+    int price
+  );
+  std::vector<Ticket> searchTicket(
+    std::string ticketID,
+    std::string customerID,
+    std::string flightID,
+    time_t bookTime, time_t payTime, time_t ExpireTime,
+    int ticketPrice,
+    std::string ticketAgentID
+  );
+
   void addUser(std::string userID, std::string realName, std::string role);
   void addAirport(std::string APName);
   void addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration);
-  void addPlane();
-  void addFlight();
-  void addTicket();
+  void addPlane(std::string planeID, std::string planeType);
+  void addFlight(
+    std::string flightID,
+    std::string planeID,
+    std::string TKOF_AP_Name, std::string DEST_AP_Name,
+    time_t takeOffTime, time_t landingTime,
+    int price
+  );
+  void addTicket(
+    std::string ticketID,
+    std::string customerID,
+    std::string flightID,
+    time_t bookTime, time_t payTime, time_t ExpireTime,
+    int ticketPrice,
+    std::string ticketAgentID
+  );
 
-  void delUser();
-  void delAirport(Airport airport);
-  void delRoute();
-  void delPlane();
-  void delFlight();
-  void delTicket();
+  void delUser(std::string userID);
+  void delAirport(std::string APName);
+  void delRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name);
+  void delPlane(std::string planeID);
+  void delFlight(std::string flightID);
+  void delTicket(std::string TicketID);
 };
 
 /* DataOp class */
@@ -83,11 +117,12 @@ void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double
 }
 
 
-void DataOp::delAirport(Airport p_AP) {
-  int index_AP = airportsPtr->findSameAPIndex(p_AP);
+void DataOp::delAirport(std::string APName) {
+  Airport temp_AP(APName);
+  int index_AP = airportsPtr->findSameAPIndex(temp_AP);
   if (index_AP == -1) {
     // throw
-  } else if (routesPtr->isSameAPIncluded(p_AP)) {
+  } else if (routesPtr->isSameAPIncluded(temp_AP)) {
     // throw
   } else {
     airportsPtr->remove(index_AP);
