@@ -41,8 +41,8 @@ public:
 	std::vector<Flight> getFlightsInfo(time_t p_date, std::string p_src, std::string p_dest);
 	std::string getFlightSeatInfo(std::string p_FlightId);
 	int getPlaneNumber(std::string p_FlightType);
-	std::vector<Flight> getPlaneInfo(std::string p_planeId);
-	bool isPlaneInAirport(std::string p_planeId, std::string p_Airport);
+	std::vector<Flight> getPlaneFlights(std::string p_planeId);
+	bool isPlaneInAirport(std::string p_planeId, std::string p_Airport,time_t p_time);
 
 	void modifyUser(std::string p_userId, std::string p_realname, std::string p_role);
 	void modifyAirport(std::string p_name);
@@ -100,25 +100,30 @@ void BasicBusiness::creatNewFlight(std::string p_PlaneId,
 	if (difftime(p_LandingTime, p_TakeOffTIme) >= tempDurition){
 		/*throw()*/
 	}
-	//planeCheck
+	//plane Time Check
 	std::vector<Flight> tempFlights;
 	tempFlights = dataOpPtr->searchFlight("NULL", p_PlaneId, src, dest, NULL, NULL, NULL);
 	time_t MaxLandT, tempLandT;
 	MaxLandT = INT16_MIN;
 	for (int i = 0; i < tempFlights.size(); i++){
-		tempLandT = tempFlights.at(i).getLandingTime();
+		tempLandT = tempFlights.at(i).getLandTime();
 		if (tempLandT > MaxLandT){
 			MaxLandT = tempLandT;
 		}
-	}//Search for Max LandT
+	}//Search for latest LandT
 	if (p_TakeOffTIme < MaxLandT){
 		/*throw()*/
-	}
-	char StringTkofT[11];
+	}//No plane use
+
+	//change take off time to string
+	char StringTkofT[13];
 	struct tm* p_TakeOffTimeSt;
 	p_TakeOffTimeSt = gmtime(&p_TakeOffTIme);
-	strftime(StringTkofT, sizeof(StringTkofT), "%Y%m%e%H%M", p_TakeOffTimeSt);//Wrong OUTPUT!
-	/*dataOpPtr->addFlight(p_PlaneId);*/
+	strftime(StringTkofT, sizeof(StringTkofT), "%Y%m%d%H%M", p_TakeOffTimeSt);
+	//generate Flight ID
+	std::string FlightID;
+	FlightID = p_PlaneId + StringTkofT;
+	dataOpPtr->addFlight(FlightID,p_PlaneId,src,dest,p_TakeOffTIme,p_LandingTime,price);
 }
 
 void BasicBusiness::bookTicket(std::string p_UserIdC, std::string p_flightId, std::string p_seat,time_t p_booktime, std::string p_UserIdTA){
@@ -185,4 +190,34 @@ void BasicBusiness::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	//updateFile
 	fileOpPtr->updateTicketsFile();
 }
+int BasicBusiness::getPassagerOnFlight(std::string p_FlightId){
+	std::vector<Ticket> tempTicket;
+	tempTicket = dataOpPtr->searchTicket("NULL", NULL, p_FlightId, NULL, NULL, NULL, NULL, "NULL");
+	return tempTicket.size();
+}
+
+int BasicBusiness::getSellTicketNumbers(std::string p_UserId){
+	std::vector<Ticket> tempTicket;
+	tempTicket = dataOpPtr->searchTicket("NULL", "NULL", "NULL", NULL, NULL, NULL, NULL, p_UserId);
+	return tempTicket.size();
+}
+
+std::vector<Flight> BasicBusiness::getFlightsInfo(time_t p_date, std::string p_src, std::string p_dest){
+	// wait for timeperide search
+	return std::vector<Flight>();
+}
+
+int BasicBusiness::getPlaneNumber(std::string p_FlightType){
+	std::vector<Plane> tempPlanes;
+	tempPlanes = dataOpPtr->searchPlane("NULL", p_FlightType);
+	return tempPlanes.size();
+}
+
+std::vector<Flight> BasicBusiness::getPlaneFlights(std::string p_planeId){
+	vector<Flight> tempFlights;
+	tempFlights = dataOpPtr->searchFlight("NULL", p_planeId, "NULL", "NULL", NULL, NULL, NULL);
+	return tempFlights;
+}
+
+
 
