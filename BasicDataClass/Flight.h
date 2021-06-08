@@ -26,6 +26,8 @@ public:
     int p_price
   );
 
+	void hardcopyFlight(Flight p_flight);
+
 	std::string getFlightID();
 	Plane getPlane();
 	Route getRoute();
@@ -62,6 +64,15 @@ Flight::Flight(
   TKOFTime = p_TKOFTime;
   LandTime = p_LandTime;
   price = p_price;
+}
+
+void Flight::hardcopyFlight(Flight p_flight) {
+	this->flightID = p_flight.flightID;
+	this->planePtr = p_flight.planePtr;
+	this->routePtr = p_flight.routePtr;
+	this->TKOFTime = p_flight.TKOFTime;
+	this->LandTime = p_flight.LandTime;
+	this->price = p_flight.price;
 }
 
 std::string Flight::getFlightID() { return this->flightID; }
