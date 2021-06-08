@@ -62,11 +62,15 @@ public:
 		std::string p_ticketAgentID);
 };
 BasicBusiness::BasicBusiness(){}
+
 void BasicBusiness::addNewUser(std::string p_userId, std::string p_realname, std::string p_role){
 	if (dataOpPtr->searchUser(p_userId,p_realname,p_role).size() == 0){
 		dataOpPtr->addUser(p_userId, p_realname, p_role);
 		fileOpPtr->updateUsersFile();
 	}
+	//else{
+	//	throw()
+	//}
 
 }
 void BasicBusiness::addNewAirport(std::string p_name){
@@ -239,16 +243,29 @@ std::vector<Flight> BasicBusiness::getPlaneFlights(std::string p_planeId){
 	tempFlights = dataOpPtr->searchFlight("NULL", p_planeId, "NULL", "NULL", NULL, NULL, NULL);
 	return tempFlights;
 }
+void BasicBusiness::modifyFlight(
+	std::string flightID, std::string p_planeID, 
+	std::string p_TKOF_AP_Name, std::string p_DEST_AP_Name, 
+	time_t p_TKOFTime, time_t p_LandTime, int p_price){
+
+	std::vector<Flight> tempFlights;
+	Flight tempFlight;
+	tempFlights = dataOpPtr->searchFlight(flightID);
+	if (tempFlights.size() == 0){
+		/*throw()*/
+	}//no flight
+	tempFlight.hardcopyFlight(tempFlights.at(0));
+	if (p_price == -1){
+		p_price = tempFlight.getPrice();
+	}
+
+}
+
 void BasicBusiness::modifyTicket(
-	std::string p_ticketID, 
-	std::string p_customerID,
-	std::string p_flightID,
-	time_t p_bookTime, 
-	time_t p_payTime, 
-	time_t p_ExpireTime, 
-	int p_ticketPrice, 
-	std::string p_ticketAgentID)
-{
+	std::string p_ticketID, std::string p_customerID,
+	std::string p_flightID,time_t p_bookTime, 
+	time_t p_payTime, time_t p_ExpireTime, 
+	int p_ticketPrice, std::string p_ticketAgentID){
 	Ticket tempTicket;
 	std::vector<Ticket> tempTickets;
 	tempTickets = dataOpPtr->searchTicket(p_ticketID);
@@ -263,7 +280,31 @@ void BasicBusiness::modifyTicket(
 		p_flightID = tempTicket.getFlight().getFlightID();
 	}
 	if (p_bookTime == -1){
+		p_bookTime = tempTicket.getBookTime();
 	}
+	if (p_payTime == -1){
+		p_payTime = tempTicket.getPayTime();
+
+	}
+	if (p_ExpireTime == -1){
+		p_ExpireTime = tempTicket.getExpireTime();
+	}
+	if (p_ticketPrice == -1){
+		p_ticketPrice = tempTicket.getPrice();
+	}
+	if (p_ticketAgentID == "NuLL"){
+		p_ticketAgentID == tempTicket.getTA().getUserID();
+	}
+	dataOpPtr->delTicket(p_ticketID);
+	dataOpPtr->addTicket(
+		p_ticketID,
+		p_customerID,
+		p_flightID,
+		p_bookTime,
+		p_payTime,
+		p_ExpireTime,
+		p_ticketPrice,
+		p_ticketAgentID);
 }
 
 
