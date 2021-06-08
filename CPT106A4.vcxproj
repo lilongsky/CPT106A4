@@ -36,6 +36,7 @@
     <ClInclude Include="VectorClass\Users.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicBusiness.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
