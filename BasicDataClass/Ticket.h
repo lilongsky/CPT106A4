@@ -19,6 +19,7 @@ private:
   User *ticketAgentPtr;
 
 public:
+    Ticket(){};
   Ticket(
     std::string p_ticketID,
     User &p_customer,
@@ -35,6 +36,7 @@ public:
   time_t getExpireTime();
   int getPrice();
   User getTAId();
+  void hardcopy(Ticket p_Ticket);
 };
 
 /* Ticket class */
@@ -84,5 +86,16 @@ int Ticket::getPrice(){
 
 User Ticket::getTAId(){
      return *(this->ticketAgentPtr);
+}
+
+void Ticket::hardcopy(Ticket p_Ticket){
+    this->ticketID = p_Ticket.ticketID;
+    this->bookTime = p_Ticket.bookTime;
+    this->customerPtr = p_Ticket.customerPtr;
+    this->ExpireTime = p_Ticket.ExpireTime;
+    this->flightPtr = p_Ticket.flightPtr;
+    this->payTime = p_Ticket.payTime;
+    this->ticketAgentPtr = p_Ticket.ticketAgentPtr;
+    this->ticketPrice = p_Ticket.ticketPrice;
 }
 
