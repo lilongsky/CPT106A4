@@ -1,6 +1,7 @@
 #pragma once
 #include"FileOp.h"
 #include"DataOp.h"
+#define NULL -1
 const double exiprationDuration = 30;
 class BasicBusiness{
 private:
@@ -212,7 +213,7 @@ void BasicBusiness::payForTicket(std::string p_TicketId, time_t p_PayTime){
 }
 int BasicBusiness::getPassagerOnFlight(std::string p_FlightId){
 	std::vector<Ticket> tempTicket;
-	tempTicket = dataOpPtr->searchTicket("NULL", NULL, p_FlightId, NULL, NULL, NULL, NULL, "NULL");
+	tempTicket = dataOpPtr->searchTicket("NULL", "NULL", p_FlightId, NULL, NULL, NULL, NULL, "NULL");
 	return tempTicket.size();
 }
 
@@ -255,8 +256,13 @@ void BasicBusiness::modifyTicket(
 		/*throw();*/
 	}
 	tempTicket.hardcopy(tempTickets.at(0));
-	if (true){
-
+	if (p_customerID == "NULL"){
+		p_customerID = tempTicket.getCustomer().getUserID();
+	}
+	if (p_flightID == "NULL"){
+		p_flightID = tempTicket.getFlight().getFlightID();
+	}
+	if (p_bookTime == -1){
 	}
 }
 

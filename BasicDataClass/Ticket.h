@@ -29,13 +29,13 @@ public:
     User &p_ticketAgent
   );
   std::string getTickerId();
-  User getCustomerId();
+  User getCustomer();
   Flight getFlight();
   time_t getBookTime();
   time_t getPayTime();
   time_t getExpireTime();
   int getPrice();
-  User getTAId();
+  User getTA();
   void hardcopy(Ticket p_Ticket);
 };
 
@@ -61,7 +61,7 @@ Ticket::Ticket(
 std::string Ticket::getTickerId(){
     return this->ticketID;
 }
-User Ticket::getCustomerId(){
+User Ticket::getCustomer(){
     return *(this->customerPtr);
 }
 Flight Ticket::getFlight(){
@@ -84,7 +84,7 @@ int Ticket::getPrice(){
     return this->ticketPrice;
 }
 
-User Ticket::getTAId(){
+User Ticket::getTA(){
      return *(this->ticketAgentPtr);
 }
 
