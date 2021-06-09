@@ -235,7 +235,7 @@ int Business::getPlanesQTY(std::string p_FlightType){
 }
 
 std::vector<Flight> Business::getPlaneFlights(std::string p_planeId){
-	vector<Flight> tempFlights;
+	std::vector<Flight> tempFlights;
 	tempFlights = dataOpPtr->searchFlight("NULL", p_planeId, "NULL", "NULL", NULLC, NULLC, NULLC);
 	return tempFlights;
 }
