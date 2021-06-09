@@ -19,11 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasicBusiness.h" />
+    <ClInclude Include="Business.h" />
     <ClInclude Include="BasicDataClass\Airport.h" />
     <ClInclude Include="BasicDataClass\Flight.h" />
     <ClInclude Include="BasicDataClass\Plane.h" />
     <ClInclude Include="BasicDataClass\Route.h" />
+    <ClInclude Include="BasicDataClass\Seats.h" />
     <ClInclude Include="BasicDataClass\Ticket.h" />
     <ClInclude Include="BasicDataClass\User.h" />
     <ClInclude Include="DataOp.h" />
@@ -36,7 +37,6 @@
     <ClInclude Include="VectorClass\Users.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BasicBusiness.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

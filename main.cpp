@@ -13,7 +13,7 @@ int main()
 	Tickets tickets;
 	DataOp dataOp(users, airports, routes, planes, flights, tickets);
 	FileOp fileOp(dataOp);
-	BasicBusiness basicBusiness(dataOp, fileOp);
+	Business basicBusiness(dataOp, fileOp);
 
 	cout << "Hello, world!";
 }

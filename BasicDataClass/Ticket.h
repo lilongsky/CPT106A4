@@ -17,18 +17,23 @@ private:
   time_t ExpireTime;
   int ticketPrice;
   User *ticketAgentPtr;
-
+  int col, row;
 public:
-    Ticket(){};
+  Ticket();
   Ticket(
     std::string p_ticketID,
     User &p_customer,
     Flight &p_flight,
     time_t p_bookTime, time_t p_payTime, time_t p_expireTime,
     int p_price,
-    User &p_ticketAgent
+    User &p_ticketAgent,
+    int row,
+    int col
   );
-  std::string getTickerId();
+  
+  void hardcopy(Ticket p_Ticket);
+
+  std::string getTickerID();
   User getCustomer();
   Flight getFlight();
   time_t getBookTime();
@@ -36,19 +41,24 @@ public:
   time_t getExpireTime();
   int getPrice();
   User getTA();
-  void hardcopy(Ticket p_Ticket);
+  int getSeatRow();
+  int getSeatCol();
+  
+  bool isSameUserIncluded(User p_user);
 
-  bool isSameTicketID(std::string p_tickID);
+  bool isSameTicket(Ticket p_ticket);
   bool isSameCustomer(User p_customer);
   bool isSameFlight(Flight p_flghte);
-  bool isSameBookTime(time_t p_booktime);
-  bool isSamePayTime(time_t p_paytime);
-  bool isSameExpireTime(time_t p_expiretime);
-  bool isSameTicketPrice(int p_ticketprice);
   bool isSameTicketAgent(User p_ticketagent);
 };
 
 /* Ticket class */
+
+Ticket::Ticket(){
+    customerPtr = nullptr;
+    flightPtr = nullptr;
+    ticketAgentPtr = nullptr;
+}
 
 Ticket::Ticket(
   std::string p_ticketID,
@@ -56,8 +66,10 @@ Ticket::Ticket(
   Flight &p_flight,
   time_t p_bookTime, time_t p_payTime, time_t p_expireTime,
   int p_price,
-  User &p_ticketAgent
-) {
+  User &p_ticketAgent,
+  int p_row,
+  int p_col
+)   {
   ticketID = p_ticketID;
   customerPtr = &p_customer;
   flightPtr = &p_flight;
@@ -66,8 +78,10 @@ Ticket::Ticket(
   ExpireTime = p_expireTime;
   ticketPrice = p_price;
   ticketAgentPtr = &p_ticketAgent;
+  row = p_row;
+  col = p_col;
 }
-std::string Ticket::getTickerId(){
+std::string Ticket::getTickerID(){
     return this->ticketID;
 }
 User Ticket::getCustomer(){
@@ -108,12 +122,41 @@ void Ticket::hardcopy(Ticket p_Ticket){
     this->ticketPrice = p_Ticket.ticketPrice;
 }
 
-bool Ticket::isSameTicketID(std::string p_tickID) {
-    if (ticketID == p_tickID)
-        return true;
-    else
-        return false;
+inline int Ticket::getSeatRow(){
+    return this->row;
 }
+
+inline int Ticket::getSeatCol(){
+    return this->col;
+}
+
+bool Ticket::isSameUserIncluded(User p_user){
+    if (customerPtr->isSameUser(p_user)
+        ||ticketAgentPtr->isSameUser(p_user))
+    {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Ticket::isSameTicket(Ticket p_Ticket){
+    if ((this->ticketID == p_Ticket.ticketID)
+        && (this->bookTime == p_Ticket.bookTime)
+        && (this->isSameCustomer(p_Ticket.getCustomer()))
+        && (this->ExpireTime == p_Ticket.ExpireTime)
+        && (this->isSameFlight(p_Ticket.getFlight()))
+        && (this->payTime == p_Ticket.payTime)
+        && (this->isSameTicketAgent(p_Ticket.getTA()))
+        && (this->ticketPrice == p_Ticket.ticketPrice))
+    {   
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
 bool Ticket::isSameCustomer(User p_customer) {
     if (customerPtr->isSameUser(p_customer))
@@ -124,34 +167,6 @@ bool Ticket::isSameCustomer(User p_customer) {
 
 bool Ticket::isSameFlight(Flight p_flghte) {
     if (flightPtr->isSameFlight(p_flghte))
-        return true;
-    else
-        return false;
-}
-
-bool Ticket::isSameBookTime(time_t p_booktime) {
-    if (bookTime == p_booktime)
-        return true;
-    else
-        return false;
-}
-
-bool Ticket::isSamePayTime(time_t p_paytime) {
-    if (payTime == p_paytime)
-        return true;
-    else
-        return false;
-}
-
-bool Ticket::isSameExpireTime(time_t p_expiretime) {
-    if (ExpireTime == p_expiretime)
-        return true;
-    else
-        return false;
-}
-
-bool Ticket::isSameTicketPrice(int p_ticketprice) {
-    if (ticketPrice == p_ticketprice)
         return true;
     else
         return false;

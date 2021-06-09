@@ -60,18 +60,18 @@
     <ClInclude Include="VectorClass\Users.h">
       <Filter>头文件\VectorClass</Filter>
     </ClInclude>
-    <ClInclude Include="BasicBusiness.h">
+    <ClInclude Include="Business.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DataOp.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BasicDataClass\Seats.h">
+      <Filter>头文件\BasicDataClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicBusiness.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

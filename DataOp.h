@@ -11,7 +11,7 @@
 
 class DataOp
 {
-friend class BasicBusiness;
+friend class Business;
 
 private:
   Users* usersPtr;
@@ -89,7 +89,7 @@ public:
     std::string ticketAgentID
   );
 
-  void editTicketPayTime(std::string TicketID, time_t new_payTime);
+  void editTicketPayTime(Ticket oldTicket, time_t new_payTime);
 
   void delUser(std::string userID);
   void delAirport(std::string APName);
@@ -152,7 +152,8 @@ void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double
   routesPtr->add(newRoute);
 }
 
-void DataOp::editTicketPayTime(std::string TicketID, time_t new_payTime) {
+void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime){
+    ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
 }
 
 void DataOp::delAirport(std::string APName) {

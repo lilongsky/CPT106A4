@@ -11,6 +11,7 @@ public:
   Seats();
   Seats(std::string planeType);
 
+  std::vector<char> hardcopyVector();
   void setSeatValid(int row, int col);
   void setSeatInvalid(int row, int col);
 
@@ -38,6 +39,11 @@ Seats::Seats(std::string planeType) {
   this->seatsStatus = std::vector<char>(rowQTY * colQTY, 'V');
 }
 
+std::vector<char> Seats::hardcopyVector(){
+    std::vector<char> newSeatsVector(seatsStatus);
+    return newSeatsVector;
+}
+
 void Seats::setSeatValid(int row, int col) {
   int index = (row - 1) * rowQTY + (col - 1);
   seatsStatus.at(index) = 'V';
@@ -51,3 +57,4 @@ char Seats::getSeatStatus(int row, int col) {
   int index = (row - 1) * rowQTY + (col - 1);
   return seatsStatus.at(index);
 }
+
