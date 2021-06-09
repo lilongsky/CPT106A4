@@ -22,7 +22,14 @@ private:
   Tickets* ticketsPtr;
 
 public:
-  DataOp() {}
+  DataOp(
+    Users &users,
+    Airports &airports,
+    Routes &routes,
+    Planes &planes,
+    Flights &flights,
+    Tickets &tickets
+  );
 
   std::vector<User> getUserVectorCopy();
   std::vector<Airport> getAPVectorCopy();
@@ -93,6 +100,22 @@ public:
 };
 
 /* DataOp class */
+
+DataOp::DataOp(
+  Users &users,
+  Airports &airports,
+  Routes &routes,
+  Planes &planes,
+  Flights &flights,
+  Tickets &tickets
+) {
+  usersPtr = &users;
+  airportsPtr = &airports;
+  routesPtr = &routes;
+  planesPtr = &planes;
+  flightsPtr = &flights;
+  ticketsPtr = &tickets;
+}
 
 std::vector<Airport> DataOp::getAPVectorCopy() {
   return airportsPtr->hardcopyVector();
