@@ -3,6 +3,7 @@
 #include <string>
 #include "Route.h"
 #include "Plane.h"
+#include "Seats.h"
 
 class Flight
 {
@@ -15,6 +16,7 @@ private:
 	time_t TKOFTime;
 	time_t LandTime;
 	int price;
+	Seats planeSeats;
 
 public:
 	Flight();
@@ -34,11 +36,12 @@ public:
 	time_t getTKOFTime();
 	time_t getLandTime();
 	int getPrice();
+	Seats getPlaneSeats();
 
 	bool isSameFlight(Flight p_flight);
 	bool isSameFlightID(std::string p_flightID);
 	bool isSamePlane(Plane p_plane);
-	bool isSameRoute(Route p_routr);
+	bool isSameRoute(Route p_route);
 	bool isSameTKOFTime(time_t p_tkofTime);
 	bool isSameLandTime(time_t p_landTime);
 	bool isSamePrice(int p_price);
@@ -64,6 +67,7 @@ Flight::Flight(
   TKOFTime = p_TKOFTime;
   LandTime = p_LandTime;
   price = p_price;
+	planeSeats = Seats(planePtr->getPlaneType());
 }
 
 void Flight::hardcopyFlight(Flight p_flight) {
@@ -73,6 +77,7 @@ void Flight::hardcopyFlight(Flight p_flight) {
 	this->TKOFTime = p_flight.TKOFTime;
 	this->LandTime = p_flight.LandTime;
 	this->price = p_flight.price;
+	this->planeSeats = p_flight.planeSeats;
 }
 
 std::string Flight::getFlightID() { return this->flightID; }
@@ -81,6 +86,7 @@ time_t Flight::getTKOFTime() { return this->TKOFTime; }
 time_t Flight::getLandTime() { return this->LandTime; }
 Route Flight::getRoute() { return *routePtr; }
 int Flight::getPrice() { return this->price; }
+Seats Flight::getPlaneSeats() { return this->planeSeats; }
 
 bool Flight::isSameFlight(Flight p_flight) {
 	if ((flightID == p_flight.flightID)
