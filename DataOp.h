@@ -117,8 +117,23 @@ DataOp::DataOp(
   ticketsPtr = &tickets;
 }
 
+std::vector<User> DataOp::getUserVectorCopy() {
+  return usersPtr->hardcopyVector();
+}
 std::vector<Airport> DataOp::getAPVectorCopy() {
   return airportsPtr->hardcopyVector();
+}
+std::vector<Route> DataOp::getRouteVectorCopy() {
+  return routesPtr->hardcopyVector();
+}
+std::vector<Plane> DataOp::getPlaneVectorCopy() {
+  return planesPtr->hardcopyVector();
+}
+std::vector<Flight> DataOp::getFlightVectorCopy() {
+  return flightsPtr->hardcopyVector();
+}
+std::vector<Ticket> DataOp::getTicketVectorCopy() {
+  return ticketsPtr->hardcopyVector();
 }
 
 void DataOp::addAirport(std::string APName) {
