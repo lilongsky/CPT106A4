@@ -5,6 +5,7 @@
 
 class Tickets
 {
+	friend class DataOp;
 private:
   std::vector<Ticket> ticketVector;
 public:
