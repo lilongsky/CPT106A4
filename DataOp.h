@@ -86,7 +86,9 @@ public:
     std::string flightID,
     time_t bookTime, time_t payTime, time_t ExpireTime,
     int ticketPrice,
-    std::string ticketAgentID
+    std::string ticketAgentID,
+    int row,
+    int col
   );
 
   void editTicketPayTime(Ticket oldTicket, time_t new_payTime);
@@ -136,27 +138,35 @@ std::vector<Ticket> DataOp::getTicketVectorCopy() {
   return ticketsPtr->hardcopyVector();
 }
 
-void DataOp::addAirport(std::string APName) {
-  if (airportsPtr->isSameAPIncluded(APName)) {
-    Airport newAP(APName);
-    airportsPtr->add(newAP);
+void DataOp::addUser(std::string userID, std::string realName, std::string role) {
+  User new_user(userID, realName, role);
+  if (usersPtr->isSameUserIncluded(new_user)) {
+    throw std::logic_error("");
+  } else {
+    usersPtr->add(new_user);
   }
-  // else {throw }
 }
-
+void DataOp::addAirport(std::string APName) {
+  Airport new_AP(APName);
+  if (airportsPtr->isSameAPIncluded(new_AP)) {
+    throw std::logic_error("");
+  } else {
+    airportsPtr->add(new_AP);
+  }
+}
 void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration) {
   Airport temp_TKOF_AP(TKOF_AP_Name);
   int index_TKOF_AP = airportsPtr->findSameAPIndex(temp_TKOF_AP);
   if (index_TKOF_AP == -1) {
-    // throw
+    throw std::logic_error("");
   }
   Airport temp_DEST_AP(DEST_AP_Name);
   int index_DEST_AP = airportsPtr->findSameAPIndex(temp_DEST_AP);
   if (index_DEST_AP == -1) {
-    // throw
+    throw std::logic_error("");
   }
   if (duration < 0) {
-    // throw
+    throw std::logic_error("");
   }
 
   Route newRoute(
@@ -166,18 +176,61 @@ void DataOp::addRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double
   );
   routesPtr->add(newRoute);
 }
+void DataOp::addPlane(std::string planeID, std::string planeType) {
+  Plane new_plane(planeID, planeType);
+  if (planesPtr->isSamePlaneIncluded(new_plane)) {
+    throw std::logic_error("");
+  } else {
+    planesPtr->add(new_plane);
+  }
+}
+void DataOp::addFlight(
+  std::string flightID,
+  std::string planeID,
+  std::string TKOF_AP_Name, std::string DEST_AP_Name,
+  time_t TKOFTime, time_t LandTime,
+  int price)
+{
+  std::vector<Plane> temp_planeVector = searchPlane(planeID);
+  if (temp_planeVector.size() != 1) {
+    throw std::logic_error("");
+  }
+  int index_plane = planesPtr->findSamePlaneIndex(temp_planeVector.at(0));
 
-void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime){
-    ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
+  std::vector<Route> temp_routeVector = searchRoute(TKOF_AP_Name, DEST_AP_Name);
+  if (temp_routeVector.size() != 1) {
+    throw std::logic_error("");
+  }
+  int index_route = routesPtr->findSameRouteIndex(temp_routeVector.at(0));
+
+  if (difftime(LandTime, TKOFTime) < temp_routeVector.at(0).getDuration()) {
+    throw std::logic_error("");
+  }
+
+  Flight new_flight(
+    flightID,
+    planesPtr->planeVector.at(index_plane),
+    routesPtr->routeVector.at(index_route),
+    TKOFTime, LandTime,
+    price
+  );
+  if (flightsPtr->findSameFlightIndex(new_flight)) {
+    throw std::logic_error("");
+  }
+  flightsPtr->add(new_flight);
+}
+
+void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime) {
+  ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
 }
 
 void DataOp::delAirport(std::string APName) {
   Airport temp_AP(APName);
   int index_AP = airportsPtr->findSameAPIndex(temp_AP);
   if (index_AP == -1) {
-    // throw
+    throw std::logic_error("");
   } else if (routesPtr->isSameAPIncluded(temp_AP)) {
-    // throw
+    throw std::logic_error("");
   } else {
     airportsPtr->remove(index_AP);
   }

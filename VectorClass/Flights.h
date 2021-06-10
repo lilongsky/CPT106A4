@@ -28,11 +28,16 @@ std::vector<Flight> Flights::hardcopyVector() {
   return new_flightVector;
 }
 
-// int Flights::findSameFlightIndex(Flight p_flight) {
-//   int ans = -1;
-//   for (int i = 0; i < flightVector.size(); i++) {
-//   }
-// }
+int Flights::findSameFlightIndex(Flight p_flight) {
+  int ans = -1;
+  for (int i = 0; i < flightVector.size(); i++) {
+    if (flightVector.at(i).isSameFlight(p_flight)) {
+      ans = i;
+      break;
+    }
+  }
+  return ans;
+}
 
 void Flights::add(Flight &p_flight) {
   flightVector.push_back(p_flight);
