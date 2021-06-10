@@ -138,29 +138,13 @@ std::vector<Ticket> DataOp::getTicketVectorCopy() {
   return ticketsPtr->hardcopyVector();
 }
 
-std::vector<User> DataOp::searchUser(std::string userID){
-    std::vector<User> ansUsers;
-    for (int i = 0; i < usersPtr->userVector.size(); i++){
-        if (usersPtr->userVector.at(i).getUserID() == userID){
-            ansUsers.push_back(usersPtr->userVector.at(i));
-        }
-    }
-    return ansUsers;
+// user
+std::vector<User> DataOp::searchUser(std::string userID) {
+  usersPtr->search(userID);
 }
-
-std::vector<User> DataOp::searchUser(std::string userID, std::string realName, std::string role){
-    std::vector<User> ansUsers;
-    for (int i = 0; i < (usersPtr->userVector.size()); i++){
-        if (((userID == "NULL") || (usersPtr->userVector.at(i).getUserID()== userID))
-            && ((realName == "NULL") || (usersPtr->userVector.at(i).getUserName() == realName))
-            && ((role == "NULL") || (usersPtr->userVector.at(i).getUserRole()== role)))
-        {
-            ansUsers.push_back(usersPtr->userVector.at(i));
-        }
-    }
-    return ansUsers;
+std::vector<User> DataOp::searchUser(std::string userID, std::string realName, std::string role) {
+  usersPtr->search(userID, realName, role);
 }
-
 
 void DataOp::addUser(std::string userID, std::string realName, std::string role) {
   User new_user(userID, realName, role);
@@ -244,12 +228,12 @@ void DataOp::addFlight(
   flightsPtr->add(new_flight);
 }
 
-void DataOp::addTicket(std::string ticketID, 
-    std::string customerID, 
-    std::string flightID, 
-    time_t bookTime, time_t payTime, time_t ExpireTime, 
-    int ticketPrice, 
-    std::string ticketAgentID, 
+void DataOp::addTicket(std::string ticketID,
+    std::string customerID,
+    std::string flightID,
+    time_t bookTime, time_t payTime, time_t ExpireTime,
+    int ticketPrice,
+    std::string ticketAgentID,
     int row, int col)
 {
     std::vector<User> tempUserC;
@@ -258,7 +242,7 @@ void DataOp::addTicket(std::string ticketID,
         throw std::logic_error("");
     }
     int index_UserC = usersPtr->findSameUserIndex(tempUserC.at(0));
-    
+
     std::vector<User> tempUserTA;
     tempUserTA = searchUser(ticketAgentID);
     if (tempUserC.size() != 1){
@@ -357,6 +341,3 @@ void DataOp::delTicket(Ticket p_ticket){
         ticketsPtr->remove(index_Ticket);
     }
 }
-
-
-

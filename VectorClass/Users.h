@@ -17,6 +17,30 @@ public:
   int findSameUserIndex(User p_User);
   bool isSameUserIncluded(User p_User);
 
+	std::vector<User> search(std::string userID) {
+		std::vector<User> ans_userVector;
+		for (int i = 0; i < userVector.size(); i++) {
+			if (userVector.at(i).getUserID() == userID) {
+				ans_userVector.push_back(userVector.at(i));
+			}
+		}
+		return ans_userVector;
+	}
+	std::vector<User> search(std::string userID, std::string realName, std::string role) {
+		std::vector<User> ans_userVector;
+  	for (int i = 0; i < (userVector.size()); i++) {
+    	if (
+        ((userID == "NULL") || (userVector.at(i).getUserID()== userID))
+        && ((realName == "NULL") || (userVector.at(i).getUserName() == realName))
+        && ((role == "NULL") || (userVector.at(i).getUserRole()== role))
+      	)
+    	{
+      	ans_userVector.push_back(userVector.at(i));
+    	}
+  	}
+  	return ans_userVector;
+	}
+
   void add(User &p_user);
   void remove(int p_index);
 };
