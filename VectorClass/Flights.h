@@ -31,6 +31,17 @@ std::vector<Flight> Flights::hardcopyVector() {
   return new_flightVector;
 }
 
+int Flights::findFlightIndexByID(std::string p_flightID) {
+    int ans = -1;
+    for (int i = 0; i < flightVector.size(); i++) {
+        if (flightVector.at(i).isSameFlightID(p_flightID)) {
+            ans = i;
+            break;
+        }
+    }
+    return ans;
+}
+
 int Flights::findSameFlightIndex(Flight p_flight) {
   int ans = -1;
   for (int i = 0; i < flightVector.size(); i++) {
@@ -41,6 +52,18 @@ int Flights::findSameFlightIndex(Flight p_flight) {
   }
   return ans;
 }
+
+bool Flights::isFlightIDValid(std::string p_flightID) {
+    bool ans = true;
+    for (int i = 0; i < flightVector.size(); i++) {
+        if (flightVector.at(i).isSameFlightID(p_flightID)) {
+            ans = false;
+            break;
+        }
+    }
+    return ans;
+}
+
 bool Flights::isSameFlightIncluded(Flight p_flight) {
   if (findSameFlightIndex(p_flight)) {
     return false;

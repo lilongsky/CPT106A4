@@ -88,6 +88,7 @@ void FileOp::updateFlightsFile() {
 	file.close();
 }
 
+// Infile 'FlightID PlaneID TakeOffAirport DestinationAirport TakeOffTime LandTime TicketPrice\n'
 void FileOp::readFlightsFromFIle(){
 	file.open("Flights.txt", std::ios::in);
 	std::string temp_FID, temp_PID, temp_TKOF_AP, temp_DEST_AP;
@@ -112,6 +113,7 @@ void FileOp::updateRoutesFile() {
 	file.close();
 }
 
+// Infile ' TakeOffAirport DestinationAirport Duration \n'
 void FileOp::readRoutesFromFile(){
 	file.open("Routes.txt", std::ios::in);
 	std::string temp_TKOF_AP, temp_DEST_AP;
@@ -141,12 +143,14 @@ void FileOp::updateTicketsFile() {
 	file.close();
 }
 
+// Infile 'TicketID CustomerID FlightID bookTime PayTime DataOfExp TicketPrice TicketAgent SeatRow SeatCol \n'
 void FileOp::readTicketsFromFile(){
 	file.open("Tickets.txt", std::ios::in);
 	std::string temp_ticketID, temp_customerID, temp_flightID;
 	time_t temp_bookTime, temp_payTime, temp_dateOfExp;
-	int temp_ticketPrice = 0, temp_row = 0, temp_col = 0;
+	int temp_ticketPrice = 0;
 	std::string temp_ticketAgentPtr;
+	int temp_row = 0, temp_col = 0;
 	while (!file.eof()) {
 		file >> temp_ticketID >> temp_customerID >> temp_flightID >> temp_bookTime >> temp_payTime >> temp_dateOfExp
 			>> temp_ticketPrice >> temp_ticketAgentPtr;
@@ -166,7 +170,7 @@ void FileOp::updateUsersFile() {
 	file.close();
 }
 
-
+// Infile ' UserID UserName UserRole /n'
 void FileOp::readUsersFromFile(){
 	file.open("Users.txt", std::ios::in);
 	std::string temp_UID, temp_UName, temp_URole;
