@@ -111,7 +111,7 @@ void Business::addNewUser(std::string p_userId, std::string p_realname, std::str
 		fileOpPtr->updateUsersFile();
 	}
 	//else{
-	//	throw()
+	//	throw std::logic_error("");
 	//}
 
 }
@@ -121,7 +121,7 @@ void Business::addNewAirport(std::string p_name){
 		fileOpPtr->updateAirportsFile();
 	}
 	//else{
-	//	throw();
+	//	throw std::logic_error("");
 	//}
 }
 void Business::addNewRoute(std::string p_src, std::string p_dest, double p_durition){
@@ -130,7 +130,7 @@ void Business::addNewRoute(std::string p_src, std::string p_dest, double p_durit
 		fileOpPtr->updateRoutesFile();
 	}
 	//else{
-	//	throw()
+	//	throw std::logic_error("");
 	//}
 }
 void Business::addNewPlane(std::string p_plane, std::string p_type){
@@ -149,16 +149,16 @@ void Business::creatNewFlight(std::string p_PlaneId,
 	int price){
 	//PlaneID check
 	if ((dataOpPtr->searchPlane(p_PlaneId).size()) == 0){
-		/*throw()*/
+		throw std::logic_error("");
 	}//no planeid
 	//TKOFT and LANDT Time Check
 	if (p_TakeOffTIme > p_LandingTime){
-		/*throw()*/
+		throw std::logic_error("");
 	}
 	// FlyTimeCheck
 	double tempDurition = dataOpPtr->searchRoute(src, dest).at(0).getDuration();
 	if (difftime(p_LandingTime, p_TakeOffTIme) >= tempDurition){
-		/*throw()*/
+		throw std::logic_error("");
 	}
 	//plane Time Check
 	std::vector<Flight> tempFlights;
@@ -175,10 +175,10 @@ void Business::creatNewFlight(std::string p_PlaneId,
 		}
 	}//Search for latest LandT
 	if ((p_TakeOffTIme < MaxLandT)){
-		/*throw()*/
+		throw std::logic_error("");
 	}//No plane use in that Time 
 	if (tempPlaneLastDest.isSameAirport(tempSrc)){
-		/*throw()*/
+		throw std::logic_error("");
 	}//no plane in airport
 	//change take off time to string
 	char StringTkofT[13];
@@ -197,11 +197,11 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 	std::vector<Flight> tempFlight;
 	tempFlight = dataOpPtr->searchFlight(p_flightId);
 	if (tempFlight.size() < 1){
-		//throw
+		throw std::logic_error("");
 	}
 	//confirm their is a seat for the flight
 	if ((tempFlight.at(0).getPlaneSeats().getSeatStatus(p_row, p_col)) == 'I'){
-		/*throw();*/
+		throw std::logic_error("");
 	}//no such seat
 
 	//set book time
@@ -234,10 +234,10 @@ void Business::payForTicket(std::string p_FlightId, std::string p_UserId, std::s
 	time_t tempExpTime;
 	tempExpTime = tempTickets.at(0).getExpireTime();
 	if (p_PayTime > tempExpTime){
-		/*throw()*/
+		throw std::logic_error("");
 	}
 	if (p_PayTime < tempTickets.at(0).getBookTime()){
-		/*throw()*/
+		throw std::logic_error("");
 	}
 	//setPayTime
 	dataOpPtr->editTicketPayTime(tempTickets.at(0), p_PayTime);
@@ -251,16 +251,16 @@ void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	//isTickeExisient
 	tempTickets = searchTicket(p_TicketId, "NULL", "NULL", NULLC, NULLC, NULLC, NULLC, "NULL", p_PayTime);
 	if (tempTickets.size() == 0){
-		//throw()
+		throw std::logic_error("");
 	}
 	//isTicketExpiration
 	time_t tempExpTime;
 	tempExpTime = tempTickets.at(0).getExpireTime();
 	if (p_PayTime > tempExpTime){
-		/*throw()*/
+		throw std::logic_error("");
 	};
 	if (p_PayTime < tempTickets.at(0).getBookTime()){
-		/*throw()*/
+		throw std::logic_error("");
 	}
 	//setPayTime
 	dataOpPtr->editTicketPayTime(tempTickets.at(0), p_PayTime);
@@ -268,6 +268,7 @@ void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	fileOpPtr->updateTicketsFile();
 }
 void Business::deleteAirport(std::string p_name){
+
 
 }
 int Business::getPassagerOnFlight(std::string p_FlightId, time_t currentTime){
@@ -303,7 +304,7 @@ std::vector<Flight> Business::getFlightsInfo(time_t p_date, std::string p_src, s
 	std::vector<Flight> tempFlight,ansFlight;
 	tempFlight = dataOpPtr->searchFlight("NULL", "NULL", p_src, p_dest, NULLC, NULLC, NULLC);
 	if (tempFlight.size() == 0){
-		/*throw()*/
+		throw std::logic_error("");
 	}//no flight in this route
 	for (int i = 0; i < tempFlight.size(); i++){
 		if (tempFlight.at(i).getTKOFTime() > p_date && tempFlight.at(i).getTKOFTime() < (p_date+86400)){
@@ -311,7 +312,7 @@ std::vector<Flight> Business::getFlightsInfo(time_t p_date, std::string p_src, s
 		}
 	}
 	if (ansFlight.size() == 0){
-		/*throw()*/
+		throw std::logic_error("");
 	}//no flight in that day
 	return ansFlight;
 }

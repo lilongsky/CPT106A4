@@ -5,6 +5,7 @@
 
 class Users
 {
+	friend class DataOp;
 private:
   std::vector<User> userVector;
 

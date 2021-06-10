@@ -224,6 +224,10 @@ void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime) {
   ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
 }
 
+inline void DataOp::delUser(std::string userID){
+    
+}
+
 void DataOp::delAirport(std::string APName) {
   Airport temp_AP(APName);
   int index_AP = airportsPtr->findSameAPIndex(temp_AP);
@@ -235,3 +239,4 @@ void DataOp::delAirport(std::string APName) {
     airportsPtr->remove(index_AP);
   }
 }
+
