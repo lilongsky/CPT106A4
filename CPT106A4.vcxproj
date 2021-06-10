@@ -29,6 +29,7 @@
     <ClInclude Include="BasicDataClass\User.h" />
     <ClInclude Include="DataOp.h" />
     <ClInclude Include="FileOp.h" />
+    <ClInclude Include="Submain.h" />
     <ClInclude Include="VectorClass\Airports.h" />
     <ClInclude Include="VectorClass\Flights.h" />
     <ClInclude Include="VectorClass\Planes.h" />

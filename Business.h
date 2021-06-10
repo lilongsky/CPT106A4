@@ -4,6 +4,7 @@
 constexpr auto NULLC = -2;
 const double exiprationDuration = 30;
 class Business{
+	friend class Submain;
 private:
 	DataOp* dataOpPtr;
 	FileOp* fileOpPtr;
@@ -265,6 +266,9 @@ void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	dataOpPtr->editTicketPayTime(tempTickets.at(0), p_PayTime);
 	//updateFile
 	fileOpPtr->updateTicketsFile();
+}
+void Business::deleteAirport(std::string p_name){
+
 }
 int Business::getPassagerOnFlight(std::string p_FlightId, time_t currentTime){
 	std::vector<Ticket> tempTicket;
