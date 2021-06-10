@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BasicBusiness.h"
+#include "Business.h"
 using namespace std;
 
 int main()
@@ -13,6 +13,12 @@ int main()
 	Tickets tickets;
 	DataOp dataOp(users, airports, routes, planes, flights, tickets);
 	FileOp fileOp(dataOp);
+	fileOp.readUsersFromFile();
+	fileOp.readAirportsFromFile();
+	fileOp.readRoutesFromFile();
+	fileOp.readPlanesFromFIle();
+	fileOp.readFlightsFromFIle();
+	fileOp.readTicketsFromFile();
 	Business basicBusiness(dataOp, fileOp);
 
 	cout << "Hello, world!";
