@@ -158,7 +158,7 @@ void FileOp::readTicketsFromFile(){
 	int temp_row = 0, temp_col = 0;
 	while (!file.eof()) {
 		file >> temp_ticketID >> temp_customerID >> temp_flightID >> temp_bookTime >> temp_payTime >> temp_dateOfExp
-			>> temp_ticketPrice >> temp_ticketAgentPtr;
+			>> temp_ticketPrice >> temp_ticketAgentPtr >> temp_row >> temp_col;
 		dataOpPtr->addTicket(temp_ticketID, temp_customerID, temp_flightID, temp_bookTime, temp_payTime
 			, temp_dateOfExp, temp_ticketPrice, temp_ticketAgentPtr, temp_row, temp_col);
 	}

@@ -13,7 +13,7 @@ public:
 	std::vector<Ticket> hardcopyVector();
 
 	int findTicketIndexByID(std::string p_ticketID);
-  bool isTicketIDValid(std::string p_ticketID);
+    bool isTicketIDValid(std::string p_ticketID);
 	bool isSameTicketIncluded(Ticket p_ticket);
 	int findSameTicketIndex(Ticket p_ticket);
 	bool isUserIncluded(User p_user);
@@ -29,6 +29,29 @@ std::vector<Ticket> Tickets::hardcopyVector(){
 	std::vector<Ticket> newTicketVector(ticketVector);
 	return newTicketVector;
 }
+
+int Tickets::findTicketIndexByID(std::string p_ticketID) {
+	int ans = -1;
+	for (int i = 0; i < ticketVector.size(); i++) {
+		if (ticketVector.at(i).ticketID == (p_ticketID)) {
+			ans = i;
+			break;
+		}
+	}
+	return ans;
+}
+
+bool Tickets::isTicketIDValid(std::string p_ticketID) {
+	bool ans = true;
+	for (int i = 0; i < ticketVector.size(); i++) {
+		if (ticketVector.at(i).ticketID == p_ticketID) {
+			ans = false;
+			break;
+		}
+	}
+	return ans;
+}
+
 
 bool Tickets::isSameTicketIncluded(Ticket p_ticket){
 	bool ans = false;
