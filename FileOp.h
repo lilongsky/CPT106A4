@@ -126,7 +126,17 @@ void FileOp::readRoutesFromFile(){
 void FileOp::updateTicketsFile() {
 	file.open("Tickets.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getTicketVectorCopy().size(); i++) {
-		file << dataOpPtr->getTicketVectorCopy().at(i).getTickerId() << " " << dataOpPtr->getTicketVectorCopy().at(i).getCustomer().getUserID() << " " << dataOpPtr->getTicketVectorCopy().at(i).getFlight().getFlightID() << " " << dataOpPtr->getTicketVectorCopy().at(i).getBookTime() << " " << dataOpPtr->getTicketVectorCopy().at(i).getPayTime() << " " << dataOpPtr->getTicketVectorCopy().at(i).getExpireTime() << " " << dataOpPtr->getTicketVectorCopy().at(i).getPrice() << " " << dataOpPtr->getTicketVectorCopy().at(i).getTA().getUserID() << std::endl;
+		file << dataOpPtr->getTicketVectorCopy().at(i).getTicketID() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getCustomer().getUserID() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getFlight().getFlightID() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getBookTime() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getPayTime() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getExpireTime() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getPrice() << " " 
+			<< dataOpPtr->getTicketVectorCopy().at(i).getTA().getUserID() << " "
+			<<dataOpPtr->getTicketVectorCopy().at(i).getSeatCol()<<" "
+			<<dataOpPtr->getTicketVectorCopy().at(i).getSeatRow()<<" "
+			<< std::endl;
 	}
 	file.close();
 }
@@ -135,13 +145,13 @@ void FileOp::readTicketsFromFile(){
 	file.open("Tickets.txt", std::ios::in);
 	std::string temp_ticketID, temp_customerID, temp_flightID;
 	time_t temp_bookTime, temp_payTime, temp_dateOfExp;
-	int temp_ticketPrice;
+	int temp_ticketPrice, temp_row, temp_col;
 	std::string temp_ticketAgentPtr;
 	while (!file.eof()) {
 		file >> temp_ticketID >> temp_customerID >> temp_flightID >> temp_bookTime >> temp_payTime >> temp_dateOfExp
 			>> temp_ticketPrice >> temp_ticketAgentPtr;
 		dataOpPtr->addTicket(temp_ticketID, temp_customerID, temp_flightID, temp_bookTime, temp_payTime
-			, temp_dateOfExp, temp_ticketPrice, temp_ticketAgentPtr);
+			, temp_dateOfExp, temp_ticketPrice, temp_ticketAgentPtr, temp_row, temp_col);
 	}
 	file.close();
 }
