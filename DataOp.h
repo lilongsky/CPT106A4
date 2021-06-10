@@ -220,6 +220,43 @@ void DataOp::addFlight(
   flightsPtr->add(new_flight);
 }
 
+void DataOp::addTicket(std::string ticketID, 
+    std::string customerID, 
+    std::string flightID, 
+    time_t bookTime, time_t payTime, time_t ExpireTime, 
+    int ticketPrice, 
+    std::string ticketAgentID, 
+    int row, int col)
+{
+    std::vector<User> tempUserC;
+    tempUserC = searchUser(customerID);
+    if (tempUserC.size() != 1){
+        throw std::logic_error("");
+    }
+    int index_UserC = usersPtr->findSameUserIndex(tempUserC.at(0));
+    
+    std::vector<User> tempUserTA;
+    tempUserTA = searchUser(ticketAgentID);
+    if (tempUserC.size() != 1){
+        throw std::logic_error("");
+    }
+    int index_UserTA = usersPtr->findSameUserIndex(tempUserTA.at(0));
+
+    int index_flight = flightsPtr->findFlightIndexByID(flightID);
+    Ticket newTicket(ticketID,
+        usersPtr->userVector.at(index_UserC),
+        flightsPtr->flightVector.at(index_flight),
+        bookTime,
+        payTime,
+        ExpireTime,
+        ticketPrice,
+        usersPtr->userVector.at(index_UserTA),
+        row,
+        col
+        );
+    ticketsPtr->add(newTicket);
+}
+
 void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime) {
   ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
 }
