@@ -138,6 +138,30 @@ std::vector<Ticket> DataOp::getTicketVectorCopy() {
   return ticketsPtr->hardcopyVector();
 }
 
+std::vector<User> DataOp::searchUser(std::string userID){
+    std::vector<User> ansUsers;
+    for (int i = 0; i < usersPtr->userVector.size(); i++){
+        if (usersPtr->userVector.at(i).getUserID() == userID){
+            ansUsers.push_back(usersPtr->userVector.at(i));
+        }
+    }
+    return ansUsers;
+}
+
+std::vector<User> DataOp::searchUser(std::string userID, std::string realName, std::string role){
+    std::vector<User> ansUsers;
+    for (int i = 0; i < (usersPtr->userVector.size()); i++){
+        if (((userID == "NULL") || (usersPtr->userVector.at(i).getUserID()== userID))
+            && ((realName == "NULL") || (usersPtr->userVector.at(i).getUserName() == realName))
+            && ((role == "NULL") || (usersPtr->userVector.at(i).getUserRole()== role)))
+        {
+            ansUsers.push_back(usersPtr->userVector.at(i));
+        }
+    }
+    return ansUsers;
+}
+
+
 void DataOp::addUser(std::string userID, std::string realName, std::string role) {
   User new_user(userID, realName, role);
   if (usersPtr->isSameUserIncluded(new_user)) {
@@ -260,8 +284,6 @@ void DataOp::addTicket(std::string ticketID,
 void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime) {
   ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
 }
-
-
 
 void DataOp::delUser(User p_user){
     int index_User = usersPtr->findSameUserIndex(p_user);

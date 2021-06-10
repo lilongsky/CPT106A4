@@ -110,9 +110,9 @@ void Business::addNewUser(std::string p_userId, std::string p_realname, std::str
 		dataOpPtr->addUser(p_userId, p_realname, p_role);
 		fileOpPtr->updateUsersFile();
 	}
-	//else{
-	//	throw std::logic_error("");
-	//}
+	else{
+		throw std::logic_error("");
+	}
 
 }
 void Business::addNewAirport(std::string p_name){
@@ -120,24 +120,28 @@ void Business::addNewAirport(std::string p_name){
 		dataOpPtr->addAirport(p_name);
 		fileOpPtr->updateAirportsFile();
 	}
-	//else{
-	//	throw std::logic_error("");
-	//}
+	else{
+		throw std::logic_error("");
+	}
 }
 void Business::addNewRoute(std::string p_src, std::string p_dest, double p_durition){
-	if (dataOpPtr->searchRoute(p_src,p_dest,p_durition).size() == 0){
-		dataOpPtr->addRoute(p_src, p_dest, p_durition);
-		fileOpPtr->updateRoutesFile();
+	
+	if (dataOpPtr->searchRoute(p_src,p_dest,p_durition).size() != 0){
+		throw std::logic_error("");
 	}
-	//else{
-	//	throw std::logic_error("");
-	//}
+	else if(p_src == p_dest){
+		throw std::logic_error("");
+	}
+	dataOpPtr->addRoute(p_src, p_dest, p_durition);
+	fileOpPtr->updateRoutesFile();
 }
 void Business::addNewPlane(std::string p_plane, std::string p_type){
-	if (dataOpPtr->searchPlane(p_plane, p_type).size() == 0){
-		dataOpPtr->addPlane(p_plane, p_type);
-		fileOpPtr->updatePlanesFile();
+	if (dataOpPtr->searchPlane(p_plane, p_type).size() != 0){
+		throw std::logic_error("");
 	}
+	dataOpPtr->addPlane(p_plane, p_type);
+	fileOpPtr->updatePlanesFile();
+
 }
 
 void Business::creatNewFlight(std::string p_PlaneId,
@@ -288,6 +292,16 @@ void Business::deleteAirport(std::string p_name){
 
 
 }
+
+void Business::deleteTicket(std::string p_ticketId){
+	std::vector<Ticket> tempTicket;
+	tempTicket = dataOpPtr->searchTicket(p_ticketId);
+	if (tempTicket.size() != 1){
+		throw std::logic_error("");
+	}
+	dataOpPtr->delTicket(tempTicket.at(0));
+}
+
 int Business::getPassagerOnFlight(std::string p_FlightId, time_t currentTime){
 	std::vector<Ticket> tempTicket;
 	tempTicket = searchTicket("NULL", "NULL", p_FlightId, NULLC, NULLC, NULLC, NULLC, "NULL", currentTime);
