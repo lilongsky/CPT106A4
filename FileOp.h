@@ -36,8 +36,9 @@ FileOp::FileOp(DataOp &dataOp) {
 // All File should be "data1 data2 data3 .....datafinal\n"
 // For pointer in file it shows the real data of the pointer
 
+// Write 'AirportName \n'
 void FileOp::updateAirportsFile(){
-	file.open("Airport.txt", std::ios::out | std::ios::trunc);
+	file.open("Airports.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0 ; i < dataOpPtr->getAPVectorCopy().size(); i++){
 		file << dataOpPtr->getAPVectorCopy().at(i).getAirportName() << std::endl;
 	}
@@ -54,6 +55,7 @@ void FileOp::readAirportsFromFile(){
 	file.close();
 }
 
+// Write 'PlaneId PlaneType \n'
 void FileOp::updatePlanesFile() {
 	file.open("Planes.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getPlaneVectorCopy().size(); i++) {
@@ -74,6 +76,7 @@ void FileOp::readPlanesFromFIle(){
 	file.close();
 }
 
+// Write 'FlightID PlaneID TakeOffAirport DestinationAirport TakeOffTime LandTime TicketPrice\n'
 void FileOp::updateFlightsFile() {
 	file.open("Flights.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getFlightVectorCopy().size(); i++) {
@@ -103,6 +106,7 @@ void FileOp::readFlightsFromFIle(){
 
 }
 
+// Write ' TakeOffAirport DestinationAirport Duration \n'
 void FileOp::updateRoutesFile() {
 	file.open("Routes.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getRouteVectorCopy().size(); i++) {
@@ -125,6 +129,7 @@ void FileOp::readRoutesFromFile(){
 	file.close();
 }
 
+// Write 'TicketID CustomerID FlightID bookTime PayTime DataOfExp TicketPrice TicketAgent SeatRow SeatCol \n'
 void FileOp::updateTicketsFile() {
 	file.open("Tickets.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getTicketVectorCopy().size(); i++) {
@@ -160,6 +165,7 @@ void FileOp::readTicketsFromFile(){
 	file.close();
 }
 
+// Write ' UserID UserName UserRole /n'
 void FileOp::updateUsersFile() {
 	file.open("Users.txt", std::ios::out | std::ios::trunc);
 	for (int i = 0; i < dataOpPtr->getUserVectorCopy().size(); i++) {
