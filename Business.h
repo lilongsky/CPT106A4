@@ -83,7 +83,11 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID, time_t currentT
 	return ansTicket;
 }
 
-std::vector<Ticket> Business::searchTicket(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID, time_t currentTime){
+std::vector<Ticket> Business::searchTicket(std::string ticketID, 
+	std::string customerID, 
+	std::string flightID, 
+	time_t bookTime, time_t payTime, time_t ExpireTime, 
+	int ticketPrice, std::string ticketAgentID, time_t currentTime){
 	std::vector<Ticket> tempTicket, ansTicket;
 	tempTicket = dataOpPtr->searchTicket(ticketID, 
 		 customerID, 
