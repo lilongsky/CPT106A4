@@ -75,7 +75,7 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID, time_t currentT
 	if ((tempTicket.at(0).getPayTime() == -1)
 		&&(currentTime>(tempTicket.at(0).getExpireTime())))
 	{
-		dataOpPtr->delTicket(ticketID);
+		dataOpPtr->delTicket(tempTicket.at(0));
 		fileOpPtr->updateTicketsFile();
 		return ansTicket;
 	}
@@ -96,7 +96,7 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID, std::string cus
 	for (size_t i = 0; i < tempTicket.size(); i++){
 		if ((tempTicket.at(i).getPayTime() == -1)
 			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
-			dataOpPtr->delTicket(ticketID);
+			dataOpPtr->delTicket(tempTicket.at(i));
 			fileOpPtr->updateTicketsFile();
 			continue;
 		}
@@ -150,7 +150,7 @@ void Business::creatNewFlight(std::string p_PlaneId,
 	//PlaneID check
 	if ((dataOpPtr->searchPlane(p_PlaneId).size()) == 0){
 		throw std::logic_error("");
-	}//no planeid
+	}//no plane id
 	//TKOFT and LANDT Time Check
 	if (p_TakeOffTIme > p_LandingTime){
 		throw std::logic_error("");
@@ -193,7 +193,7 @@ void Business::creatNewFlight(std::string p_PlaneId,
 }
 
 void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t p_booktime,std::string p_UserIdTA, int p_row, int p_col){
-	//confir their is flightId
+	//confirm their is flightId
 	std::vector<Flight> tempFlight;
 	tempFlight = dataOpPtr->searchFlight(p_flightId);
 	if (tempFlight.size() < 1){

@@ -93,12 +93,12 @@ public:
 
   void editTicketPayTime(Ticket oldTicket, time_t new_payTime);
 
-  void delUser(std::string userID);
-  void delAirport(std::string APName);
-  void delRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name);
-  void delPlane(std::string planeID);
-  void delFlight(std::string flightID);
-  void delTicket(std::string TicketID);
+  void delUser(User p_user);
+  void delAirport(Airport p_airport);
+  void delRoute(Route p_route);
+  void delPlane(Plane p_plane);
+  void delFlight(Flight p_flight);
+  void delTicket(Ticket p_ticket);
 };
 
 /* DataOp class */
@@ -224,19 +224,80 @@ void DataOp::editTicketPayTime(Ticket oldTicket, time_t new_payTime) {
   ticketsPtr->setTicketPayTime(oldTicket, new_payTime);
 }
 
-inline void DataOp::delUser(std::string userID){
-    
+
+
+void DataOp::delUser(User p_user){
+    int index_User = usersPtr->findSameUserIndex(p_user);
+    if (index_User == -1){
+        throw std::logic_error("");
+    }
+    else if (ticketsPtr->isUserIncluded(p_user)){
+        throw std::logic_error("");
+    }
+    else{
+        usersPtr->remove(index_User);
+    }
 }
 
-void DataOp::delAirport(std::string APName) {
-  Airport temp_AP(APName);
-  int index_AP = airportsPtr->findSameAPIndex(temp_AP);
+void DataOp::delAirport(Airport p_airport) {
+  int index_AP = airportsPtr->findSameAPIndex(p_airport);
   if (index_AP == -1) {
     throw std::logic_error("");
-  } else if (routesPtr->isSameAPIncluded(temp_AP)) {
+  } else if (routesPtr->isSameAPIncluded(p_airport)) {
     throw std::logic_error("");
   } else {
     airportsPtr->remove(index_AP);
   }
 }
+
+void DataOp::delRoute(Route p_route){
+    int index_Route = routesPtr->findSameRouteIndex(p_route);
+    if (index_Route == -1){
+        throw std::logic_error("");
+    }
+    else if (flightsPtr->isRouteIncluded(p_route)){
+        throw std::logic_error("");
+    }
+    else{
+        routesPtr->remove(index_Route);
+    }
+}
+
+void DataOp::delPlane(Plane p_plane){
+    int index_Plane = planesPtr->findSamePlaneIndex(p_plane);
+    if (index_Plane == -1){
+        throw std::logic_error("");
+    }
+    else if (flightsPtr->isPlaneIncluded(p_plane)){
+        throw std::logic_error("");
+    }
+    else{
+        planesPtr->remove(index_Plane);
+    }
+}
+
+void DataOp::delFlight(Flight p_flight){
+    int index_Flight = flightsPtr->findSameFlightIndex(p_flight);
+    if (index_Flight == -1){
+        throw std::logic_error("");
+    }
+    else if (ticketsPtr->isFlightIncluded(p_flight)){
+        throw std::logic_error("");
+    }
+    else{
+        flightsPtr->remove(index_Flight);
+    }
+}
+
+void DataOp::delTicket(Ticket p_ticket){
+    int index_Ticket = ticketsPtr->findSameTicketIndex(p_ticket);
+    if (index_Ticket == -1){
+        throw std::logic_error("");
+    }
+    else{
+        ticketsPtr->remove(index_Ticket);
+    }
+}
+
+
 
