@@ -12,6 +12,8 @@ public:
 	Tickets(){}
 	std::vector<Ticket> hardcopyVector();
 
+	int findTicketIndexByID(std::string p_ticketID);
+  bool isTicketIDValid(std::string p_ticketID);
 	bool isSameTicketIncluded(Ticket p_ticket);
 	int findSameTicketIndex(Ticket p_ticket);
 	bool isUserIncluded(User p_user);
