@@ -15,7 +15,10 @@ public:
 
   std::vector<Flight> hardcopyVector();
 
+  int findFlightIndexByID(std::string p_flightID);
+  bool isFlightIDValid(std::string p_flightID);
   int findSameFlightIndex(Flight p_flight);
+  bool isSameFlightIncluded(Flight p_flight);
 
   void add(Flight &p_flight);
   void remove(int index);
@@ -37,6 +40,13 @@ int Flights::findSameFlightIndex(Flight p_flight) {
     }
   }
   return ans;
+}
+bool Flights::isSameFlightIncluded(Flight p_flight) {
+  if (findSameFlightIndex(p_flight)) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 void Flights::add(Flight &p_flight) {
