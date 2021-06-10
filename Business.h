@@ -196,15 +196,32 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 	//confirm their is flightId
 	std::vector<Flight> tempFlight;
 	tempFlight = dataOpPtr->searchFlight(p_flightId);
-	if (tempFlight.size() < 1){
+	if (tempFlight.size() != 1){
+		throw std::logic_error("");
+	}
+	//confirm UserID
+	std::vector<User> tempUser;
+	tempUser = dataOpPtr->searchUser(p_UserIdC);
+	if (tempUser.size() != 1){
+		throw std::logic_error("");
+	}
+	if (tempUser.at(0).getUserRole() != "Customer"){
+		throw std::logic_error("");
+	}
+	tempUser.clear();
+	tempUser = dataOpPtr->searchUser(p_UserIdTA);
+	if (tempUser.size() != 1){
+		throw std::logic_error("");
+	}
+	if (tempUser.at(0).getUserRole() != "TicketAgent"){
 		throw std::logic_error("");
 	}
 	//confirm their is a seat for the flight
 	if ((tempFlight.at(0).getPlaneSeats().getSeatStatus(p_row, p_col)) == 'I'){
 		throw std::logic_error("");
-	}//no such seat
+	}//seat UnBookable
 
-	//set book time
+	//set expiration time
 	time_t expTime = p_booktime + (exiprationDuration * 60);
 
 	//get price
