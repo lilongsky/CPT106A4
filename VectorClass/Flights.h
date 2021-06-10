@@ -19,6 +19,8 @@ public:
   bool isFlightIDValid(std::string p_flightID);
   int findSameFlightIndex(Flight p_flight);
   bool isSameFlightIncluded(Flight p_flight);
+  bool isRouteIncluded(Route p_route);
+  bool isPlaneIncluded(Plane p_plane);
 
   void add(Flight &p_flight);
   void remove(int index);
@@ -70,6 +72,28 @@ bool Flights::isSameFlightIncluded(Flight p_flight) {
   } else {
     return true;
   }
+}
+
+bool Flights::isRouteIncluded(Route p_route){
+    bool ans = false;
+    for (int i = 0; i < flightVector.size(); i++){
+        if (flightVector.at(i).isSameRoute(p_route)){
+            ans = true;
+            break;
+        }
+    }
+    return ans;
+}
+
+bool Flights::isPlaneIncluded(Plane p_plane){
+    bool ans = false;
+    for (int i = 0; i < flightVector.size(); i++){
+        if (flightVector.at(i).isSamePlane(p_plane)){
+            ans = true;
+            break;
+        }
+    }
+    return ans;
 }
 
 void Flights::add(Flight &p_flight) {
