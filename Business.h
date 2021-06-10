@@ -141,7 +141,6 @@ void Business::addNewPlane(std::string p_plane, std::string p_type){
 	}
 	dataOpPtr->addPlane(p_plane, p_type);
 	fileOpPtr->updatePlanesFile();
-
 }
 
 void Business::creatNewFlight(std::string p_PlaneId,
@@ -289,8 +288,55 @@ void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	fileOpPtr->updateTicketsFile();
 }
 void Business::deleteAirport(std::string p_name){
+	std::vector<Airport> tempAirPort;
+	tempAirPort = dataOpPtr->searchAirport(p_name);
+	if (tempAirPort.size() != 1){
+		throw std::logic_error("");
+	}
+	if (dataOpPtr->routesPtr->isSameAPIncluded(tempAirPort.at(0))){
+		throw std::logic_error("");
+	}
+	dataOpPtr->delAirport(tempAirPort.at(0));
+	fileOpPtr->updateAirportsFile();
+}
 
+inline void Business::deleteRoute(std::string p_src, std::string p_dest, double p_durition){
+	std::vector<Route> tempRoute;
+	tempRoute = dataOpPtr->searchRoute(p_src, p_dest,p_durition);
+	if (tempRoute.size() != 1){
+		throw std::logic_error("");
+	}
+	if (dataOpPtr->flightsPtr->isRouteIncluded(tempRoute.at(0))){
+		throw std::logic_error("");
+	}
+	dataOpPtr->delRoute(tempRoute.at(0));
+	fileOpPtr->updateRoutesFile();
+}
 
+inline void Business::deletePlane(std::string p_planeId){
+	std::vector<Plane> tempPlane;
+	tempPlane = dataOpPtr->searchPlane(p_planeId);
+	if (tempPlane.size() != 1){
+		throw std::logic_error("");
+	}
+	if (dataOpPtr->flightsPtr->isPlaneIncluded(tempPlane.at(0))){
+		throw std::logic_error("");
+	}
+	dataOpPtr->delPlane(tempPlane.at(0));
+	fileOpPtr->updatePlanesFile();
+}
+
+inline void Business::deleteFlight(std::string p_PlaneId){
+	std::vector<Flight> tempFlight;
+	tempFlight = dataOpPtr->searchFlight(p_PlaneId);
+	if (tempFlight.size() != 1){
+		throw std::logic_error("");
+	}
+	if (dataOpPtr->ticketsPtr->isFlightIncluded(tempFlight.at(0))){
+		throw std::logic_error("");
+	}
+	dataOpPtr->delFlight(tempFlight.at(0));
+	fileOpPtr->updateFlightsFile();
 }
 
 void Business::deleteTicket(std::string p_ticketId){
@@ -300,6 +346,7 @@ void Business::deleteTicket(std::string p_ticketId){
 		throw std::logic_error("");
 	}
 	dataOpPtr->delTicket(tempTicket.at(0));
+	fileOpPtr->updateTicketsFile();
 }
 
 int Business::getPassagerOnFlight(std::string p_FlightId, time_t currentTime){
@@ -359,4 +406,3 @@ std::vector<Flight> Business::getPlaneFlights(std::string p_planeId){
 	tempFlights = dataOpPtr->searchFlight("NULL", p_planeId, "NULL", "NULL", NULLC, NULLC, NULLC);
 	return tempFlights;
 }
-
