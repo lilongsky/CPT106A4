@@ -33,7 +33,7 @@ public:
   
   void hardcopy(Ticket p_Ticket);
 
-  std::string getTickerID();
+  std::string getTicketID();
   User getCustomer();
   Flight getFlight();
   time_t getBookTime();
@@ -81,7 +81,7 @@ Ticket::Ticket(
   row = p_row;
   col = p_col;
 }
-std::string Ticket::getTickerID(){
+std::string Ticket::getTicketID(){
     return this->ticketID;
 }
 User Ticket::getCustomer(){
