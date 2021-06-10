@@ -145,7 +145,7 @@ void FileOp::readTicketsFromFile(){
 	file.open("Tickets.txt", std::ios::in);
 	std::string temp_ticketID, temp_customerID, temp_flightID;
 	time_t temp_bookTime, temp_payTime, temp_dateOfExp;
-	int temp_ticketPrice, temp_row, temp_col;
+	int temp_ticketPrice = 0, temp_row = 0, temp_col = 0;
 	std::string temp_ticketAgentPtr;
 	while (!file.eof()) {
 		file >> temp_ticketID >> temp_customerID >> temp_flightID >> temp_bookTime >> temp_payTime >> temp_dateOfExp

@@ -38,13 +38,13 @@ public:
 	int getPrice();
 	Seats getPlaneSeats();
 
-	bool isSameFlight(Flight p_flight);
-	bool isSameFlightID(std::string p_flightID);
-	bool isSamePlane(Plane p_plane);
-	bool isSameRoute(Route p_route);
-	bool isSameTKOFTime(time_t p_tkofTime);
-	bool isSameLandTime(time_t p_landTime);
-	bool isSamePrice(int p_price);
+	//bool isSameFlight(Flight p_flight);
+	//bool isSameFlightID(std::string p_flightID);
+	//bool isSamePlane(Plane p_plane);
+	//bool isSameRoute(Route p_route);
+	//bool isSameTKOFTime(time_t p_tkofTime);
+	//bool isSameLandTime(time_t p_landTime);
+	//bool isSamePrice(int p_price);
 };
 
 /* Flight class */
@@ -88,58 +88,58 @@ Route Flight::getRoute() { return *routePtr; }
 int Flight::getPrice() { return this->price; }
 Seats Flight::getPlaneSeats() { return this->planeSeats; }
 
-bool Flight::isSameFlight(Flight p_flight) {
-	if ((flightID == p_flight.flightID)
-		&& (planePtr->isSamePlane(*(p_flight.planePtr)))
-		&& (routePtr->isSameRoute(*(p_flight.routePtr)))
-		&& (TKOFTime == p_flight.TKOFTime)
-		&& (LandTime == p_flight.LandTime)
-		&& (price == p_flight.price)) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-bool Flight::isSameFlightID(std::string p_flightID) {
-	if (flightID == p_flightID)
-		return true;
-	else
-		return false;
-}
-
-bool Flight::isSamePlane(Plane p_plane) {
-	if (planePtr->isSamePlane(p_plane))
-		return true;
-	else
-		return false;
-}
-
-bool Flight::isSameRoute(Route p_route) {
-	if (routePtr->isSameRoute(p_route))
-		return true;
-	else
-		return false;
-}
-
-bool Flight::isSameTKOFTime(time_t p_tkofTime) {
-	if (TKOFTime == p_tkofTime)
-		return true;
-	else
-		return false;
-}
-
-bool Flight::isSameLandTime(time_t p_landTime) {
-	if (LandTime == p_landTime)
-		return true;
-	else
-		return false;
-}
-
-bool Flight::isSamePrice(int p_price) {
-	if (price == p_price)
-		return true;
-	else
-		return false;
-}
+//bool Flight::isSameFlight(Flight p_flight) {
+//	if ((flightID == p_flight.flightID)
+//		&& (planePtr->isSamePlane(*(p_flight.planePtr)))
+//		&& (routePtr->isSameRoute(*(p_flight.routePtr)))
+//		&& (TKOFTime == p_flight.TKOFTime)
+//		&& (LandTime == p_flight.LandTime)
+//		&& (price == p_flight.price)) {
+//		return true;
+//	}
+//	else {
+//		return false;
+//	}
+//}
+//
+//bool Flight::isSameFlightID(std::string p_flightID) {
+//	if (flightID == p_flightID)
+//		return true;
+//	else
+//		return false;
+//}
+//
+//bool Flight::isSamePlane(Plane p_plane) {
+//	if (planePtr->isSamePlane(p_plane))
+//		return true;
+//	else
+//		return false;
+//}
+//
+//bool Flight::isSameRoute(Route p_route) {
+//	if (routePtr->isSameRoute(p_route))
+//		return true;
+//	else
+//		return false;
+//}
+//
+//bool Flight::isSameTKOFTime(time_t p_tkofTime) {
+//	if (TKOFTime == p_tkofTime)
+//		return true;
+//	else
+//		return false;
+//}
+//
+//bool Flight::isSameLandTime(time_t p_landTime) {
+//	if (LandTime == p_landTime)
+//		return true;
+//	else
+//		return false;
+//}
+//
+//bool Flight::isSamePrice(int p_price) {
+//	if (price == p_price)
+//		return true;
+//	else
+//		return false;
+//}
