@@ -140,11 +140,64 @@ std::vector<Ticket> DataOp::getTicketVectorCopy() {
 
 // user
 std::vector<User> DataOp::searchUser(std::string userID) {
-  usersPtr->search(userID);
+    std::vector<User> ans = usersPtr->search(userID);
+    return ans;
 }
 std::vector<User> DataOp::searchUser(std::string userID, std::string realName, std::string role) {
-  usersPtr->search(userID, realName, role);
+    std::vector<User> ans = usersPtr->search(userID, realName, role);
+    return ans;
 }
+
+inline std::vector<Airport> DataOp::searchAirport(std::string APName){
+    std::vector<Airport> ans = airportsPtr->search(APName);
+    return ans;
+}
+
+inline std::vector<Route> DataOp::searchRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name){
+    std::vector<Route> ans = routesPtr->search(TKOF_AP_Name, DEST_AP_Name);
+    return ans;
+}
+
+inline std::vector<Route> DataOp::searchRoute(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration){
+    std::vector<Route> ans = routesPtr->search(TKOF_AP_Name, DEST_AP_Name, duration);
+    return ans;
+}
+
+inline std::vector<Plane> DataOp::searchPlane(std::string planeID){
+    std::vector<Plane> ans = planesPtr->search(planeID);
+    return ans;
+}
+
+inline std::vector<Plane> DataOp::searchPlane(std::string planeID, std::string planeType){
+    std::vector<Plane> ans = planesPtr->search(planeID, planeType);
+    return ans;
+}
+
+inline std::vector<Flight> DataOp::searchFlight(std::string flightID){
+    std::vector<Flight> ans = flightsPtr->search(flightID);
+    return ans;
+}
+
+inline std::vector<Flight> DataOp::searchFlight(std::string flightID, 
+    std::string planeID, 
+    std::string TKOF_AP_Name, std::string DEST_AP_Name, 
+    time_t TKOFTime, time_t LandTime, 
+    int price)
+{
+    std::vector<Flight> ans = flightsPtr->search(flightID,planeID,TKOF_AP_Name,DEST_AP_Name,TKOFTime,LandTime,price);
+    return ans;
+}
+
+inline std::vector<Ticket> DataOp::searchTicket(std::string ticketID){
+    std::vector<Ticket> ans = ticketsPtr->search(ticketID);
+    return ans;
+}
+
+inline std::vector<Ticket> DataOp::searchTicket(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID){
+    std::vector<Ticket> ans = ticketsPtr->search(ticketID,customerID,flightID,bookTime,payTime,ExpireTime,ticketPrice,ticketAgentID);
+    return ans;
+}
+
 
 void DataOp::addUser(std::string userID, std::string realName, std::string role) {
   User new_user(userID, realName, role);
