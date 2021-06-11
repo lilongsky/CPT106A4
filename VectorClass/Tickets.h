@@ -23,6 +23,15 @@ public:
 	void remove(int index);
 	void setTicketPayTime(Ticket oldTicket, time_t new_payTime);
 
+	std::vector<Ticket> search(std::string ticketId);
+	std::vector<Ticket> search(
+		std::string ticketID,
+		std::string customerID,
+		std::string flightID,
+		time_t bookTime, time_t payTime, time_t ExpireTime,
+		int ticketPrice,
+		std::string ticketAgentID
+	);
 };
 
 std::vector<Ticket> Tickets::hardcopyVector(){
@@ -109,4 +118,40 @@ void Tickets::setTicketPayTime(Ticket oldTicket, time_t new_payTime){
 	int index = this->findSameTicketIndex(oldTicket);
 	ticketVector.at(index).payTime = new_payTime;
 }
+
+inline std::vector<Ticket> Tickets::search(std::string ticketId){
+	std::vector<Ticket> ansTicket;
+	for (int i = 0; i < ticketVector.size(); i++){
+		if (ticketVector.at(i).ticketID == ticketId){
+			ansTicket.push_back(ticketVector.at(i));
+		}
+	}
+	return ansTicket;
+}
+
+inline std::vector<Ticket> Tickets::search(
+	std::string ticketID, 
+	std::string customerID, 
+	std::string flightID, 
+	time_t bookTime, time_t payTime, time_t ExpireTime, 
+	int ticketPrice, 
+	std::string ticketAgentID)
+{
+	std::vector<Ticket> ansTicket;
+	for (int i = 0; i < ticketVector.size(); i++){
+		if (((ticketID == ticketVector.at(i).ticketID)||(ticketID == "NULL"))
+			&&((customerID == ticketVector.at(i).getCustomer().getUserID()||(customerID == "NULL")))
+			&&((flightID == ticketVector.at(i).getFlight().getFlightID())||(flightID == "NULL"))
+			&&((bookTime == ticketVector.at(i).bookTime)||bookTime == -2)
+			&&((payTime == ticketVector.at(i).payTime)||payTime == -2)
+			&&((ExpireTime == ticketVector.at(i).ExpireTime)||(ExpireTime == -2))
+			&&((ticketPrice == ticketVector.at(i).ticketPrice)||(ticketPrice == -2))
+			&&((ticketAgentID == ticketVector.at(i).getTA().getUserID())||(ticketAgentID == "NULL")))
+		{
+			ansTicket.push_back(ticketVector.at(i));
+		}
+	}
+	return ansTicket;
+}
+
 
