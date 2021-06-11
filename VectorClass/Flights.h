@@ -21,6 +21,15 @@ public:
   bool isSameFlightIncluded(Flight p_flight);
   bool isRouteIncluded(Route p_route);
   bool isPlaneIncluded(Plane p_plane);
+ 
+  std::vector<Flight> search(std::string flightID);
+  std::vector<Flight> search(
+      std::string flightID,
+      std::string planeID,
+      std::string TKOF_AP_Name, std::string DEST_AP_Name,
+      time_t TKOFTime, time_t LandTime,
+      int price
+  );
 
   void add(Flight &p_flight);
   void remove(int index);
@@ -94,6 +103,40 @@ bool Flights::isPlaneIncluded(Plane p_plane){
         }
     }
     return ans;
+}
+
+inline std::vector<Flight> Flights::search(std::string flightID){
+    std::vector<Flight> ansFlight;
+    for (int i = 0; i < flightVector.size(); i++){
+        if (flightVector.at(i).flightID == flightID){
+            ansFlight.push_back(flightVector.at(i));
+        }
+    }
+    return  ansFlight;
+}
+
+inline std::vector<Flight> Flights::search(std::string flightID, 
+    std::string planeID, 
+    std::string TKOF_AP_Name, std::string DEST_AP_Name, 
+    time_t TKOFTime, time_t LandTime, 
+    int price)
+{
+    std::vector<Flight> ansFlight;
+    for (int i = 0; i < flightVector.size(); i++){
+        if (((flightID == flightVector.at(i).flightID)||(flightID == "NULL"))
+            &&((planeID == flightVector.at(i).getPlane().getPlaneID()||(planeID == "NULL")))
+            &&((TKOF_AP_Name == flightVector.at(i).getRoute().getTKOF_AP().getAirportName()
+                ||(TKOF_AP_Name == "NULL")))
+            &&((DEST_AP_Name == flightVector.at(i).getRoute().getDEST_AP().getAirportName()
+                ||(DEST_AP_Name == "NULL")))
+            &&((TKOFTime == flightVector.at(i).TKOFTime)||(TKOFTime == -2))
+            &&((LandTime == flightVector.at(i).LandTime)||(LandTime == -2))
+            &&((price == flightVector.at(i).price)||(price == -2)))
+        {
+            ansFlight.push_back(flightVector.at(i));
+        }
+    }
+    return  ansFlight;
 }
 
 void Flights::add(Flight &p_flight) {
