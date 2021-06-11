@@ -18,6 +18,8 @@ public:
   int findSameAPIndex(Airport p_AP);
   bool isSameAPIncluded(Airport p_AP);
 
+  std::vector<Airport> search(std::string APName);
+
   void add(Airport &p_airport);
   void remove(int index);
 };
@@ -48,6 +50,16 @@ bool Airports::isSameAPIncluded(Airport p_AP) {
   } else {
     return true;
   }
+}
+
+inline std::vector<Airport> Airports::search(std::string APName){
+    std::vector<Airport> ansAirport;
+    for (int i = 0; i < APVector.size(); i++){
+        if ((APName == APVector.at(i).airportName)||(APName == "NULL")){
+            ansAirport.push_back(APVector.at(i));
+        }
+    }
+    return ansAirport;
 }
 
 // ? new or not new
