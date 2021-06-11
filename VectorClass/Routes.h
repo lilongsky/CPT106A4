@@ -19,6 +19,9 @@ public:
   int findSameRouteIndex(Route p_route);
   bool isRouteIncluded(Route p_route);
 
+  std::vector<Route> search(std::string TKOF_AP_Name, std::string DEST_AP_Name);
+  std::vector<Route> search(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration);
+
   void add(Route &p_route);
   void remove(int index);
 };
@@ -59,6 +62,30 @@ bool Routes::isRouteIncluded(Route p_route) {
   } else {
     return true;
   }
+}
+
+inline std::vector<Route> Routes::search(std::string TKOF_AP_Name, std::string DEST_AP_Name){
+	std::vector<Route> ansRoute;
+	for (int i = 0; i < routeVector.size(); i++){
+		if ((TKOF_AP_Name == routeVector.at(i).getTKOF_AP().getAirportName())
+			&&(DEST_AP_Name == routeVector.at(i).getDEST_AP().getAirportName())){
+			ansRoute.push_back(routeVector.at(i));
+		}
+	}
+	return ansRoute;
+}
+
+inline std::vector<Route> Routes::search(std::string TKOF_AP_Name, std::string DEST_AP_Name, double duration){
+	std::vector<Route> ansRoute;
+	for (int i = 0; i < routeVector.size(); i++){
+		if ((TKOF_AP_Name == routeVector.at(i).getTKOF_AP().getAirportName()||(TKOF_AP_Name == "NULL"))
+			&& (DEST_AP_Name == routeVector.at(i).getDEST_AP().getAirportName())||(DEST_AP_Name == "NULL")
+			&&((duration == routeVector.at(i).getDuration())||duration == -2.0))
+		{
+			ansRoute.push_back(routeVector.at(i));
+		}
+	}
+	return ansRoute;
 }
 
 void Routes::add(Route &p_route) {
