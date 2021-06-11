@@ -16,8 +16,11 @@ public:
   std::vector<Plane> hardcopyVector();
 
   bool isNewIDValid(std::string newID);
-	int findSamePlaneIndex(Plane p_plane);
+  int findSamePlaneIndex(Plane p_plane);
   bool isSamePlaneIncluded(Plane p_plane);
+
+  std::vector<Plane> search(std::string planeID);
+  std::vector<Plane> search(std::string planeID, std::string planeType);
 
 	void add(Plane &p_airport);
 	void remove(int index);
@@ -56,6 +59,28 @@ bool Planes::isSamePlaneIncluded(Plane p_plane) {
   } else {
     return true;
   }
+}
+
+inline std::vector<Plane> Planes::search(std::string planeID){
+    std::vector<Plane> ansPlane;
+    for (int i = 0; i < planeVector.size(); i++){
+        if (planeID == planeVector.at(i).getPlaneID()){
+            ansPlane.push_back(planeVector.at(i));
+        }
+    }
+    return  ansPlane;
+}
+
+inline std::vector<Plane> Planes::search(std::string planeID, std::string planeType){
+    std::vector<Plane> ansPlane;
+    for (int i = 0; i < planeVector.size(); i++){
+        if (((planeID == planeVector.at(i).planeID)||(planeID == "NULL"))
+            &&((planeType == planeVector.at(i).planeType)||(planeType == "NULL")))
+        {
+            ansPlane.push_back(planeVector.at(i));
+        }
+    }
+    return  ansPlane;
 }
 
 void Planes::add(Plane &p_plane) {
