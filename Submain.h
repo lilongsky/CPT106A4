@@ -8,6 +8,8 @@ const string STR_NO_LIMIT = "NULL";
 
 class Submain
 {
+  friend int main();
+
 private:
   time_t currentTime;
   User* currentUser;
@@ -123,9 +125,9 @@ void Submain::customer() {
     default:
       cout << "Your choice is not valid. Please try again!" << endl;
       break;
+    }
 
     system("pause");
     system("cls");
-    }
   }
 }

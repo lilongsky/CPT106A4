@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Business.h"
+#include "Submain.h"
 using namespace std;
 
 int main()
@@ -20,6 +20,10 @@ int main()
 	fileOp.readFlightsFromFIle();
 	fileOp.readTicketsFromFile();
 	Business basicBusiness(dataOp, fileOp);
+	Submain submain(3600, basicBusiness);
 
-	cout << "Hello, world!";
+	User currentUser("1", "EA", "customer");
+	submain.currentUser = &currentUser;
+
+	submain.customer();
 }
