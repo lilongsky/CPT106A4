@@ -178,10 +178,10 @@ inline std::vector<Flight> DataOp::searchFlight(std::string flightID){
     return ans;
 }
 
-inline std::vector<Flight> DataOp::searchFlight(std::string flightID, 
-    std::string planeID, 
-    std::string TKOF_AP_Name, std::string DEST_AP_Name, 
-    time_t TKOFTime, time_t LandTime, 
+inline std::vector<Flight> DataOp::searchFlight(std::string flightID,
+    std::string planeID,
+    std::string TKOF_AP_Name, std::string DEST_AP_Name,
+    time_t TKOFTime, time_t LandTime,
     int price)
 {
     std::vector<Flight> ans = flightsPtr->search(flightID,planeID,TKOF_AP_Name,DEST_AP_Name,TKOFTime,LandTime,price);
@@ -391,6 +391,8 @@ void DataOp::delTicket(Ticket p_ticket){
         throw std::logic_error("");
     }
     else{
-        ticketsPtr->remove(index_Ticket);
+      Ticket actual_ticket = ticketsPtr->ticketVector.at(index_Ticket);
+      actual_ticket.getFlight().getPlaneSeats().setSeatValid(actual_ticket.getSeatRow(), actual_ticket.getSeatCol());
+      ticketsPtr->remove(index_Ticket);
     }
 }

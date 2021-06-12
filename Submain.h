@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <ctime>
 using namespace std;
 #include "Business.h"
@@ -60,15 +61,28 @@ void Submain::admin() {
     cout << "Welcome Administrator " << currentUserPtr->getUserName() << "!" << endl;
     cout << "0 Quit." << endl;
     cout << "1 Show users." << endl;
+    cout << "2 Add a user." << endl;
+    cout << "3 Delete a user." << endl;
     cout << "4 Show airports." << endl;
+    cout << "5 Add an airport." << endl;
+    cout << "6 Delete an airport." << endl;
     cout << "7 Show routes." << endl;
+    cout << "8 Add a route." << endl;
+    cout << "9 Delete a route." << endl;
     cout << "10 Show planes." << endl;
+    cout << "11 Add a plane." << endl;
+    cout << "12 Delete a plane." << endl;
     cout << "13 Show flights." << endl;
+    cout << "14 Add a flight." << endl;
+    cout << "15 Delete a flight." << endl;
     cout << "16 Show tickets." << endl;
+    cout << "17 Add a ticket." << endl;
+    cout << "18 Delete a ticket." << endl;
 
     cout << "Please input your choice:" << endl;
     int choice = readInt();
 
+    string str1, str2, str3;
     switch (choice) {
     case 0:
       cout << "Bye Bye, " << currentUserPtr->getUserName() << "!" << endl;
@@ -80,10 +94,58 @@ void Submain::admin() {
       cout << endl;
       break;
 
+    case 2:
+      cout << "Please input the new user by its ID, real name, role:" << endl;
+      str1 = readString();
+      str2 = readString();
+      str3 = readString();
+      try {
+        businessPtr->addNewUser(str1, str2, str3);
+      } catch (logic_error err) {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
+
+    case 3:
+      cout << "Please input the user you want to delete by its ID, real name, role:" << endl;
+      str1 = readString();   // user ID
+      str2 = readString();   // user real name
+      str3 = readString();   // user role
+      if (currentUserPtr->isSameUser(User(str1, str2, str3))) {
+        cout << "You cannot delete yourself ..." << endl;
+        break;
+      }
+
+      // try {
+      //   businessPtr->deleteUser(str1, str2, str3);
+      // } catch (logic_error err) {
+      //   cout << "Sorry, this is not a valid operation." << endl;
+      // }
+      break;
+
     case 4:
-      cout << "airport_name" << endl;
       system("@type Airports.txt");
       cout << endl;
+      break;
+
+    case 5:
+      cout << "Please input the name of the new airport:" << endl;
+      str1 = readString();
+      try {
+        businessPtr->addNewAirport(str1);
+      } catch (logic_error err) {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
+
+    case 6:
+      cout << "Please input the airport you want to delete by its name:" << endl;
+      str1 = readString();
+      try {
+        businessPtr->deleteAirport(str1);
+      } catch (logic_error err) {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
       break;
 
     case 7:
