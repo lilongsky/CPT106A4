@@ -22,6 +22,7 @@ public:
 		for (int i = 0; i < userVector.size(); i++) {
 			if (userVector.at(i).getUserID() == userID) {
 				ans_userVector.push_back(userVector.at(i));
+				break;
 			}
 		}
 		return ans_userVector;

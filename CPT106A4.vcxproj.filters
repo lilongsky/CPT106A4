@@ -78,4 +78,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Airports.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="Flights.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="Planes.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="Routes.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="Tickets.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="Users.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

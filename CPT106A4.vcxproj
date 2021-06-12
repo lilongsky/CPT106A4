@@ -40,6 +40,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Airports.txt" />
+    <Text Include="Flights.txt" />
+    <Text Include="Planes.txt" />
+    <Text Include="Routes.txt" />
+    <Text Include="Tickets.txt" />
+    <Text Include="Users.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

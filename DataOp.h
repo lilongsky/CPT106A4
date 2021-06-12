@@ -275,7 +275,7 @@ void DataOp::addFlight(
     TKOFTime, LandTime,
     price
   );
-  if (flightsPtr->findSameFlightIndex(new_flight)) {
+  if (flightsPtr->isSameFlightIncluded(new_flight)) {
     throw std::logic_error("");
   }
   flightsPtr->add(new_flight);
@@ -298,7 +298,7 @@ void DataOp::addTicket(std::string ticketID,
 
     std::vector<User> tempUserTA;
     tempUserTA = searchUser(ticketAgentID);
-    if (tempUserC.size() != 1){
+    if (tempUserTA.size() != 1){
         throw std::logic_error("");
     }
     int index_UserTA = usersPtr->findSameUserIndex(tempUserTA.at(0));

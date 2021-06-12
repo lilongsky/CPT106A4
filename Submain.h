@@ -36,10 +36,10 @@ string readString() {
 }
 
 void showTime(time_t p_time) {
-  struct tm* temp_tm;
-  temp_tm = gmtime(&p_time);
-  char outstr[20];
-  strftime(outstr, 20, "GMT %Y/%m/%d %X", temp_tm);
+  struct tm temp_tm;
+  gmtime_s(&temp_tm, &p_time);
+  char outstr[24];
+  strftime(outstr, 24, "GMT %Y/%m/%d %X", &temp_tm);
   cout << outstr;
 }
 
@@ -47,12 +47,14 @@ void showTime(time_t p_time) {
 
 Submain::Submain(time_t currentTime, Business &business) {
   this->currentTime = currentTime;
+  currentUser = nullptr;
   businessPtr = &business;
 }
 
 void Submain::customer() {
   bool isOver = false;
   vector<Ticket> ticketVector;
+  int size = 0;
   while(!isOver) {
     cout << "Welcome Customer " << currentUser->getUserName() << "!" << endl;
     cout << "0 Quit." << endl;
@@ -81,7 +83,7 @@ void Submain::customer() {
         currentTime
       );
 
-      int size = ticketVector.size();
+      size = ticketVector.size();
       time_t temp_time_t;
 
       if (size == 0) {

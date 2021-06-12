@@ -51,8 +51,9 @@ std::string User::getUserRole() {
 
 bool User::isSameUser(User p_user) {
   if ((m_userID == p_user.m_userID)
-      && m_realName == p_user.m_userID
-      && m_role == p_user.m_role) {
+      && m_realName == p_user.m_realName
+      && m_role == p_user.m_role)
+  {
     return true;
   } else {
     return false;

@@ -189,9 +189,9 @@ void Business::creatNewFlight(std::string p_PlaneId,
 	}//no plane in airport
 	//change take off time to string
 	char StringTkofT[13];
-	struct tm* p_TakeOffTimeSt;
-	p_TakeOffTimeSt = gmtime(&p_TakeOffTIme);
-	strftime(StringTkofT, sizeof(StringTkofT), "%Y%m%d%H%M", p_TakeOffTimeSt);
+	struct tm p_TakeOffTimeSt;
+	gmtime_s(&p_TakeOffTimeSt, &p_TakeOffTIme);
+	strftime(StringTkofT, sizeof(StringTkofT), "%Y%m%d%H%M", &p_TakeOffTimeSt);
 	//generate Flight ID
 	std::string FlightID;
 	FlightID = p_PlaneId + StringTkofT;

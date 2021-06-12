@@ -96,7 +96,7 @@ void FileOp::readFlightsFromFIle(){
 	file.open("Flights.txt", std::ios::in);
 	std::string temp_FID, temp_PID, temp_TKOF_AP, temp_DEST_AP;
 	time_t temp_TKOF_Time, temp_LAND_Time;
-	int temp_Price;
+	int temp_Price = 0;
 
 	while (!file.eof()) {
 		file >> temp_FID >> temp_PID >> temp_TKOF_AP >> temp_DEST_AP >> temp_TKOF_Time >> temp_LAND_Time;
@@ -154,13 +154,13 @@ void FileOp::readTicketsFromFile(){
 	std::string temp_ticketID, temp_customerID, temp_flightID;
 	time_t temp_bookTime, temp_payTime, temp_dateOfExp;
 	int temp_ticketPrice = 0;
-	std::string temp_ticketAgentPtr;
+	std::string temp_ticketAgentName;
 	int temp_row = 0, temp_col = 0;
 	while (!file.eof()) {
 		file >> temp_ticketID >> temp_customerID >> temp_flightID >> temp_bookTime >> temp_payTime >> temp_dateOfExp
-			>> temp_ticketPrice >> temp_ticketAgentPtr >> temp_row >> temp_col;
+			>> temp_ticketPrice >> temp_ticketAgentName >> temp_row >> temp_col;
 		dataOpPtr->addTicket(temp_ticketID, temp_customerID, temp_flightID, temp_bookTime, temp_payTime
-			, temp_dateOfExp, temp_ticketPrice, temp_ticketAgentPtr, temp_row, temp_col);
+			, temp_dateOfExp, temp_ticketPrice, temp_ticketAgentName, temp_row, temp_col);
 	}
 	file.close();
 }
