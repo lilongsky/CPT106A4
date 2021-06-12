@@ -20,10 +20,41 @@ int main()
 	fileOp.readFlightsFromFIle();
 	fileOp.readTicketsFromFile();
 	Business basicBusiness(dataOp, fileOp);
-	Submain submain(3600, basicBusiness);
+	Submain submain(basicBusiness);
 
-	User currentUser("1", "EA", "customer");
-	submain.currentUser = &currentUser;
+	User currentUser;
+	bool isOver;
 
-	submain.customer();
+	cout << "Welcome to Airways Management System!" << endl;
+	isOver = false;
+	string currentUserID;
+	while (!isOver) {
+		cout << "Please input your user ID:" << endl;
+		currentUserID = readString();
+		if (dataOp.searchUser(currentUserID).size() != 1) {
+			cout << "Your input is not valid. Please try again." << endl;
+		} else {
+			currentUser = dataOp.searchUser(currentUserID).at(0);
+			cout << "Welcome " << currentUser.getUserRole() << " " << currentUser.getUserName() << "!" << endl;
+			isOver = true;
+		}
+	}
+	system("pause");
+	system("cls");
+
+	submain.currentTime = 3600;
+	submain.currentUserPtr = &currentUser;
+	if (currentUser.getUserRole() == "admin") {
+		submain.admin();
+	} else if (currentUser.getUserRole() == "manager") {
+		submain.manager();
+	} else if (currentUser.getUserRole() == "ticket_agent") {
+		submain.TA();
+	} else if (currentUser.getUserRole() == "customer") {
+		submain.customer();
+	} else {
+		throw(logic_error(""));
+	}
+
+	return 0;
 }
