@@ -109,12 +109,13 @@ void Submain::admin() {
     case 3:
       cout << "Please input the user you want to delete by its ID, real name, role:" << endl;
       str1 = readString();   // user ID
-      str2 = readString();   // user real name
-      str3 = readString();   // user role
-      if (currentUserPtr->isSameUser(User(str1, str2, str3))) {
+      //str2 = readString();   // user real name
+      //str3 = readString();   // user role
+      if (currentUserPtr->getUserID() == str1) {
         cout << "You cannot delete yourself ..." << endl;
         break;
       }
+
 
        try {
          businessPtr->deleteUser(str1);
@@ -180,7 +181,20 @@ void Submain::admin() {
 
 void Submain::TA() {}
 
-void Submain::manager() {}
+void Submain::manager() {
+    bool isOver = false;
+    vector<Ticket> ticketVector;
+    int size = 0;
+    while (!isOver){
+        cout << "Welcome Manager" << currentUserPtr->getUserName() << "!" << endl;
+        cout << "0 Quit" << endl;
+        cout << "";
+    }
+
+
+
+
+}
 
 void Submain::customer() {
   bool isOver = false;

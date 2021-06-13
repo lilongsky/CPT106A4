@@ -28,11 +28,15 @@ public:
 	void addNewRoute(std::string p_src, std::string p_dest, double p_durition);
 	void addNewPlane(std::string p_plane, std::string p_type);
 	void creatNewFlight(std::string p_PlaneId,
-		std::string p_PlaneType,
+
 		std::string src,
+
 		std::string dest,
+
 		time_t p_TakeOffTIme,
+
 		time_t p_LandingTime,
+
 		int price);
 
 	void bookTicket(std::string p_UserIdC,
@@ -48,7 +52,7 @@ public:
 
 	void deleteUser(std::string p_userID);
 	void deleteAirport(std::string p_name);
-	void deleteRoute(std::string p_src, std::string p_dest, double p_durition);
+	void deleteRoute(std::string p_src, std::string p_dest);
 	void deletePlane(std::string p_planeId);
 	void deleteFlight(std::string p_PlaneId);
 	void deleteTicket(std::string p_ticketId);
@@ -98,7 +102,7 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 		 ExpireTime, 
 		 ticketPrice, 
 		 ticketAgentID);
-	for (size_t i = 0; i < tempTicket.size(); i++){
+	for (int i = 0; i < tempTicket.size(); i++){
 		if ((tempTicket.at(i).getPayTime() == -1)
 			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
 			dataOpPtr->delTicket(tempTicket.at(i));
@@ -111,12 +115,20 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 }
 
 void Business::addNewUser(std::string p_userId, std::string p_realname, std::string p_role){
-	if (dataOpPtr->searchUser(p_userId).size() == 0){
-		dataOpPtr->addUser(p_userId, p_realname, p_role);
-		fileOpPtr->updateUsersFile();
+	if ((p_role != "admin")
+		||(p_role != "ticket_agent")
+		||(p_role != "manager")
+		||(p_role != "customer"))
+	{
+		throw std::logic_error("");
+	}
+	if (dataOpPtr->searchUser(p_userId).size() != 0){
+		throw std::logic_error("");
 	}
 	else{
-		throw std::logic_error("");
+		dataOpPtr->addUser(p_userId, p_realname, p_role);
+		fileOpPtr->updateUsersFile();
+		
 	}
 
 }
@@ -149,11 +161,15 @@ void Business::addNewPlane(std::string p_planeID, std::string p_type){
 }
 
 void Business::creatNewFlight(std::string p_PlaneId,
-	std::string p_PlaneType,
+
 	std::string src,
+
 	std::string dest,
+
 	time_t p_TakeOffTIme,
+
 	time_t p_LandingTime,
+
 	int price){
 	//PlaneID check
 	if ((dataOpPtr->searchPlane(p_PlaneId).size()) == 0){
@@ -318,9 +334,9 @@ void Business::deleteAirport(std::string p_name){
 	fileOpPtr->updateAirportsFile();
 }
 
-inline void Business::deleteRoute(std::string p_src, std::string p_dest, double p_durition){
+inline void Business::deleteRoute(std::string p_src, std::string p_dest){
 	std::vector<Route> tempRoute;
-	tempRoute = dataOpPtr->searchRoute(p_src, p_dest,p_durition);
+	tempRoute = dataOpPtr->searchRoute(p_src, p_dest,-2.0);
 	if (tempRoute.size() != 1){
 		throw std::logic_error("");
 	}
