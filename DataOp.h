@@ -315,6 +315,7 @@ void DataOp::addTicket(std::string ticketID,
         row,
         col
         );
+    flightsPtr->flightVector.at(index_flight).getPlaneSeats().setSeatValid(row, col);
     ticketsPtr->add(newTicket);
 }
 
