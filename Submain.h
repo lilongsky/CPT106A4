@@ -115,6 +115,7 @@ void Submain::admin() {
         break;
       }
 
+
        try {
          businessPtr->deleteUser(str1);
        } catch (logic_error err) {
@@ -234,7 +235,20 @@ void Submain::admin() {
 
 void Submain::TA() {}
 
-void Submain::manager() {}
+void Submain::manager() {
+    bool isOver = false;
+    vector<Ticket> ticketVector;
+    int size = 0;
+    while (!isOver){
+        cout << "Welcome Manager" << currentUserPtr->getUserName() << "!" << endl;
+        cout << "0 Quit" << endl;
+        cout << "";
+    }
+
+
+
+
+}
 
 void Submain::customer() {
   bool isOver = false;
