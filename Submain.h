@@ -83,6 +83,7 @@ void Submain::admin() {
     int choice = readInt();
 
     string str1, str2, str3;
+    int n1;
     switch (choice) {
     case 0:
       cout << "Bye Bye, " << currentUserPtr->getUserName() << "!" << endl;
@@ -107,11 +108,9 @@ void Submain::admin() {
       break;
 
     case 3:
-      cout << "Please input the user you want to delete by its ID, real name, role:" << endl;
+      cout << "Please input the ID of the user you want to delete:" << endl;
       str1 = readString();   // user ID
-      str2 = readString();   // user real name
-      str3 = readString();   // user role
-      if (currentUserPtr->isSameUser(User(str1, str2, str3))) {
+      if (str1 == currentUserPtr->getUserID()) {
         cout << "You cannot delete yourself ..." << endl;
         break;
       }
@@ -153,15 +152,70 @@ void Submain::admin() {
       cout << endl;
       break;
 
+    case 8:
+        cout << "Please input the new route by its source and destination airports:" << endl;
+        str1 = readString(); // TKOF_AP_name
+        str2 = readString(); // land_AP_name
+        n1 = readInt(); // duration
+        try {
+            businessPtr->addNewRoute(str1, str2, n1);
+        } catch (logic_error err) {
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+        break;
+
+    case 9:
+        cout << "Please input the route you want to delete by its source and destination airports:" << endl;
+        str1 = readString(); // TKOF_AP_name
+        str2 = readString(); // land_AP_name
+        try {
+          businessPtr->deleteRoute(str1, str2);
+        } catch (logic_error err) {
+          cout << "Sorry, this is not a valid operation." << endl;
+        }
+
     case 10:
       system("@type Planes.txt");
       cout << endl;
       break;
 
+    case 11:
+        cout << "Please input the new plane by its ID and type:" << endl;
+        str1 = readString(); // plane ID
+        str2 = readString(); // plane type
+        try {
+            businessPtr->addNewPlane(str1, str2);
+        } catch (logic_error err) {
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+
+    case 12:
+        cout << "Please input the ID of the plane you want to delete:" << endl;
+        str1 = readString();
+        try {
+            businessPtr->deletePlane(str1);
+        }
+        catch (logic_error err) {
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+
     case 13:
       system("@type Flights.txt");
       cout << endl;
       break;
+
+    case 14:
+        cout << "Please input the plane ID of the new flight:" << endl;
+        str1 = readString(); // plane ID
+        cout << "Please input the names of source and destination airport of this flight:" << endl;
+        str2 = readString(); // 
+        str3 = readString();
+        try {
+            // businessPtr->creatNewFlight();
+        }
+        catch (logic_error err) {
+
+        }
 
     case 16:
       system("@type Tickets.txt");
