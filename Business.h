@@ -111,7 +111,7 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 }
 
 void Business::addNewUser(std::string p_userId, std::string p_realname, std::string p_role){
-	if (dataOpPtr->searchUser(p_userId,p_realname,p_role).size() == 0){
+	if (dataOpPtr->searchUser(p_userId).size() == 0){
 		dataOpPtr->addUser(p_userId, p_realname, p_role);
 		fileOpPtr->updateUsersFile();
 	}
@@ -140,11 +140,11 @@ void Business::addNewRoute(std::string p_src, std::string p_dest, double p_durit
 	dataOpPtr->addRoute(p_src, p_dest, p_durition);
 	fileOpPtr->updateRoutesFile();
 }
-void Business::addNewPlane(std::string p_plane, std::string p_type){
-	if (dataOpPtr->searchPlane(p_plane, p_type).size() != 0){
+void Business::addNewPlane(std::string p_planeID, std::string p_type){
+	if (dataOpPtr->searchPlane(p_planeID).size() != 0){
 		throw std::logic_error("");
 	}
-	dataOpPtr->addPlane(p_plane, p_type);
+	dataOpPtr->addPlane(p_planeID, p_type);
 	fileOpPtr->updatePlanesFile();
 }
 
