@@ -116,11 +116,11 @@ void Submain::admin() {
         break;
       }
 
-      // try {
-      //   businessPtr->deleteUser(str1, str2, str3);
-      // } catch (logic_error err) {
-      //   cout << "Sorry, this is not a valid operation." << endl;
-      // }
+       try {
+         businessPtr->deleteUser(str1);
+       } catch (logic_error err) {
+         cout << "Sorry, this is not a valid operation." << endl;
+       }
       break;
 
     case 4:

@@ -46,6 +46,7 @@ public:
 	void payForTicket(std::string p_FlightId, std::string p_UserId, std::string p_seat, time_t p_PayTime);
 	void payForTicket(std::string p_TicketId, time_t p_PayTime);
 
+	void deleteUser(std::string p_userID);
 	void deleteAirport(std::string p_name);
 	void deleteRoute(std::string p_src, std::string p_dest, double p_durition);
 	void deletePlane(std::string p_planeId);
@@ -290,6 +291,19 @@ void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	dataOpPtr->editTicketPayTime(tempTickets.at(0), p_PayTime);
 	//updateFile
 	fileOpPtr->updateTicketsFile();
+}
+inline void Business::deleteUser(std::string p_userID){
+	std::vector<User> tempUser;
+	tempUser = dataOpPtr->searchUser(p_userID);
+	if (tempUser.size() != 1){
+		throw std::logic_error("");
+	}//more thane on user in file
+	if (dataOpPtr->ticketsPtr->isUserIncluded(tempUser.at(0))){
+		throw std::logic_error("");
+	}
+	dataOpPtr->delUser(tempUser.at(0));
+	fileOpPtr->updateUsersFile();
+
 }
 void Business::deleteAirport(std::string p_name){
 	std::vector<Airport> tempAirPort;
