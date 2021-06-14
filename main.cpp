@@ -42,7 +42,11 @@ int main()
 	system("pause");
 	system("cls");
 
-	submain.currentTime = 3600;
+	cout << "Please input the current time:" << endl;
+	submain.currentTime = readTime(2);
+	system("pause");
+	system("cls");
+
 	submain.currentUserPtr = &currentUser;
 	if (currentUser.getUserRole() == "admin") {
 		submain.admin();

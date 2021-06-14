@@ -41,48 +41,52 @@ string readString()
   return str;
 }
 
- time_t readTime(int mode) {
-     time_t ansTime;
-     int year, month;
-     struct tm temp_tm{};
-     if (mode == 1){
-         cout << endl << "Please input year: ";
-         cin >> year;
-         temp_tm.tm_year = year - 1900;
-         cout << endl << "please input month: ";
-         cin >> month;
-         temp_tm.tm_mon = month - 1;
-         cout << endl << "please input day: ";
-         cin >> temp_tm.tm_mday;
-         temp_tm.tm_hour = 0;
-         temp_tm.tm_min = 0;
-         temp_tm.tm_sec = 0;
-     }
-     else if (mode == 2){
-         cout << endl << "Please input year: ";
-         cin >> year;
-         temp_tm.tm_year = year - 1900;
-         cout << endl << "please input month: ";
-         cin >> month;
-         temp_tm.tm_mon = month - 1;
-         cout << endl << "please input day: ";
-         cin >> temp_tm.tm_mday;
-         cout << endl << "Please input hour: ";
-         cin >> temp_tm.tm_hour;
-         cout << endl << "Please input minus: ";
-         cin >> temp_tm.tm_min;
-         temp_tm.tm_sec = 0;
-     }
-     else{
-         throw std::logic_error("");
-     }
-     cout << "End Of TIme Input" << endl;
-     ansTime = mktime(&temp_tm);
-     if (ansTime == -1){
-         throw std::logic_error("");
-     }
-     return ansTime;
- }
+time_t readTime(int mode) {
+  bool isInputOver = false;
+  time_t ansTime;
+  int year, month;
+  struct tm temp_tm{};
+  while (!isInputOver) {   
+    if (mode == 1){
+        cout << endl << "Please input year: ";
+        cin >> year;
+        temp_tm.tm_year = year - 1900;
+        cout << endl << "please input month: ";
+        cin >> month;
+        temp_tm.tm_mon = month - 1;
+        cout << endl << "please input day: ";
+        cin >> temp_tm.tm_mday;
+        temp_tm.tm_hour = 0;
+        temp_tm.tm_min = 0;
+        temp_tm.tm_sec = 0;
+    }
+    else if (mode == 2){
+        cout << endl << "Please input year: ";
+        cin >> year;
+        temp_tm.tm_year = year - 1900;
+        cout << endl << "please input month: ";
+        cin >> month;
+        temp_tm.tm_mon = month - 1;
+        cout << endl << "please input day: ";
+        cin >> temp_tm.tm_mday;
+        cout << endl << "Please input hour: ";
+        cin >> temp_tm.tm_hour;
+        cout << endl << "Please input minus: ";
+        cin >> temp_tm.tm_min;
+        temp_tm.tm_sec = 0;
+    }
+    else{
+        throw std::logic_error("");
+    }
+    cout << "<End of Time Input>" << endl;
+    ansTime = mktime(&temp_tm);
+    if (ansTime != -1) {
+      isInputOver = true;
+    }
+  }
+  
+  return ansTime;
+}
 
 void showTime(time_t p_time)
 {
@@ -331,7 +335,29 @@ void Submain::admin()
   }
 }
 
-void Submain::TA() {}
+void Submain::TA()
+{
+  bool isOver = false;
+  while (!isOver)
+  {
+    cout << "Welcome Ticket Agent " << endl;
+
+    int choice;
+    switch (choice)
+    {
+      case 1:
+      cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
+      str1 = readString();
+      str2 = readString();
+      cout << "Please input the book ";
+      try {
+        businessPtr->bookTicket();
+      } catch (logic_error err) {
+        cout << "" << endl;
+      }
+    }
+  }
+}
 
 void Submain::manager(){
     bool isOver = false;
@@ -342,7 +368,7 @@ void Submain::manager(){
         cout << "0 Quit" << endl;
         cout << "1 Show Revenue with a start time and end time" << endl;
         cout << "2 Show Passages on a Flight" << endl;
-        cout << "3 Show airports" << endl;
+        cout << "3 Show all airports info" << endl;
         cout << "4 Show all routes info" << endl;
         cout << "5 Show all planes info" << endl;
         cout << "6 Show all flights info" << endl;
@@ -361,15 +387,8 @@ void Submain::manager(){
             isOver = true;
             break;
         case 1:
-            try{
-                t1 = readTime(1);
-                t2 = readTime(1);
-            }
-            catch (std::logic_error err){
-                cout << "Invalid Time Input! Please InPut time after 1970/1/2 before 2038/12/31"<<endl;
-                continue;
-            }
-
+            t1 = readTime(1);
+            t2 = readTime(1);
             n1 = businessPtr->getRevenue(t1, t2);
             cout << "Revenue from ";
             showTime(t1);
@@ -377,8 +396,12 @@ void Submain::manager(){
             showTime(t2);
             cout << " is " << n1 << endl;
             break;
-        //case 2:
-
+        case 2:
+            cout << "Please input FlightID to check" << endl;
+            str1 = readString();
+            n1 = businessPtr->getPassagerOnFlight(str1, currentTime);
+            cout << "their are " << n1 << " on flight " << str1 << endl;
+        case 3:
 
         default:
             break;
