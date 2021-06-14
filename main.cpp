@@ -24,41 +24,54 @@ int main()
 
 	User currentUser;
 	bool isOver;
+	while (true){
+		cout << "Welcome to Airways Management System!" << endl;
+		isOver = false;
+		string currentUserID;
+		while (!isOver){
+			cout << "Please input your user ID:" << endl;
+			currentUserID = readString();
+			if (dataOp.searchUser(currentUserID).size() != 1){
+				cout << "Your input is not valid. Please try again." << endl;
+			}
+			else{
+				currentUser = dataOp.searchUser(currentUserID).at(0);
+				cout << "Welcome " << currentUser.getUserRole() << " " << currentUser.getUserName() << "!" << endl;
+				isOver = true;
+			}
+		}
+		system("pause");
+		system("cls");
 
-	cout << "Welcome to Airways Management System!" << endl;
-	isOver = false;
-	string currentUserID;
-	while (!isOver) {
-		cout << "Please input your user ID:" << endl;
-		currentUserID = readString();
-		if (dataOp.searchUser(currentUserID).size() != 1) {
-			cout << "Your input is not valid. Please try again." << endl;
-		} else {
-			currentUser = dataOp.searchUser(currentUserID).at(0);
-			cout << "Welcome " << currentUser.getUserRole() << " " << currentUser.getUserName() << "!" << endl;
-			isOver = true;
+		cout << "Please input the current time:" << endl;
+		submain.currentTime = readTime(2);
+		system("pause");
+		system("cls");
+
+		submain.currentUserPtr = &currentUser;
+		if (currentUser.getUserRole() == "admin"){
+			submain.admin();
+		}
+		else if (currentUser.getUserRole() == "manager"){
+			submain.manager();
+		}
+		else if (currentUser.getUserRole() == "ticket_agent"){
+			submain.TA();
+		}
+		else if (currentUser.getUserRole() == "customer"){
+			submain.customer();
+		}
+		else{
+			throw(logic_error(""));
+		}
+		cout << "Do you want to change user? Press 'Y' to go back to login session Press other key to turn off the system" << endl;
+		string a;
+		a = readString();
+		if (a == "Y"){
+			continue;
+		}
+		else{
+			return 0;
 		}
 	}
-	system("pause");
-	system("cls");
-
-	cout << "Please input the current time:" << endl;
-	submain.currentTime = readTime(2);
-	system("pause");
-	system("cls");
-
-	submain.currentUserPtr = &currentUser;
-	if (currentUser.getUserRole() == "admin") {
-		submain.admin();
-	} else if (currentUser.getUserRole() == "manager") {
-		submain.manager();
-	} else if (currentUser.getUserRole() == "ticket_agent") {
-		submain.TA();
-	} else if (currentUser.getUserRole() == "customer") {
-		submain.customer();
-	} else {
-		throw(logic_error(""));
-	}
-
-	return 0;
 }
