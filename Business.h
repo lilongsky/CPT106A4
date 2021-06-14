@@ -76,6 +76,8 @@ public:
 	int getPlanesQTY(std::string p_FlightType);
 	std::vector<Flight> getPlaneFlights(std::string p_planeId);
 
+	void showSeatOfFlight(std::string p_flightID);
+
 };
 
 /* Business class */
@@ -497,4 +499,8 @@ std::vector<Flight> Business::getPlaneFlights(std::string p_planeId){
 	std::vector<Flight> tempFlights;
 	tempFlights = dataOpPtr->searchFlight("NULL", p_planeId, "NULL", "NULL", NULLC, NULLC, NULLC);
 	return tempFlights;
+}
+
+inline void Business::showSeatOfFlight(std::string p_flightID){
+	std::vector<Flight> temp
 }

@@ -335,29 +335,42 @@ void Submain::admin()
   }
 }
 
-void Submain::TA(){}
-//{
-//  bool isOver = false;
-//  while (!isOver)
-//  {
-//    cout << "Welcome Ticket Agent " << endl;
-//
-//    int choice;
-//    switch (choice)
-//    {
-//      case 1:
-//      cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
-//      str1 = readString();
-//      str2 = readString();
-//      cout << "Please input the book ";
-//      try {
-//        businessPtr->bookTicket();
-//      } catch (logic_error err) {
-//        cout << "" << endl;
-//      }
-//    }
-//  }
-//}
+void Submain::TA()
+{
+  bool isOver = false;
+  while (!isOver)
+  {
+    cout << "Welcome Ticket Agent "<< currentUserPtr->getUserName() << "!" << endl;
+
+
+    while (true){
+        cout << "0 Quit " << endl;
+
+
+        cout << "Please input your choice:" << endl;
+        int choice;
+        choice = readInt();
+
+        string str1, str2, str3;
+        int n1, n2, n3;
+        time_t t1, t2;
+        switch (choice){
+        case 1:
+            cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
+            str1 = readString();
+            str2 = readString();
+            cout << "Please input the book ";
+            try{
+                businessPtr->bookTicket();
+            }
+            catch (logic_error err){
+                cout << "" << endl;
+            }
+        }
+    }
+
+  }
+}
 
 void Submain::manager(){
     bool isOver = false;
