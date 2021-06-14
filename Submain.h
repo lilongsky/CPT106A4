@@ -47,6 +47,32 @@ void showTime(time_t p_time) {
   cout << outstr;
 }
 
+time_t readTime(int mode){
+    struct tm temp_tm;
+    if (mode == 1){
+        cout << "Please input year: ";
+        cin >> temp_tm.tm_year;
+        cout << endl << "please input month: ";
+        cin >> temp_tm.tm_mon;
+        cout << endl << "please input day: ";
+        cin >> temp_tm.tm_mday;
+    }
+    else if (mode == 2){
+        cout << "Please input year: ";
+        cin >> temp_tm.tm_year;
+        cout << endl << "please input month: ";
+        cin >> temp_tm.tm_mon;
+        cout << endl << "please input day: ";
+        cin >> temp_tm.tm_mday;
+        cout << endl << "Please input hour: ";
+        cin >> temp_tm.tm_hour;
+        cout << endl << "Please input minus: ";
+        cin >> temp_tm.tm_min;
+    }
+    return mktime(&temp_tm);
+}
+
+
 /* Submain class */
 
 Submain::Submain(Business &business) {
@@ -242,7 +268,15 @@ void Submain::manager() {
     while (!isOver){
         cout << "Welcome Manager" << currentUserPtr->getUserName() << "!" << endl;
         cout << "0 Quit" << endl;
-        cout << "";
+        cout << "1 Show Revenue with a start time and end time";
+        cout << "2 Show Passages on a Flight";
+        cout << "3 Show airports";
+        cout << "4 Show all routes info";
+        cout << "5 Show all planes info";
+        cout << "6 Show all flights info";
+        cout << "7 Show all tickets info";
+        cout << "8 Show Plane Quantity Of each type";
+        cout << ""
     }
 
 
