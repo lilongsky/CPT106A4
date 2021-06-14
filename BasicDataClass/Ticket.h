@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
-#include "../BasicDataClass/User.h"
-#include "../BasicDataClass/Flight.h"
+#include "User.h"
+#include "Flight.h"
+#include "Seats.h"
 
+class Seats;
 class Ticket
 {
   friend class Tickets;
@@ -43,6 +45,7 @@ public:
   User getTA();
   int getSeatRow();
   int getSeatCol();
+  Seats* getFlightSeatsPtr();
   
   bool isSameUserIncluded(User p_user);
 
@@ -128,6 +131,10 @@ inline int Ticket::getSeatRow(){
 
 inline int Ticket::getSeatCol(){
     return this->col;
+}
+
+Seats* Ticket::getFlightSeatsPtr() {
+    return flightPtr->getSeatsPtr();
 }
 
 bool Ticket::isSameUserIncluded(User p_user){

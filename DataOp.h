@@ -393,8 +393,10 @@ void DataOp::delTicket(Ticket p_ticket){
         throw std::logic_error("");
     }
     else{
-      Ticket actual_ticket = ticketsPtr->ticketVector.at(index_Ticket);
-      actual_ticket.getFlight().getSeatsPtr()->setSeatValid(actual_ticket.getSeatRow(), actual_ticket.getSeatCol());
+      Ticket &actual_ticket = ticketsPtr->ticketVector.at(index_Ticket);
+      int temp_row = actual_ticket.getSeatRow();
+      int temp_col = actual_ticket.getSeatCol();
+      actual_ticket.getFlightSeatsPtr()->setSeatValid(temp_row, temp_col);
       ticketsPtr->remove(index_Ticket);
     }
 }

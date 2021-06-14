@@ -32,6 +32,7 @@ public:
 
 	std::string getFlightID();
 	Plane getPlane();
+	Plane* getPlanePtr();
 	Route getRoute();
 	time_t getTKOFTime();
 	time_t getLandTime();
@@ -82,6 +83,7 @@ void Flight::hardcopyFlight(Flight p_flight) {
 
 std::string Flight::getFlightID() { return this->flightID; }
 Plane Flight::getPlane() { return *planePtr; }
+Plane* Flight::getPlanePtr(){ return this->planePtr; }
 time_t Flight::getTKOFTime() { return this->TKOFTime; }
 time_t Flight::getLandTime() { return this->LandTime; }
 Route Flight::getRoute() { return *routePtr; }
