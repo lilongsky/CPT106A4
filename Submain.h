@@ -42,10 +42,11 @@ string readString()
 }
 
  time_t readTime(int mode) {
+     time_t ansTime;
      int year, month;
-     struct tm temp_tm;
+     struct tm temp_tm{};
      if (mode == 1){
-         cout << "Please input year: ";
+         cout << endl << "Please input year: ";
          cin >> year;
          temp_tm.tm_year = year - 1900;
          cout << endl << "please input month: ";
@@ -58,7 +59,7 @@ string readString()
          temp_tm.tm_sec = 0;
      }
      else if (mode == 2){
-         cout << "Please input year: ";
+         cout << endl << "Please input year: ";
          cin >> year;
          temp_tm.tm_year = year - 1900;
          cout << endl << "please input month: ";
@@ -73,9 +74,14 @@ string readString()
          temp_tm.tm_sec = 0;
      }
      else{
-         std::logic_error("");
+         throw std::logic_error("");
      }
-     return mktime(&temp_tm);
+     cout << "End Of TIme Input" << endl;
+     ansTime = mktime(&temp_tm);
+     if (ansTime == -1){
+         throw std::logic_error("");
+     }
+     return ansTime;
  }
 
 void showTime(time_t p_time)
@@ -125,7 +131,7 @@ void Submain::admin()
     int choice = readInt();
 
     string str1, str2, str3;
-    int n1, n2, n3;
+    int n1, n2 = 0, n3;
     time_t t1, t2;
     switch (choice)
     {
@@ -331,18 +337,55 @@ void Submain::manager(){
     bool isOver = false;
     vector<Ticket> ticketVector;
     int size = 0;
+    cout << "Welcome Manager" << currentUserPtr->getUserName() << "!" << endl;
     while (!isOver){
-        cout << "Welcome Manager" << currentUserPtr->getUserName() << "!" << endl;
         cout << "0 Quit" << endl;
-        cout << "1 Show Revenue with a start time and end time";
-        cout << "2 Show Passages on a Flight";
-        cout << "3 Show airports";
-        cout << "4 Show all routes info";
-        cout << "5 Show all planes info";
-        cout << "6 Show all flights info";
-        cout << "7 Show all tickets info";
-        cout << "8 Show Plane Quantity Of each type";
-        cout << "";
+        cout << "1 Show Revenue with a start time and end time" << endl;
+        cout << "2 Show Passages on a Flight" << endl;
+        cout << "3 Show airports" << endl;
+        cout << "4 Show all routes info" << endl;
+        cout << "5 Show all planes info" << endl;
+        cout << "6 Show all flights info" << endl;
+        cout << "7 Show all tickets info" << endl;
+        cout << "8 Show Plane Quantity Of each type" << endl;
+        //cout << "";
+        cout << "Please input your choice:" << endl;
+        int choice = readInt();
+
+        string str1, str2, str3;
+        int n1, n2, n3;
+        time_t t1, t2;
+        switch (choice){
+        case 0:
+            cout << "Bye Bye, " << currentUserPtr->getUserName() << "!" << endl;
+            isOver = true;
+            break;
+        case 1:
+            try{
+                t1 = readTime(1);
+                t2 = readTime(1);
+            }
+            catch (std::logic_error err){
+                cout << "Invalid Time Input! Please InPut time after 1970/1/2 before 2038/12/31"<<endl;
+                continue;
+            }
+
+            n1 = businessPtr->getRevenue(t1, t2);
+            cout << "Revenue from ";
+            showTime(t1);
+            cout << " to ";
+            showTime(t2);
+            cout << " is " << n1 << endl;
+            break;
+        //case 2:
+
+
+        default:
+            break;
+        }
+
+        system("pause");
+        system("cls");
     }
 }
 
