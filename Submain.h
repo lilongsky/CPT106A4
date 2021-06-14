@@ -13,8 +13,8 @@ class Submain
 
 private:
   time_t currentTime;
-  User* currentUserPtr;
-  Business* businessPtr;
+  User *currentUserPtr;
+  Business *businessPtr;
 
 public:
   Submain(Business &business);
@@ -27,23 +27,35 @@ public:
 
 /* external function */
 
-int readInt() {
+int readInt()
+{
   int n;
   cin >> n;
   return n;
 }
 
-string readString() {
+string readString()
+{
   string str;
   cin >> str;
   return str;
 }
 
-void showTime(time_t p_time) {
+// time_t readTimeT() {
+//   struct tm tm = {};
+//   cout << "Please input the time, \"2021 6 5 12 0 0\" is for \"2021/6/5 12:00:00\":"<< endl;
+//   cin >> tm.tm_year >> tm.tm_mon >> tm.tm_mday >> tm.tm_hour >> tm.tm_min >> tm.tm_sec;
+//   time_t ans = mktime(&tm);
+//   cout << ans << endl;
+//   return ans;
+// }
+
+void showTime(time_t p_time)
+{
   struct tm temp_tm;
   gmtime_s(&temp_tm, &p_time);
-  char outstr[24];
-  strftime(outstr, 24, "GMT %Y/%m/%d %X", &temp_tm);
+  char outstr[20];
+  strftime(outstr, 20, "%Y/%m/%d %X", &temp_tm);
   cout << outstr;
 }
 
@@ -75,15 +87,18 @@ time_t readTime(int mode){
 
 /* Submain class */
 
-Submain::Submain(Business &business) {
+Submain::Submain(Business &business)
+{
   currentUserPtr = nullptr;
   businessPtr = &business;
 }
 
-void Submain::admin() {
+void Submain::admin()
+{
   bool isOver = false;
 
-  while (!isOver) {
+  while (!isOver)
+  {
     cout << "Welcome Administrator " << currentUserPtr->getUserName() << "!" << endl;
     cout << "0 Quit." << endl;
     cout << "1 Show users." << endl;
@@ -102,15 +117,15 @@ void Submain::admin() {
     cout << "14 Add a flight." << endl;
     cout << "15 Delete a flight." << endl;
     cout << "16 Show tickets." << endl;
-    cout << "17 Add a ticket." << endl;
-    cout << "18 Delete a ticket." << endl;
 
     cout << "Please input your choice:" << endl;
     int choice = readInt();
 
     string str1, str2, str3;
-    int n1;
-    switch (choice) {
+    int n1, n2, n3;
+    time_t t1, t2;
+    switch (choice)
+    {
     case 0:
       cout << "Bye Bye, " << currentUserPtr->getUserName() << "!" << endl;
       isOver = true;
@@ -123,30 +138,36 @@ void Submain::admin() {
 
     case 2:
       cout << "Please input the new user by its ID, real name, role:" << endl;
-      str1 = readString();
-      str2 = readString();
-      str3 = readString();
-      try {
+      str1 = readString(); // user ID
+      str2 = readString(); // user real name
+      str3 = readString(); // user role
+      try
+      {
         businessPtr->addNewUser(str1, str2, str3);
-      } catch (logic_error err) {
+      }
+      catch (logic_error err)
+      {
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
 
     case 3:
       cout << "Please input the ID of the user you want to delete:" << endl;
-      str1 = readString();   // user ID
-      if (str1 == currentUserPtr->getUserID()) {
+      str1 = readString(); // user ID
+      if (str1 == currentUserPtr->getUserID())
+      {
         cout << "You cannot delete yourself ..." << endl;
         break;
       }
 
-
-       try {
-         businessPtr->deleteUser(str1);
-       } catch (logic_error err) {
-         cout << "Sorry, this is not a valid operation." << endl;
-       }
+      try
+      {
+        businessPtr->deleteUser(str1);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
       break;
 
     case 4:
@@ -156,20 +177,26 @@ void Submain::admin() {
 
     case 5:
       cout << "Please input the name of the new airport:" << endl;
-      str1 = readString();
-      try {
+      str1 = readString(); // airport name
+      try
+      {
         businessPtr->addNewAirport(str1);
-      } catch (logic_error err) {
+      }
+      catch (logic_error err)
+      {
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
 
     case 6:
       cout << "Please input the airport you want to delete by its name:" << endl;
-      str1 = readString();
-      try {
+      str1 = readString(); // airport name
+      try
+      {
         businessPtr->deleteAirport(str1);
-      } catch (logic_error err) {
+      }
+      catch (logic_error err)
+      {
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -180,26 +207,33 @@ void Submain::admin() {
       break;
 
     case 8:
-        cout << "Please input the new route by its source and destination airports:" << endl;
-        str1 = readString(); // TKOF_AP_name
-        str2 = readString(); // land_AP_name
-        n1 = readInt(); // duration
-        try {
-            businessPtr->addNewRoute(str1, str2, n1);
-        } catch (logic_error err) {
-            cout << "Sorry, this is not a valid operation." << endl;
-        }
-        break;
+      cout << "Please input the new route by its source and destination airports:" << endl;
+      str1 = readString(); // TKOF_AP_name
+      str2 = readString(); // land_AP_name
+      n1 = readInt();      // duration
+      try
+      {
+        businessPtr->addNewRoute(str1, str2, n1);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
 
     case 9:
-        cout << "Please input the route you want to delete by its source and destination airports:" << endl;
-        str1 = readString(); // TKOF_AP_name
-        str2 = readString(); // land_AP_name
-        try {
-          businessPtr->deleteRoute(str1, str2);
-        } catch (logic_error err) {
-          cout << "Sorry, this is not a valid operation." << endl;
-        }
+      cout << "Please input the name of source airport of the route you want to delete:" << endl;
+      str1 = readString(); // TKOF_AP_name
+      str2 = readString(); // land_AP_name
+      try
+      {
+        businessPtr->deleteRoute(str1, str2);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
 
     case 10:
       system("@type Planes.txt");
@@ -207,24 +241,31 @@ void Submain::admin() {
       break;
 
     case 11:
-        cout << "Please input the new plane by its ID and type:" << endl;
-        str1 = readString(); // plane ID
-        str2 = readString(); // plane type
-        try {
-            businessPtr->addNewPlane(str1, str2);
-        } catch (logic_error err) {
-            cout << "Sorry, this is not a valid operation." << endl;
-        }
+      cout << "Please input the new plane by its ID and type:" << endl;
+      str1 = readString(); // plane ID
+      str2 = readString(); // plane type
+      try
+      {
+        businessPtr->addNewPlane(str1, str2);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
 
     case 12:
-        cout << "Please input the ID of the plane you want to delete:" << endl;
-        str1 = readString();
-        try {
-            businessPtr->deletePlane(str1);
-        }
-        catch (logic_error err) {
-            cout << "Sorry, this is not a valid operation." << endl;
-        }
+      cout << "Please input the ID of the plane you want to delete:" << endl;
+      str1 = readString(); // plane ID
+      try
+      {
+        businessPtr->deletePlane(str1);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
 
     case 13:
       system("@type Flights.txt");
@@ -232,17 +273,39 @@ void Submain::admin() {
       break;
 
     case 14:
-        cout << "Please input the plane ID of the new flight:" << endl;
-        str1 = readString(); // plane ID
-        cout << "Please input the names of source and destination airport of this flight:" << endl;
-        str2 = readString(); // 
-        str3 = readString();
-        try {
-            // businessPtr->creatNewFlight();
-        }
-        catch (logic_error err) {
+      cout << "Please input the plane ID of the new flight:" << endl;
+      str1 = readString(); // plane ID
+      cout << "Please input the names of source and destination airport of this flight:" << endl;
+      str2 = readString(); // TKOF AP name
+      str3 = readString(); // land AP name
+      cout << "Please input the taking off time and the landing time of this flight:" << endl;
+      t1 = readInt(); // TKOF time
+      t2 = readInt(); // land time
+      cout << "Please input the price of this flight:" << endl;
+      n3 = readInt(); // ticket price
 
-        }
+      try
+      {
+        businessPtr->creatNewFlight(str1, str2, str3, n1, n2, n3);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
+
+    case 15:
+      cout << "Please input the ID of the flight you want to delete:" << endl;
+      str1 = readString();
+      try
+      {
+        businessPtr->deleteFlight(str1);
+      }
+      catch (logic_error err)
+      {
+        cout << "Sorry, this is not a valid operation." << endl;
+      }
+      break;
 
     case 16:
       system("@type Tickets.txt");
@@ -261,7 +324,7 @@ void Submain::admin() {
 
 void Submain::TA() {}
 
-void Submain::manager() {
+void Submain::manager(){
     bool isOver = false;
     vector<Ticket> ticketVector;
     int size = 0;
@@ -276,19 +339,16 @@ void Submain::manager() {
         cout << "6 Show all flights info";
         cout << "7 Show all tickets info";
         cout << "8 Show Plane Quantity Of each type";
-        cout << ""
+        cout << "";
     }
-
-
-
-
 }
 
-void Submain::customer() {
+void Submain::customer(){
   bool isOver = false;
   vector<Ticket> ticketVector;
   int size = 0;
-  while(!isOver) {
+  while (!isOver)
+  {
     cout << "Welcome Customer " << currentUserPtr->getUserName() << "!" << endl;
     cout << "0 Quit." << endl;
     cout << "1 Show My Tickets." << endl;
@@ -305,23 +365,25 @@ void Submain::customer() {
 
     case 1:
       ticketVector = businessPtr->searchTicket(
-        STR_NO_LIMIT,
-        currentUserPtr->getUserID(),
-        STR_NO_LIMIT,
-        INT_NO_LIMIT,
-        INT_NO_LIMIT,
-        INT_NO_LIMIT,
-        INT_NO_LIMIT,
-        STR_NO_LIMIT,
-        currentTime
-      );
+          STR_NO_LIMIT,
+          currentUserPtr->getUserID(),
+          STR_NO_LIMIT,
+          INT_NO_LIMIT,
+          INT_NO_LIMIT,
+          INT_NO_LIMIT,
+          INT_NO_LIMIT,
+          STR_NO_LIMIT,
+          currentTime);
 
       size = ticketVector.size();
       time_t temp_time_t;
 
-      if (size == 0) {
+      if (size == 0)
+      {
         cout << "You have no tickets." << endl;
-      } else if (size == 1) {
+      }
+      else if (size == 1)
+      {
         cout << "You have 1 ticket:" << endl;
 
         Ticket ticket = ticketVector.at(0);
@@ -335,11 +397,14 @@ void Submain::customer() {
         cout << " DEST " << ticket.getFlight().getRoute().getDEST_AP().getAirportName() << endl;
 
         cout << "Seat Location: Row " << ticket.getSeatRow() << " Col " << ticket.getSeatCol() << endl;
-      } else {
+      }
+      else
+      {
         cout << "You have " << size << " tickets:" << endl;
 
         Ticket ticket;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
           ticket = ticketVector.at(i);
 
           cout << i << endl;
