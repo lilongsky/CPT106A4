@@ -48,11 +48,11 @@ std::vector<char> Seats::hardcopyVector(){
 }
 
 void Seats::setSeatValid(int row, int col) {
-  int index = (row - 1) * rowQTY + (col - 1);
+  int index = (row - 1) * colQTY + (col - 1);
   seatsStatus.at(index) = 'V';
 }
 void Seats::setSeatInvalid(int row, int col) {
-  int index = (row - 1) * rowQTY + (col - 1);
+  int index = (row - 1) * colQTY + (col - 1);
   seatsStatus.at(index) = 'I';
 }
 
