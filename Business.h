@@ -23,6 +23,18 @@ public:
 		time_t currentTime
 	);
 
+	std::vector<Ticket> searchTicketWithDelete(std::string ticketID, time_t currentTime);
+	std::vector<Ticket> searchTicketWithDelete(
+		std::string ticketID,
+		std::string customerID,
+		std::string flightID,
+		time_t bookTime, time_t payTime, time_t ExpireTime,
+		int ticketPrice,
+		std::string ticketAgentID,
+		time_t currentTime
+	);
+
+
 	void addNewUser(std::string p_userId, std::string p_realname, std::string p_role);
 	void addNewAirport(std::string p_name);
 	void addNewRoute(std::string p_src, std::string p_dest, double p_durition);
@@ -80,9 +92,9 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID, time_t currentT
 	if ((tempTicket.at(0).getPayTime() == -1)
 		&&(currentTime>(tempTicket.at(0).getExpireTime())))
 	{
-		dataOpPtr->delTicket(tempTicket.at(0));
-		fileOpPtr->updateTicketsFile();
 		return ansTicket;
+		//dataOpPtr->delTicket(tempTicket.at(0));
+		//fileOpPtr->updateTicketsFile();
 	}
 	ansTicket.push_back(tempTicket.at(0));
 	return ansTicket;
@@ -102,6 +114,42 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 		 ExpireTime, 
 		 ticketPrice, 
 		 ticketAgentID);
+	for (int i = 0; i < tempTicket.size(); i++){
+		if ((tempTicket.at(i).getPayTime() == -1)
+			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
+			//dataOpPtr->delTicket(tempTicket.at(i));
+			//fileOpPtr->updateTicketsFile();
+			continue;
+		}
+		ansTicket.push_back(tempTicket.at(i));
+	}
+	return ansTicket;
+}
+
+inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID, time_t currentTime){
+	std::vector<Ticket> tempTicket, ansTicket;
+	tempTicket = dataOpPtr->searchTicket(ticketID);
+	if ((tempTicket.at(0).getPayTime() == -1)
+		&& (currentTime > (tempTicket.at(0).getExpireTime()))){
+		dataOpPtr->delTicket(tempTicket.at(0));
+		fileOpPtr->updateTicketsFile();
+		return ansTicket;
+
+	}
+	ansTicket.push_back(tempTicket.at(0));
+	return ansTicket;		
+}
+
+inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID, time_t currentTime){
+	std::vector<Ticket> tempTicket, ansTicket;
+	tempTicket = dataOpPtr->searchTicket(ticketID,
+		customerID,
+		flightID,
+		bookTime,
+		payTime,
+		ExpireTime,
+		ticketPrice,
+		ticketAgentID);
 	for (int i = 0; i < tempTicket.size(); i++){
 		if ((tempTicket.at(i).getPayTime() == -1)
 			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
