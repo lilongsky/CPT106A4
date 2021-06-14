@@ -168,9 +168,9 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 
 void Business::addNewUser(std::string p_userId, std::string p_realname, std::string p_role){
 	if ((p_role != "admin")
-		||(p_role != "ticket_agent")
-		||(p_role != "manager")
-		||(p_role != "customer"))
+		&&(p_role != "ticket_agent")
+		&&(p_role != "manager")
+		&&(p_role != "customer"))
 	{
 		throw std::logic_error("");
 	}
@@ -233,7 +233,7 @@ void Business::creatNewFlight(std::string p_PlaneId,
 	}
 	// FlyTimeCheck
 	double tempDurition = dataOpPtr->searchRoute(src, dest).at(0).getDuration();
-	if (difftime(p_LandingTime, p_TakeOffTIme) >= tempDurition){
+	if (difftime(p_TakeOffTIme, p_LandingTime) >= tempDurition){
 		throw std::logic_error("");
 	}
 	//plane Time Check

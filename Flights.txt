@@ -1,1 +1,2 @@
-Flight1 P124-1 Wuhu_Airport Shanghai_Hongqiao_Airport 7200 15000 100
+P124-1202106160100 P124-1 Wuhu_Airport Shanghai_Hongqiao_Airport 1623805200 1623813300 270
+P62-1202106150730 P62-1 Wuhu_Airport Shanghai_Hongqiao_Airport 1623742200 1623751200 260

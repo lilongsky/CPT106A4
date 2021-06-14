@@ -156,9 +156,10 @@ void Submain::admin()
       break;
 
     case 2:
-      cout << "Please input the new user by its ID, real name, role:" << endl;
+      cout << "Please input the ID and real name for the new user:" << endl;
       str1 = readString(); // user ID
       str2 = readString(); // user real name
+      cout << "Please input the role of this user in \"admin\", \"ticket_agent\", \"manager\" and \"customer\":" << endl;
       str3 = readString(); // user role
       try
       {
@@ -298,14 +299,14 @@ void Submain::admin()
       str2 = readString(); // TKOF AP name
       str3 = readString(); // land AP name
       cout << "Please input the taking off time and the landing time of this flight:" << endl;
-      t1 = readInt(); // TKOF time
-      t2 = readInt(); // land time
+      t1 = readTime(2); // TKOF time
+      t2 = readTime(2); // land time
       cout << "Please input the price of this flight:" << endl;
       n3 = readInt(); // ticket price
 
       try
       {
-        businessPtr->creatNewFlight(str1, str2, str3, n1, n2, n3);
+        businessPtr->creatNewFlight(str1, str2, str3, t1, t2, n3);
       }
       catch (logic_error err)
       {
