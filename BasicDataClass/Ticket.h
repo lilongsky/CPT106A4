@@ -3,9 +3,7 @@
 #include <string>
 #include "User.h"
 #include "Flight.h"
-#include "Seats.h"
 
-class Seats;
 class Ticket
 {
   friend class Tickets;
