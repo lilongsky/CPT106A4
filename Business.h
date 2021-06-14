@@ -71,7 +71,7 @@ public:
 
 	int getPassagerOnFlight(std::string p_FlightId, time_t currentTime);
 	int getRevenue(time_t p_StartTime, time_t p_EndTime);
-	int getSellTicketNumbers(std::string p_UserId, time_t currentTime);
+	int getSellTicketNumbers(std::string p_UserId, time_t currentTime, time_t p_StartTime, time_t p_EndTime);
 	std::vector<Flight> getFlightsInfo(time_t p_date, std::string p_src, std::string p_dest);
 	int getPlanesQTY(std::string p_FlightType);
 	std::vector<Flight> getPlaneFlights(std::string p_planeId);
@@ -454,10 +454,20 @@ inline int Business::getRevenue(time_t p_StartTime, time_t p_EndTime){
 	return revenue;
 }
 
-int Business::getSellTicketNumbers(std::string p_UserId, time_t currentTime){
-	std::vector<Ticket> tempTicket;
+int Business::getSellTicketNumbers(std::string p_UserId, time_t currentTime, time_t p_StartTime, time_t p_EndTime){
+	std::vector<Ticket> tempTicket,ansTicket;
 	tempTicket = searchTicket("NULL", "NULL", "NULL", NULLC, NULLC, NULLC, NULLC, p_UserId, currentTime);
-	return tempTicket.size();
+	time_t tempPayTime;
+	for (int i = 0; i < tempTicket.size(); i++){
+		tempPayTime = tempTicket.at(i).getPayTime();
+		if ((tempPayTime != -1)
+			&& tempPayTime > p_StartTime
+			&& tempPayTime < p_EndTime)
+		{
+			ansTicket.push_back(tempTicket.at(i));
+		}
+	}
+	return ansTicket.size();
 }
 
 std::vector<Flight> Business::getFlightsInfo(time_t p_date, std::string p_src, std::string p_dest){

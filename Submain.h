@@ -335,29 +335,29 @@ void Submain::admin()
   }
 }
 
-void Submain::TA()
-{
-  bool isOver = false;
-  while (!isOver)
-  {
-    cout << "Welcome Ticket Agent " << endl;
-
-    int choice;
-    switch (choice)
-    {
-      case 1:
-      cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
-      str1 = readString();
-      str2 = readString();
-      cout << "Please input the book ";
-      try {
-        businessPtr->bookTicket();
-      } catch (logic_error err) {
-        cout << "" << endl;
-      }
-    }
-  }
-}
+void Submain::TA(){}
+//{
+//  bool isOver = false;
+//  while (!isOver)
+//  {
+//    cout << "Welcome Ticket Agent " << endl;
+//
+//    int choice;
+//    switch (choice)
+//    {
+//      case 1:
+//      cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
+//      str1 = readString();
+//      str2 = readString();
+//      cout << "Please input the book ";
+//      try {
+//        businessPtr->bookTicket();
+//      } catch (logic_error err) {
+//        cout << "" << endl;
+//      }
+//    }
+//  }
+//}
 
 void Submain::manager(){
     bool isOver = false;
@@ -400,10 +400,35 @@ void Submain::manager(){
             cout << "Please input FlightID to check" << endl;
             str1 = readString();
             n1 = businessPtr->getPassagerOnFlight(str1, currentTime);
-            cout << "their are " << n1 << " on flight " << str1 << endl;
+            cout << "their are " << n1 << " Passages on flight " << str1 << endl;
         case 3:
-
+            system("@type Airports.txt");
+            cout << endl;
+            break;
+        case 4:
+            system("@type Routes.txt");
+            cout << endl;
+            break;
+        case 5:
+            system("@type Planes.txt");
+            cout << endl;
+            break;
+        case 6:
+            system("@type Flights.txt");
+            cout << endl;
+            break;
+        case 7:
+            system("@type Tickets.txt");
+            cout << endl;
+            break;
+        case 8:
+            cout << "Please Input Plane Type You would like to check" << endl;
+            str1 = readString();
+            n1 = businessPtr->getPlanesQTY(str1);
+            cout << str1 << " has " << n1 << " planes " << endl;
+            break;
         default:
+            cout << "Your choice is not valid. Please try again!" << endl;
             break;
         }
 
