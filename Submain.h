@@ -50,6 +50,9 @@ time_t readTime(int mode) {
     if (mode == 1){
         cout << endl << "Please input year: ";
         cin >> year;
+        if (year == -2){
+            return -2;
+        }
         temp_tm.tm_year = year - 1900;
         cout << endl << "please input month: ";
         cin >> month;
@@ -63,6 +66,9 @@ time_t readTime(int mode) {
     else if (mode == 2){
         cout << endl << "Please input year: ";
         cin >> year;
+        if (year == -2){
+            return -2;
+        }
         temp_tm.tm_year = year - 1900;
         cout << endl << "please input month: ";
         cin >> month;
@@ -345,26 +351,73 @@ void Submain::TA()
 
     while (true){
         cout << "0 Quit " << endl;
-
-
+        cout << "1 search flight with conditions" << endl;
+        cout << "2 show seat of a flight" << endl;
+        cout << "3 book a ticket" << endl;
         cout << "Please input your choice:" << endl;
         int choice;
         choice = readInt();
 
-        string str1, str2, str3;
+        string str1, str2, str3, str4;
         int n1, n2, n3;
         time_t t1, t2;
+        vector<Flight> tempFlight;
         switch (choice){
         case 1:
+            cout << "please input flightID, for no limited please input '?'" << endl;
+            str1 = readString();
+            if (str1 == "?"){str1 = STR_NO_LIMIT;}
+            cout << "please input planeID, for no limited please input '?'" << endl;
+            str2 = readString();
+            if (str2 == "?"){str2 = STR_NO_LIMIT;}
+            cout << "please input source airport, for no limited please input '?'" << endl;
+            str3 = readString();
+            if (str3 == "?"){ str2 = STR_NO_LIMIT; }
+            cout << "please input destination airport, for no limited please input '?'" << endl;
+            str4 = readString();
+            if (str4 == "?"){ str2 = STR_NO_LIMIT; }
+            cout << "please input take of time, for no limited please input '-2'@year" << endl;
+            t1 = readTime(2);
+            cout << "please input land time, for no limited please input '-2'@year" << endl;
+            t2 = readTime(2);
+            cout << "please input ticket price, for no limited please input '-2'" << endl;
+            n1 = readInt();
+
+            tempFlight = businessPtr->dataOpPtr->searchFlight(str1, str2, str3, str4, t1, t2, n1);
+            if (tempFlight.size() == 0){
+                cout << "No Flight meet Requirement!" << endl;
+            }
+            else{
+                cout << "FlightID  " << "Plane Type " << "source " << "destination " << "take of time " << "land time " << "price " << endl;
+                for (int i = 0; i < tempFlight.size(); i++){
+                    cout << tempFlight.at(i).getFlightID() << " "
+                        << tempFlight.at(i).getPlane().getPlaneType() << " "
+                        << tempFlight.at(i).getRoute().getTKOF_AP().getAirportName() << " "
+                        << tempFlight.at(i).getRoute().getDEST_AP().getAirportName() << " ";
+                    showTime(tempFlight.at(i).getTKOFTime());
+                    cout << " ";
+                    showTime(tempFlight.at(i).getLandTime());
+                    cout << " ";
+                    cout << tempFlight.at(i).getPrice();
+                    cout << endl;
+                }
+            }
+        case 2:
+            cout << "please input flightID" << endl;
+            str1 = readString();
+            tempFlight = businessPtr->dataOpPtr->searchFlight(str1);
+            tempFlight.at(0).getPlaneSeats().showSeats();
+        case 3:
             cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
             str1 = readString();
             str2 = readString();
-            cout << "Please input the book ";
+            cout << "Please input the seat will be booked " << endl;
+
             try{
                 businessPtr->bookTicket();
             }
             catch (logic_error err){
-                cout << "" << endl;
+                cout << "Sorry, this is not a valid operation." << endl;
             }
         }
     }
