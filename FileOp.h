@@ -152,8 +152,8 @@ void FileOp::updateTicketsFile() {
 			<< dataOpPtr->getTicketVectorCopy().at(i).getExpireTime() << " " 
 			<< dataOpPtr->getTicketVectorCopy().at(i).getPrice() << " " 
 			<< dataOpPtr->getTicketVectorCopy().at(i).getTA().getUserID() << " "
-			<<dataOpPtr->getTicketVectorCopy().at(i).getSeatCol()<<" "
-			<<dataOpPtr->getTicketVectorCopy().at(i).getSeatRow();
+			<<dataOpPtr->getTicketVectorCopy().at(i).getSeatRow()<<" "
+			<<dataOpPtr->getTicketVectorCopy().at(i).getSeatCol();
 	}
 	file.close();
 }

@@ -68,6 +68,7 @@ int main()
 		string a;
 		a = readString();
 		if (a == "Y"){
+			system("cls");
 			continue;
 		}
 		else{

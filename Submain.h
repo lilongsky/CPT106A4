@@ -355,6 +355,7 @@ void Submain::TA()
     cout << "6 refund a ticket base on ticketID" << endl;
     cout << "7 Check selled ticket quantity" << endl;
     cout << "8 show all tickets" << endl;
+    cout << "10 Clear Screen." << endl;
 
     cout << "Please input your choice:" << endl;
     int choice;
@@ -490,6 +491,11 @@ void Submain::TA()
         system("@type Tickets.txt");
         cout << endl;
         break;
+
+    case 10:
+        system("cls");
+        break;
+
     default:
         cout << "Your choice is not valid. Please try again!" << endl;
         break;
