@@ -66,7 +66,8 @@ public:
     std::string flightID,
     time_t bookTime, time_t payTime, time_t ExpireTime,
     int ticketPrice,
-    std::string ticketAgentID
+    std::string ticketAgentID,
+    int row, int col
   );
 
   void addUser(std::string userID, std::string realName, std::string role);
@@ -193,8 +194,8 @@ inline std::vector<Ticket> DataOp::searchTicket(std::string ticketID){
     return ans;
 }
 
-inline std::vector<Ticket> DataOp::searchTicket(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID){
-    std::vector<Ticket> ans = ticketsPtr->search(ticketID,customerID,flightID,bookTime,payTime,ExpireTime,ticketPrice,ticketAgentID);
+inline std::vector<Ticket> DataOp::searchTicket(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID,int row,int col){
+    std::vector<Ticket> ans = ticketsPtr->search(ticketID,customerID,flightID,bookTime,payTime,ExpireTime,ticketPrice,ticketAgentID,row,col);
     return ans;
 }
 

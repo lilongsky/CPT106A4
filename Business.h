@@ -20,19 +20,20 @@ public:
 		time_t bookTime, time_t payTime, time_t ExpireTime,
 		int ticketPrice,
 		std::string ticketAgentID,
-		time_t currentTime
+		time_t currentTime,
+		int row, int col
 	);
 
-	std::vector<Ticket> searchTicketWithDelete(std::string ticketID, time_t currentTime);
-	std::vector<Ticket> searchTicketWithDelete(
-		std::string ticketID,
-		std::string customerID,
-		std::string flightID,
-		time_t bookTime, time_t payTime, time_t ExpireTime,
-		int ticketPrice,
-		std::string ticketAgentID,
-		time_t currentTime
-	);
+	//std::vector<Ticket> searchTicketWithDelete(std::string ticketID, time_t currentTime);
+	//std::vector<Ticket> searchTicketWithDelete(
+	//	std::string ticketID,
+	//	std::string customerID,
+	//	std::string flightID,
+	//	time_t bookTime, time_t payTime, time_t ExpireTime,
+	//	int ticketPrice,
+	//	std::string ticketAgentID,
+	//	time_t currentTime
+	//);
 
 
 	void addNewUser(std::string p_userId, std::string p_realname, std::string p_role);
@@ -59,7 +60,7 @@ public:
 
 		std::string p_UserIdTA, int p_row, int col);
 
-	void payForTicket(std::string p_FlightId, std::string p_UserId, std::string p_seat, time_t p_PayTime);
+	void payForTicket(std::string p_FlightId, std::string p_UserId, time_t p_PayTime, int row, int col);
 	void payForTicket(std::string p_TicketId, time_t p_PayTime);
 
 	void deleteUser(std::string p_userID);
@@ -72,7 +73,7 @@ public:
 	int getPassagerOnFlight(std::string p_FlightId, time_t currentTime);
 	int getRevenue(time_t p_StartTime, time_t p_EndTime);
 	int getSellTicketNumbers(std::string p_UserId, time_t currentTime, time_t p_StartTime, time_t p_EndTime);
-	std::vector<Flight> getFlightsInfo(time_t p_date, std::string p_src, std::string p_dest);
+	/*std::vector<Flight> getFlightsInfo(std::string p_src, std::string p_dest, time_t startTime, time_t endTime);*/
 	int getPlanesQTY(std::string p_FlightType);
 	std::vector<Flight> getPlaneFlights(std::string p_planeId);
 
@@ -94,9 +95,9 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID, time_t currentT
 	if ((tempTicket.at(0).getPayTime() == -1)
 		&&(currentTime>(tempTicket.at(0).getExpireTime())))
 	{
+		dataOpPtr->delTicket(tempTicket.at(0));
+		fileOpPtr->updateTicketsFile();
 		return ansTicket;
-		//dataOpPtr->delTicket(tempTicket.at(0));
-		//fileOpPtr->updateTicketsFile();
 	}
 	ansTicket.push_back(tempTicket.at(0));
 	return ansTicket;
@@ -106,7 +107,7 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 	std::string customerID, 
 	std::string flightID, 
 	time_t bookTime, time_t payTime, time_t ExpireTime, 
-	int ticketPrice, std::string ticketAgentID, time_t currentTime){
+	int ticketPrice, std::string ticketAgentID, time_t currentTime,int row,int col){
 	std::vector<Ticket> tempTicket, ansTicket;
 	tempTicket = dataOpPtr->searchTicket(ticketID, 
 		 customerID, 
@@ -115,43 +116,8 @@ std::vector<Ticket> Business::searchTicket(std::string ticketID,
 		 payTime, 
 		 ExpireTime, 
 		 ticketPrice, 
-		 ticketAgentID);
-	for (int i = 0; i < tempTicket.size(); i++){
-		if ((tempTicket.at(i).getPayTime() == -1)
-			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
-			//dataOpPtr->delTicket(tempTicket.at(i));
-			//fileOpPtr->updateTicketsFile();
-			continue;
-		}
-		ansTicket.push_back(tempTicket.at(i));
-	}
-	return ansTicket;
-}
-
-inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID, time_t currentTime){
-	std::vector<Ticket> tempTicket, ansTicket;
-	tempTicket = dataOpPtr->searchTicket(ticketID);
-	if ((tempTicket.at(0).getPayTime() == -1)
-		&& (currentTime > (tempTicket.at(0).getExpireTime()))){
-		dataOpPtr->delTicket(tempTicket.at(0));
-		fileOpPtr->updateTicketsFile();
-		return ansTicket;
-
-	}
-	ansTicket.push_back(tempTicket.at(0));
-	return ansTicket;		
-}
-
-inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID, time_t currentTime){
-	std::vector<Ticket> tempTicket, ansTicket;
-	tempTicket = dataOpPtr->searchTicket(ticketID,
-		customerID,
-		flightID,
-		bookTime,
-		payTime,
-		ExpireTime,
-		ticketPrice,
-		ticketAgentID);
+		 ticketAgentID,
+		row,col);
 	for (int i = 0; i < tempTicket.size(); i++){
 		if ((tempTicket.at(i).getPayTime() == -1)
 			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
@@ -163,6 +129,42 @@ inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID
 	}
 	return ansTicket;
 }
+
+//inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID, time_t currentTime){
+//	std::vector<Ticket> tempTicket, ansTicket;
+//	tempTicket = dataOpPtr->searchTicket(ticketID);
+//	if ((tempTicket.at(0).getPayTime() == -1)
+//		&& (currentTime > (tempTicket.at(0).getExpireTime()))){
+//		dataOpPtr->delTicket(tempTicket.at(0));
+//		fileOpPtr->updateTicketsFile();
+//		return ansTicket;
+//
+//	}
+//	ansTicket.push_back(tempTicket.at(0));
+//	return ansTicket;		
+//}
+//
+//inline std::vector<Ticket> Business::searchTicketWithDelete(std::string ticketID, std::string customerID, std::string flightID, time_t bookTime, time_t payTime, time_t ExpireTime, int ticketPrice, std::string ticketAgentID, time_t currentTime){
+//	std::vector<Ticket> tempTicket, ansTicket;
+//	tempTicket = dataOpPtr->searchTicket(ticketID,
+//		customerID,
+//		flightID,
+//		bookTime,
+//		payTime,
+//		ExpireTime,
+//		ticketPrice,
+//		ticketAgentID);
+//	for (int i = 0; i < tempTicket.size(); i++){
+//		if ((tempTicket.at(i).getPayTime() == -1)
+//			&& (currentTime > (tempTicket.at(0).getExpireTime()))){
+//			dataOpPtr->delTicket(tempTicket.at(i));
+//			fileOpPtr->updateTicketsFile();
+//			continue;
+//		}
+//		ansTicket.push_back(tempTicket.at(i));
+//	}
+//	return ansTicket;
+//}
 
 void Business::addNewUser(std::string p_userId, std::string p_realname, std::string p_role){
 	if ((p_role != "admin")
@@ -279,7 +281,7 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 	if (tempUser.size() != 1){
 		throw std::logic_error("");
 	}
-	if (tempUser.at(0).getUserRole() != "Customer"){
+	if (tempUser.at(0).getUserRole() != "customer"){
 		throw std::logic_error("");
 	}
 	tempUser.clear();
@@ -287,7 +289,7 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 	if (tempUser.size() != 1){
 		throw std::logic_error("");
 	}
-	if (tempUser.at(0).getUserRole() != "TicketAgent"){
+	if (tempUser.at(0).getUserRole() != "ticket_agent"){
 		throw std::logic_error("");
 	}
 	//confirm their is a seat for the flight
@@ -314,9 +316,9 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 	);
 	fileOpPtr->updateTicketsFile();
 }
-void Business::payForTicket(std::string p_FlightId, std::string p_UserId, std::string p_seat,time_t p_PayTime){
+void Business::payForTicket(std::string p_FlightId, std::string p_UserId, time_t p_PayTime, int row, int col){
 	std::vector<Ticket> tempTickets;
-	tempTickets = searchTicket("NULL", p_UserId, p_FlightId, NULLC, NULLC, NULLC, NULLC, "NULL",p_PayTime);
+	tempTickets = searchTicket("NULL", p_UserId, p_FlightId, NULLC, NULLC, NULLC, NULLC, "NULL",p_PayTime,row,col);
 
 	//isTickeExisient
 	if (tempTickets.size() == 0){/*throw()*/}
@@ -340,7 +342,7 @@ void Business::payForTicket(std::string p_FlightId, std::string p_UserId, std::s
 void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	std::vector<Ticket> tempTickets;
 	//isTickeExisient
-	tempTickets = searchTicket(p_TicketId, "NULL", "NULL", NULLC, NULLC, NULLC, NULLC, "NULL", p_PayTime);
+	tempTickets = searchTicket(p_TicketId, "NULL", "NULL", NULLC, NULLC, NULLC, NULLC, "NULL", p_PayTime,NULLC,NULLC);
 	if (tempTickets.size() == 0){
 		throw std::logic_error("");
 	}
@@ -435,7 +437,7 @@ void Business::deleteTicket(std::string p_ticketId){
 
 int Business::getPassagerOnFlight(std::string p_FlightId, time_t currentTime){
 	std::vector<Ticket> tempTicket;
-	tempTicket = searchTicket("NULL", "NULL", p_FlightId, NULLC, NULLC, NULLC, NULLC, "NULL", currentTime);
+	tempTicket = searchTicket("NULL", "NULL", p_FlightId, NULLC, NULLC, NULLC, NULLC, "NULL", currentTime,NULLC,NULLC);
 	return tempTicket.size();
 }
 
@@ -458,7 +460,7 @@ inline int Business::getRevenue(time_t p_StartTime, time_t p_EndTime){
 
 int Business::getSellTicketNumbers(std::string p_UserId, time_t currentTime, time_t p_StartTime, time_t p_EndTime){
 	std::vector<Ticket> tempTicket,ansTicket;
-	tempTicket = searchTicket("NULL", "NULL", "NULL", NULLC, NULLC, NULLC, NULLC, p_UserId, currentTime);
+	tempTicket = searchTicket("NULL", "NULL", "NULL", NULLC, NULLC, NULLC, NULLC, p_UserId, currentTime,NULLC,NULLC);
 	time_t tempPayTime;
 	for (int i = 0; i < tempTicket.size(); i++){
 		tempPayTime = tempTicket.at(i).getPayTime();
@@ -472,22 +474,22 @@ int Business::getSellTicketNumbers(std::string p_UserId, time_t currentTime, tim
 	return ansTicket.size();
 }
 
-std::vector<Flight> Business::getFlightsInfo(time_t p_date, std::string p_src, std::string p_dest){
-	std::vector<Flight> tempFlight,ansFlight;
-	tempFlight = dataOpPtr->searchFlight("NULL", "NULL", p_src, p_dest, NULLC, NULLC, NULLC);
-	if (tempFlight.size() == 0){
-		throw std::logic_error("");
-	}//no flight in this route
-	for (int i = 0; i < tempFlight.size(); i++){
-		if (tempFlight.at(i).getTKOFTime() > p_date && tempFlight.at(i).getTKOFTime() < (p_date+86400)){
-			ansFlight.push_back(tempFlight.at(i));
-		}
-	}
-	if (ansFlight.size() == 0){
-		throw std::logic_error("");
-	}//no flight in that day
-	return ansFlight;
-}
+//std::vector<Flight> Business::getFlightsInfo(std::string p_src, std::string p_dest, time_t startTime, time_t endTime){
+//	std::vector<Flight> tempFlight,ansFlight;
+//	tempFlight = dataOpPtr->searchFlight("NULL", "NULL", p_src, p_dest, NULLC, NULLC, NULLC);
+//	if (tempFlight.size() == 0){
+//		throw std::logic_error("");
+//	}//no flight in this route
+//	for (int i = 0; i < tempFlight.size(); i++){
+//		if (tempFlight.at(i).getTKOFTime() > startTime && tempFlight.at(i).getTKOFTime() < endTime){
+//			ansFlight.push_back(tempFlight.at(i));
+//		}
+//	}
+//	if (ansFlight.size() == 0){
+//		throw std::logic_error("");
+//	}//no flight in that day
+//	return ansFlight;
+//}
 
 int Business::getPlanesQTY(std::string p_FlightType){
 	std::vector<Plane> tempPlanes;

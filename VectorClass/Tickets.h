@@ -26,11 +26,17 @@ public:
 	std::vector<Ticket> search(std::string ticketId);
 	std::vector<Ticket> search(
 		std::string ticketID,
+
 		std::string customerID,
+
 		std::string flightID,
-		time_t bookTime, time_t payTime, time_t ExpireTime,
+		
+		time_t bookTime, time_t payTime,
+		
+		time_t ExpireTime,
+
 		int ticketPrice,
-		std::string ticketAgentID
+		std::string ticketAgentID, int row, int col
 	);
 };
 
@@ -130,12 +136,16 @@ inline std::vector<Ticket> Tickets::search(std::string ticketId){
 }
 
 inline std::vector<Ticket> Tickets::search(
-	std::string ticketID, 
-	std::string customerID, 
+	std::string ticketID,
+ 
+	std::string customerID,
+ 
 	std::string flightID, 
-	time_t bookTime, time_t payTime, time_t ExpireTime, 
+	time_t bookTime, time_t payTime,
+ time_t ExpireTime,
+ 
 	int ticketPrice, 
-	std::string ticketAgentID)
+	std::string ticketAgentID, int row, int col)
 {
 	std::vector<Ticket> ansTicket;
 	for (int i = 0; i < ticketVector.size(); i++){
@@ -146,7 +156,9 @@ inline std::vector<Ticket> Tickets::search(
 			&&((payTime == ticketVector.at(i).payTime)||payTime == -2)
 			&&((ExpireTime == ticketVector.at(i).ExpireTime)||(ExpireTime == -2))
 			&&((ticketPrice == ticketVector.at(i).ticketPrice)||(ticketPrice == -2))
-			&&((ticketAgentID == ticketVector.at(i).getTA().getUserID())||(ticketAgentID == "NULL")))
+			&&((ticketAgentID == ticketVector.at(i).getTA().getUserID())||(ticketAgentID == "NULL"))
+			&&((row == ticketVector.at(i).row)||(row == -2))
+			&&((col == ticketVector.at(i).col)||(col == -2)))
 		{
 			ansTicket.push_back(ticketVector.at(i));
 		}

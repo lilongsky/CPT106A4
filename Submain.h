@@ -344,103 +344,153 @@ void Submain::admin()
 void Submain::TA()
 {
   bool isOver = false;
-  while (!isOver){
-      cout << "Welcome Ticket Agent " << currentUserPtr->getUserName() << "!" << endl;
+  while (!isOver) {
+    cout << "Welcome Ticket Agent " << currentUserPtr->getUserName() << "!" << endl;
+    cout << "0 Quit " << endl;
+    cout << "1 search flight with conditions" << endl;
+    cout << "2 show seat of a flight" << endl;
+    cout << "3 book a ticket" << endl;
+    cout << "4 Pay for ticket base on ticketID" << endl;
+    cout << "5 pay for ticket base on flightID and seat" << endl;
+    cout << "6 refund a ticket base on ticketID" << endl;
+    cout << "7 Check selled ticket quantity" << endl;
+    /*cout<<""*/
 
-      while (true){
-          cout << "0 Quit " << endl;
-          cout << "1 search flight with conditions" << endl;
-          cout << "2 show seat of a flight" << endl;
-          cout << "3 book a ticket" << endl;
-          cout << "4 Pay for ticket base on ticketID" << endl;
-          cout << "5 pay for ticket base on flightID and seat" << endl;
+    cout << "Please input your choice:" << endl;
+    int choice;
+    choice = readInt();
 
-          cout << "Please input your choice:" << endl;
-          int choice;
-          choice = readInt();
+    string str1, str2, str3, str4;
+    int n1, n2, n3;
+    time_t t1, t2;
+    vector<Flight> tempFlight;
+    switch (choice){
+    case 0:
+      cout << "Bye Bye, " << currentUserPtr->getUserName() << "!" << endl;
+      isOver = true;
+      break;
 
-          string str1, str2, str3, str4;
-          int n1, n2, n3;
-          time_t t1, t2;
-          vector<Flight> tempFlight;
-          switch (choice){
-          case 1:
-              cout << "please input flightID, for no limited please input 'NULL'" << endl;
-              str1 = readString();
-              cout << "please input planeID, for no limited please input 'NULL'" << endl;
-              str2 = readString();
-              cout << "please input source airport, for no limited please input 'NULL'" << endl;
-              str3 = readString();
-              cout << "please input destination airport, for no limited please input 'NULL'" << endl;
-              str4 = readString();
-              cout << "please input take of time, for no limited please input '-2'@year" << endl;
-              t1 = readTime(2);
-              cout << "please input land time, for no limited please input '-2'@year" << endl;
-              t2 = readTime(2);
-              cout << "please input ticket price, for no limited please input '-2'" << endl;
-              n1 = readInt();
+    case 1:
+        cout << "please input flightID, for no limited please input 'NULL'" << endl;
+        str1 = readString();
+        //cout << "please input planeID, for no limited please input 'NULL'" << endl;
+        //str2 = readString();
+        cout << "please input source airport, for no limited please input 'NULL'" << endl;
+        str3 = readString();
+        cout << "please input destination airport, for no limited please input 'NULL'" << endl;
+        str4 = readString();
+        cout << "please input take of time, for no limited please input '-2'@year" << endl;
+        t1 = readTime(2);
+        cout << "please input land time, for no limited please input '-2'@year" << endl;
+        t2 = readTime(2);
+        cout << "please input ticket price, for no limited please input '-2'" << endl;
+        n1 = readInt();
 
-              tempFlight = businessPtr->dataOpPtr->searchFlight(str1, str2, str3, str4, t1, t2, n1);
-              if (tempFlight.size() == 0){
-                  cout << "No Flight meet Requirement!" << endl;
-              }
-              else{
-                  cout << "FlightID  " << "PlaneType "
-                      << endl << "source " << "destination "
-                      << endl << "take of time " << "land time "
-                      << endl << "price " << endl;
-                  for (int i = 0; i < tempFlight.size(); i++){
-                      cout << tempFlight.at(i).getFlightID() << " "
-                          << tempFlight.at(i).getPlane().getPlaneType() << endl
-                          << tempFlight.at(i).getRoute().getTKOF_AP().getAirportName() << " "
-                          << tempFlight.at(i).getRoute().getDEST_AP().getAirportName() << endl;
-                      showTime(tempFlight.at(i).getTKOFTime());
-                      cout << " ";
-                      showTime(tempFlight.at(i).getLandTime());
-                      cout << endl;
-                      cout << tempFlight.at(i).getPrice();
-                      cout << endl;
-                  }
-              }
-              break;
+        tempFlight = businessPtr->dataOpPtr->searchFlight(str1, STR_NO_LIMIT, str3, str4, t1, t2, n1);
+        if (tempFlight.size() == 0){
+            cout << "No Flight meet Requirement!" << endl;
+        }
+        else{
+            cout<<endl << "FlightID  " << "PlaneType "
+                << "source " << "destination "
+                << "take of time " << "land time "
+                << "price " << endl;
+            for (int i = 0; i < tempFlight.size(); i++){
+                cout << tempFlight.at(i).getFlightID() << " | "
+                    << tempFlight.at(i).getPlane().getPlaneType() <<" | "
+                    << tempFlight.at(i).getRoute().getTKOF_AP().getAirportName() << " | "
+                    << tempFlight.at(i).getRoute().getDEST_AP().getAirportName() << " | ";
+                showTime(tempFlight.at(i).getTKOFTime());
+                cout << " | ";
+                showTime(tempFlight.at(i).getLandTime());
+                cout << " | ";
+                cout << tempFlight.at(i).getPrice();
+                cout << endl;
+            }
+        }
+        break;
 
-          case 2:
-              cout << "please input flightID to show seats" << endl;
-              str1 = readString();
-              tempFlight = businessPtr->dataOpPtr->searchFlight(str1);
-              tempFlight.at(0).getSeatsPtr()->showSeats();
-              break;
+    case 2:
+        cout << "please input flightID to show seats" << endl;
+        str1 = readString();
+        tempFlight = businessPtr->dataOpPtr->searchFlight(str1);
+        tempFlight.at(0).getSeatsPtr()->showSeats();
+        break;
 
-          case 3:
-              cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
-              str1 = readString();
-              str2 = readString();
-              cout << "Please input the seat will be booked " << endl;
-              cout << "please input row you like";
-              n1 = readInt();
-              cout << "please input col you like";
-              n2 = readInt();
-              try{
-                  businessPtr->bookTicket(str1, str2, currentTime, currentUserPtr->getUserID(), n1, n2);
-              }
-              catch (logic_error err){
-                  cout << "Sorry, this is not a valid operation." << endl;
-              }
-              //4 Pay for ticket base on ticketID
-          case 4:
-              cout << "Please Input the Ticket ID" << endl;
-              str1 = readString();
-              cout << "please input Pay time, to use current time please input '-2'" << endl;
-              t1 = readTime(2);
-              businessPtr->payForTicket(str1, t1);
-              //case 5:
+    case 3:
+        cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
+        str1 = readString();
+        str2 = readString();
+        cout << "Please input the seat will be booked " << endl;
+        cout << "please input row you like";
+        n1 = readInt();
+        cout << "please input col you like";
+        n2 = readInt();
+        try{
+            businessPtr->bookTicket(str1, str2, currentTime, currentUserPtr->getUserID(), n1, n2);
+        }
+        catch (logic_error err){
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+        break;
 
-
-              //}
-
-
-          }
-      }
+    //4 Pay for ticket base on ticketID
+    case 4:
+        cout << "Please Input the Ticket ID" << endl;
+        str1 = readString();
+        cout << "please input Pay time, to use current time please input '-2'" << endl;
+        t1 = readTime(2);
+        if (t1 == -2){ t1 = currentTime; }
+        try{
+            businessPtr->payForTicket(str1, t1);
+        }
+        catch (logic_error err){
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+        break;
+    case 5:
+        cout << "Please Input the Flight ID" << endl;
+        str1 = readString();
+        cout << "please Input CustomerID" << endl;
+        str2 = readString();
+        cout << "Please Input seat row " << endl;
+        n1 = readInt();
+        cout << "Please Input seat col" << endl;
+        n2 = readInt();
+        cout << "please input Pay time, to use current time please input '-2'" << endl;
+        t1 = readTime(2);
+        if (t1 == -2){ t1 = currentTime; }
+        try{
+            businessPtr->payForTicket(str1, str2,t1 ,n1, n2);
+        }
+        catch (logic_error err){
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+        break;
+    case 6:
+        cout << "Please Input the Ticket ID" << endl;
+        str1 = readString();
+        try{
+            businessPtr->deleteTicket(str1);
+        }
+        catch (logic_error err){
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
+        break;
+    case 7:
+        cout << "Please Input start time" << endl;
+        t1 = readTime(1);
+        cout << "please input end time, to use current time please input '-2'" << endl;
+        t2 = readTime(1);
+        if (t2 == -2){ t2 = currentTime; }
+        n1 = businessPtr->getSellTicketNumbers(currentUserPtr->getUserID(),currentTime,t1,t2);
+        cout << currentUserPtr->getUserName() << " has selled " << n1 << " Ticket(s)" << endl;
+        break;
+    
+    default:
+        cout << "Your choice is not valid. Please try again!" << endl;
+        break;
+    }
   }
 }
 
@@ -448,7 +498,6 @@ void Submain::manager(){
     bool isOver = false;
     vector<Ticket> ticketVector;
     int size = 0;
-    int choice = readInt();
 
     string str1, str2, str3;
     int n1, n2, n3;
@@ -467,7 +516,8 @@ void Submain::manager(){
         //cout << "";
         cout << "Please input your choice:" << endl;
 
-        switch (choice){
+        int choice = readInt();
+        switch (choice) {
         case 0:
             cout << "Bye Bye, " << currentUserPtr->getUserName() << "!" << endl;
             isOver = true;
@@ -553,7 +603,9 @@ void Submain::customer(){
           INT_NO_LIMIT,
           INT_NO_LIMIT,
           STR_NO_LIMIT,
-          currentTime);
+          currentTime,
+          INT_NO_LIMIT,
+          INT_NO_LIMIT);
 
       size = ticketVector.size();
       time_t temp_time_t;
