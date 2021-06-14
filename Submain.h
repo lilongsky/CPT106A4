@@ -77,7 +77,7 @@ time_t readTime(int mode) {
         cin >> temp_tm.tm_mday;
         cout << "Please input hour: ";
         cin >> temp_tm.tm_hour;
-        cout << "Please input minus: ";
+        cout << "Please input minute: ";
         cin >> temp_tm.tm_min;
         temp_tm.tm_sec = 0;
     }
