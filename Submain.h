@@ -41,47 +41,50 @@ string readString()
   return str;
 }
 
-// time_t readTimeT() {
-//   struct tm tm = {};
-//   cout << "Please input the time, \"2021 6 5 12 0 0\" is for \"2021/6/5 12:00:00\":"<< endl;
-//   cin >> tm.tm_year >> tm.tm_mon >> tm.tm_mday >> tm.tm_hour >> tm.tm_min >> tm.tm_sec;
-//   time_t ans = mktime(&tm);
-//   cout << ans << endl;
-//   return ans;
-// }
+ time_t readTime(int mode) {
+     int year, month;
+     struct tm temp_tm;
+     if (mode == 1){
+         cout << "Please input year: ";
+         cin >> year;
+         temp_tm.tm_year = year - 1900;
+         cout << endl << "please input month: ";
+         cin >> month;
+         temp_tm.tm_mon = month - 1;
+         cout << endl << "please input day: ";
+         cin >> temp_tm.tm_mday;
+         temp_tm.tm_hour = 0;
+         temp_tm.tm_min = 0;
+         temp_tm.tm_sec = 0;
+     }
+     else if (mode == 2){
+         cout << "Please input year: ";
+         cin >> year;
+         temp_tm.tm_year = year - 1900;
+         cout << endl << "please input month: ";
+         cin >> month;
+         temp_tm.tm_mon = month - 1;
+         cout << endl << "please input day: ";
+         cin >> temp_tm.tm_mday;
+         cout << endl << "Please input hour: ";
+         cin >> temp_tm.tm_hour;
+         cout << endl << "Please input minus: ";
+         cin >> temp_tm.tm_min;
+         temp_tm.tm_sec = 0;
+     }
+     else{
+         std::logic_error("");
+     }
+     return mktime(&temp_tm);
+ }
 
 void showTime(time_t p_time)
 {
   struct tm temp_tm;
-  gmtime_s(&temp_tm, &p_time);
+  localtime_s(&temp_tm, &p_time);
   char outstr[20];
   strftime(outstr, 20, "%Y/%m/%d %X", &temp_tm);
   cout << outstr;
-}
-
-time_t readTime(int mode){
-    struct tm temp_tm;
-    if (mode == 1){
-        cout << "Please input year: ";
-        cin >> temp_tm.tm_year;
-        cout << endl << "please input month: ";
-        cin >> temp_tm.tm_mon;
-        cout << endl << "please input day: ";
-        cin >> temp_tm.tm_mday;
-    }
-    else if (mode == 2){
-        cout << "Please input year: ";
-        cin >> temp_tm.tm_year;
-        cout << endl << "please input month: ";
-        cin >> temp_tm.tm_mon;
-        cout << endl << "please input day: ";
-        cin >> temp_tm.tm_mday;
-        cout << endl << "Please input hour: ";
-        cin >> temp_tm.tm_hour;
-        cout << endl << "Please input minus: ";
-        cin >> temp_tm.tm_min;
-    }
-    return mktime(&temp_tm);
 }
 
 
