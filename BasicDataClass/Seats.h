@@ -36,7 +36,7 @@ Seats::Seats(std::string planeType) {
     this->rowQTY = 12;
     this->colQTY = 4;
   } else {
-    // throw
+      throw std::logic_error("");
   }
 
   this->seatsStatus = std::vector<char>(rowQTY * colQTY, 'V');
