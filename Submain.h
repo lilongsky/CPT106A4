@@ -343,9 +343,9 @@ void Submain::admin()
 
 void Submain::TA()
 {
+  cout << "Welcome Ticket Agent " << currentUserPtr->getUserName() << "!" << endl;
   bool isOver = false;
   while (!isOver) {
-    cout << "Welcome Ticket Agent " << currentUserPtr->getUserName() << "!" << endl;
     cout << "0 Quit " << endl;
     cout << "1 search flight with conditions" << endl;
     cout << "2 show seat of a flight" << endl;
@@ -354,7 +354,7 @@ void Submain::TA()
     cout << "5 pay for ticket base on flightID and seat" << endl;
     cout << "6 refund a ticket base on ticketID" << endl;
     cout << "7 Check selled ticket quantity" << endl;
-    /*cout<<""*/
+    cout << "8 show all tickets" << endl;
 
     cout << "Please input your choice:" << endl;
     int choice;
@@ -486,11 +486,15 @@ void Submain::TA()
         n1 = businessPtr->getSellTicketNumbers(currentUserPtr->getUserID(),currentTime,t1,t2);
         cout << currentUserPtr->getUserName() << " has selled " << n1 << " Ticket(s)" << endl;
         break;
-    
+    case 8:
+        system("@type Tickets.txt");
+        cout << endl;
+        break;
     default:
         cout << "Your choice is not valid. Please try again!" << endl;
         break;
     }
+    system("pause");
   }
 }
 
