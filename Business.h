@@ -291,7 +291,7 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 		throw std::logic_error("");
 	}
 	//confirm their is a seat for the flight
-	if ((tempFlight.at(0).getPlaneSeats().getSeatStatus(p_row, p_col)) == 'I'){
+	if ((tempFlight.at(0).getSeatsPtr()->getSeatStatus(p_row, p_col)) == 'I'){
 		throw std::logic_error("");
 	}//seat UnBookable
 
@@ -507,5 +507,5 @@ inline void Business::showSeatOfFlight(std::string p_flightID){
 	if (tempFlight.size() != 1){
 		throw std::logic_error("");
 	}
-	tempFlight.at(0).getPlaneSeats().showSeats();
+	tempFlight.at(0).getSeatsPtr()->showSeats();
 }

@@ -315,7 +315,7 @@ void DataOp::addTicket(std::string ticketID,
         row,
         col
         );
-    flightsPtr->flightVector.at(index_flight).getPlaneSeats().setSeatValid(row, col);
+    flightsPtr->flightVector.at(index_flight).getSeatsPtr()->setSeatInvalid(row, col);
     ticketsPtr->add(newTicket);
 }
 
@@ -393,7 +393,7 @@ void DataOp::delTicket(Ticket p_ticket){
     }
     else{
       Ticket actual_ticket = ticketsPtr->ticketVector.at(index_Ticket);
-      actual_ticket.getFlight().getPlaneSeats().setSeatValid(actual_ticket.getSeatRow(), actual_ticket.getSeatCol());
+      actual_ticket.getFlight().getSeatsPtr()->setSeatValid(actual_ticket.getSeatRow(), actual_ticket.getSeatCol());
       ticketsPtr->remove(index_Ticket);
     }
 }

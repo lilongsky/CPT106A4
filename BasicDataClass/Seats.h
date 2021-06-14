@@ -57,16 +57,16 @@ void Seats::setSeatInvalid(int row, int col) {
 }
 
 char Seats::getSeatStatus(int row, int col) {
-  int index = (row - 1) * rowQTY + (col - 1);
+  int index = (row - 1) * colQTY + (col - 1);
   return seatsStatus.at(index);
 }
 
 void Seats::showSeats() {
   char ch;
-  std::cout << "\033[47m" << endl;
-  for (int i_row = 0; i_row < rowQTY; i_row++) {
-    for (int i_col = 0; i_col < colQTY; i_col++) {
-      ch = getSeatStatus(i_row+1, i_col+1);
+  std::cout << endl;
+  for (int i_row = 1; i_row <= rowQTY; i_row++) {
+    for (int i_col = 1; i_col <= colQTY; i_col++) {
+      ch = getSeatStatus(i_row, i_col);
       if (ch == 'I') {
         std::cout << "\033[31mI"; // red
       } else if (ch == 'V') {
@@ -75,7 +75,7 @@ void Seats::showSeats() {
         throw std::logic_error("");
       }
     }
-    std::cout << endl;
+    std::cout << "\033[0m " << i_row << endl;
   }
-  std::cout << "\033[0m";
+  std::cout << "\033[0m" << endl;
 }

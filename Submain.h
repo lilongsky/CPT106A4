@@ -54,30 +54,30 @@ time_t readTime(int mode) {
             return -2;
         }
         temp_tm.tm_year = year - 1900;
-        cout << endl << "please input month: ";
+        cout << "please input month: ";
         cin >> month;
         temp_tm.tm_mon = month - 1;
-        cout << endl << "please input day: ";
+        cout << "please input day: ";
         cin >> temp_tm.tm_mday;
         temp_tm.tm_hour = 0;
         temp_tm.tm_min = 0;
         temp_tm.tm_sec = 0;
     }
     else if (mode == 2){
-        cout << endl << "Please input year: ";
+        cout << "Please input year: ";
         cin >> year;
         if (year == -2){
             return -2;
         }
         temp_tm.tm_year = year - 1900;
-        cout << endl << "please input month: ";
+        cout << "please input month: ";
         cin >> month;
         temp_tm.tm_mon = month - 1;
-        cout << endl << "please input day: ";
+        cout << "please input day: ";
         cin >> temp_tm.tm_mday;
-        cout << endl << "Please input hour: ";
+        cout << "Please input hour: ";
         cin >> temp_tm.tm_hour;
-        cout << endl << "Please input minus: ";
+        cout << "Please input minus: ";
         cin >> temp_tm.tm_min;
         temp_tm.tm_sec = 0;
     }
@@ -402,11 +402,15 @@ void Submain::TA()
                       cout << endl;
                   }
               }
+              break;
+
           case 2:
               cout << "please input flightID to show seats" << endl;
               str1 = readString();
               tempFlight = businessPtr->dataOpPtr->searchFlight(str1);
-              tempFlight.at(0).getPlaneSeats().showSeats();
+              tempFlight.at(0).getSeatsPtr()->showSeats();
+              break;
+
           case 3:
               cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
               str1 = readString();

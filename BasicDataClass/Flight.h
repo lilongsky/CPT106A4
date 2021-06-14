@@ -36,7 +36,7 @@ public:
 	time_t getTKOFTime();
 	time_t getLandTime();
 	int getPrice();
-	Seats getPlaneSeats();
+	Seats* getSeatsPtr();
 
 	bool isSameFlight(Flight p_flight);
 	//bool isSameFlightID(std::string p_flightID);
@@ -86,7 +86,7 @@ time_t Flight::getTKOFTime() { return this->TKOFTime; }
 time_t Flight::getLandTime() { return this->LandTime; }
 Route Flight::getRoute() { return *routePtr; }
 int Flight::getPrice() { return this->price; }
-Seats Flight::getPlaneSeats() { return this->planeSeats; }
+Seats* Flight::getSeatsPtr() { return &planeSeats; }
 
 bool Flight::isSameFlight(Flight p_flight) {
 	if ((flightID == p_flight.flightID)

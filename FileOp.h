@@ -106,7 +106,7 @@ void FileOp::readFlightsFromFIle(){
 	int temp_Price = 0;
 
 	while (!file.eof()) {
-		file >> temp_FID >> temp_PID >> temp_TKOF_AP >> temp_DEST_AP >> temp_TKOF_Time >> temp_LAND_Time;
+		file >> temp_FID >> temp_PID >> temp_TKOF_AP >> temp_DEST_AP >> temp_TKOF_Time >> temp_LAND_Time >> temp_Price;
 		dataOpPtr->addFlight(temp_FID, temp_PID, temp_TKOF_AP, temp_DEST_AP, temp_TKOF_Time, temp_LAND_Time, temp_Price);
 	}
 	file.close();
