@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -16,6 +17,8 @@ public:
   void setSeatInvalid(int row, int col);
 
   char getSeatStatus(int row, int col);
+
+  void showSeats();
 };
 
 /* Seats class */
@@ -58,3 +61,21 @@ char Seats::getSeatStatus(int row, int col) {
   return seatsStatus.at(index);
 }
 
+void Seats::showSeats() {
+  char ch;
+  std::cout << "\033[47m" << endl;
+  for (int i_row = 0; i_row < rowQTY; i_row++) {
+    for (int i_col = 0; i_col < colQTY; i_col++) {
+      ch = getSeatStatus(i_row+1, i_col+1);
+      if (ch == 'I') {
+        std::cout << "\033[31mI"; // red
+      } else if (ch == 'V') {
+        std::cout << "\033[32mV"; // green
+      } else {
+        throw std::logic_error("");
+      }
+    }
+    std::cout << endl;
+  }
+  std::cout << "\033[0m";
+}
