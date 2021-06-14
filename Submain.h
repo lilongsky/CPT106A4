@@ -428,6 +428,7 @@ void Submain::manager(){
             cout << str1 << " has " << n1 << " planes " << endl;
             break;
         default:
+            cout << "Your choice is not valid. Please try again!" << endl;
             break;
         }
 
