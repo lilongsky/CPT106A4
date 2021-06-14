@@ -502,5 +502,10 @@ std::vector<Flight> Business::getPlaneFlights(std::string p_planeId){
 }
 
 inline void Business::showSeatOfFlight(std::string p_flightID){
-	std::vector<Flight> temp
+	std::vector<Flight> tempFlight;
+	tempFlight =  dataOpPtr->searchFlight(p_flightID);
+	if (tempFlight.size() != 1){
+		throw std::logic_error("");
+	}
+	tempFlight.at(0).getPlaneSeats().showSeats();
 }
