@@ -229,7 +229,7 @@ void Business::creatNewFlight(std::string p_PlaneId,
 		throw std::logic_error("The route of this flight does not exist.\n");
 	}
 	double tempDurition = dataOpPtr->searchRoute(src, dest).at(0).getDuration();
-	if (difftime(p_TakeOffTIme, p_LandingTime) >= tempDurition){
+	if (difftime(p_LandingTime, p_TakeOffTIme) <= tempDurition){
 		throw std::logic_error("The duration of the flight can not be shorter than the duration of the route.\n");
 	}
 	//plane Time Check
