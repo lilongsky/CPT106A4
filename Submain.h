@@ -167,6 +167,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+        cout << err.what() << endl;
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;

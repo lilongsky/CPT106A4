@@ -172,10 +172,10 @@ void Business::addNewUser(std::string p_userId, std::string p_realname, std::str
 		&&(p_role != "manager")
 		&&(p_role != "customer"))
 	{
-		throw std::logic_error("");
+		throw std::logic_error("The role you input is not valid.");
 	}
 	if (dataOpPtr->searchUser(p_userId).size() != 0){
-		throw std::logic_error("");
+		throw std::logic_error("User ID can not be duplicate.");
 	}
 	else{
 		dataOpPtr->addUser(p_userId, p_realname, p_role);
