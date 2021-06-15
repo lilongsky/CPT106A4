@@ -1,2 +1,12 @@
 Wuhu_Airport
 Shanghai_Hongqiao_Airport
+HongKong_KaiTak_Airport
+Singapore_Changi_Airport
+London_Heathrow_Airport
+Tokyo_Narita_Airport
+Suvarnabhumi_Airport
+Mingaladon_Airport
+Sydney_KingsfordSmith_Airport
+BenitoJuarez_Airport
+GeorgeBush_Airport
+Tokyo_Haneda_Airport
