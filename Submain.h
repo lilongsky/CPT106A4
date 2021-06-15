@@ -347,9 +347,10 @@ void Submain::admin()
       break;
 
     case 16:
-      system("@type Tickets.txt");
-      cout << endl;
-      break;
+        cout << "TicketID | CustomerID | FlightID | book time | Pay Time  -2 is not payed | Expiration Time | Ticket Price| Ticket Agent ID | Seat Row | Seat Col" << endl;
+        system("@type Tickets.txt");
+        cout << endl;
+        break;
 
     default:
       cout << "Your choice is not valid. Please try again!" << endl;
@@ -519,6 +520,7 @@ void Submain::TA()
         break;
 
     case 8:
+        cout << "TicketID | CustomerID | FlightID | book time | Pay Time  -2 is not payed | Expiration Time | Ticket Price| Ticket Agent ID | Seat Row | Seat Col" << endl;
         system("@type Tickets.txt");
         cout << endl;
         break;
@@ -610,6 +612,7 @@ void Submain::manager(){
             cout << endl;
             break;
         case 7:
+            cout << "TicketID | CustomerID | FlightID | book time | Pay Time  -2 is not payed | Expiration Time | Ticket Price| Ticket Agent ID | Seat Row | Seat Col" << endl;
             system("@type Tickets.txt");
             cout << endl;
             break;
