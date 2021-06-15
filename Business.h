@@ -249,7 +249,7 @@ void Business::creatNewFlight(std::string p_PlaneId,
 	if ((p_TakeOffTIme < MaxLandT)){
 		throw std::logic_error("The plane is invalid for this duration.\n");
 	}//No plane use in that Time
-	if (tempPlaneLastDest.isSameAirport(tempSrc)){
+	if (!(tempPlaneLastDest.isSameAirport(tempSrc))){
 		throw std::logic_error("The plane is not at the source airport before taking off.\n");
 	}//no plane in airport
 	//change take off time to string
