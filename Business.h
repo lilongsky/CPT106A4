@@ -442,7 +442,7 @@ inline int Business::getRevenue(time_t p_StartTime, time_t p_EndTime){
 	tempTicket = dataOpPtr->getTicketVectorCopy();
 	for (int i = 0; i < tempTicket.size(); i++){
 		tempPayTime = tempTicket.at(i).getPayTime();
-		if ((tempPayTime != -1)
+		if ((tempPayTime != -2)
 			&&tempPayTime > p_StartTime
 			&&tempPayTime < p_EndTime)
 		{
