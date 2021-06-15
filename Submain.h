@@ -156,8 +156,9 @@ void Submain::admin()
       break;
 
     case 2:
-      cout << "Please input the ID and real name for the new user:" << endl;
+      cout << "Please input the ID for the new user:" << endl;
       str1 = readString(); // user ID
+      cout << "Please input the real name of the new user:" << endl;
       str2 = readString(); // user real name
       cout << "Please input the role of this user in \"admin\", \"ticket_agent\", \"manager\" and \"customer\":" << endl;
       str3 = readString(); // user role
@@ -167,7 +168,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
-        cout << err.what() << endl;
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -187,6 +188,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -205,6 +207,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -218,6 +221,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -228,9 +232,12 @@ void Submain::admin()
       break;
 
     case 8:
-      cout << "Please input the new route by its source and destination airports:" << endl;
+      cout << "Please input the new route" << endl;
+      cout << "Please input source airport of this route:" << endl;
       str1 = readString(); // TKOF_AP_name
+      cout << "Please input destination airport of this route" << endl;
       str2 = readString(); // land_AP_name
+      cout << "Please input the fly time in SECOND of this route:" << endl;
       n1 = readInt();      // duration
       try
       {
@@ -238,6 +245,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -245,6 +253,7 @@ void Submain::admin()
     case 9:
       cout << "Please input the name of source airport of the route you want to delete:" << endl;
       str1 = readString(); // TKOF_AP_name
+      cout << "Please input the name of destination airport of the route you want to delete:" << endl;
       str2 = readString(); // land_AP_name
       try
       {
@@ -252,6 +261,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -262,8 +272,9 @@ void Submain::admin()
       break;
 
     case 11:
-      cout << "Please input the new plane by its ID and type:" << endl;
+      cout << "Please input the new planeID it is recommended that it like \"typename-number\":" << endl;
       str1 = readString(); // plane ID
+      cout << "Please input the new plane Type name. It should be \"P62 \" or \" P124\"" << endl;
       str2 = readString(); // plane type
       try
       {
@@ -271,6 +282,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -284,6 +296,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -296,11 +309,13 @@ void Submain::admin()
     case 14:
       cout << "Please input the plane ID of the new flight:" << endl;
       str1 = readString(); // plane ID
-      cout << "Please input the names of source and destination airport of this flight:" << endl;
+      cout << "Please input the names of source airport of this flight:" << endl;
       str2 = readString(); // TKOF AP name
+      cout << "Please input the name of destination airport of this flight:" << endl;
       str3 = readString(); // land AP name
-      cout << "Please input the taking off time and the landing time of this flight:" << endl;
+      cout << "Please input the taking off time of this flight:" << endl;
       t1 = readTime(2); // TKOF time
+      cout << "PLease input the landing time of this flight:" << endl;
       t2 = readTime(2); // land time
       cout << "Please input the price of this flight:" << endl;
       n3 = readInt(); // ticket price
@@ -311,6 +326,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -324,6 +340,7 @@ void Submain::admin()
       }
       catch (logic_error err)
       {
+          cout << err.what();
         cout << "Sorry, this is not a valid operation." << endl;
       }
       break;
@@ -421,13 +438,14 @@ void Submain::TA()
         break;
 
     case 3:
-        cout << "Please input the customer ID, flight ID of the new ticket:" << endl;
+        cout << "Please input the customer ID of the new ticket:" << endl;
         str1 = readString();
+        cout << "Please input the flight ID for the new ticket:" << endl;
         str2 = readString();
         cout << "Please input the seat will be booked " << endl;
-        cout << "please input row you like";
+        cout << "please input row you like:";
         n1 = readInt();
-        cout << "please input col you like";
+        cout << "please input col you like:";
         n2 = readInt();
         try{
             businessPtr->bookTicket(str1, str2, currentTime, currentUserPtr->getUserID(), n1, n2);
