@@ -553,7 +553,9 @@ void Submain::manager(){
             isOver = true;
             break;
         case 1:
+            cout << "Please input the start time of Revenue statistics" << endl;
             t1 = readTime(1);
+            cout << "Please input the end time of Revenue statistics" << endl;
             t2 = readTime(1);
             n1 = businessPtr->getRevenue(t1, t2);
             cout << "Revenue from ";
