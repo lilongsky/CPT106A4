@@ -136,7 +136,7 @@ void Submain::admin()
     cout << "14 Add a flight." << endl;
     cout << "15 Delete a flight." << endl;
     cout << "16 Show tickets." << endl;
-    cout << "Please use \"_\" instead of " " when trying to input a white space." << endl;
+    cout << "Please use \"_\" instead of \" \" when trying to input a white space." << endl;
 
     cout << "Please input your choice:" << endl;
     int choice = readInt();
