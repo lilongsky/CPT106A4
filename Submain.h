@@ -451,6 +451,7 @@ void Submain::TA()
             businessPtr->bookTicket(str1, str2, currentTime, currentUserPtr->getUserID(), n1, n2);
         }
         catch (logic_error err){
+            cout << err.what();
             cout << "Sorry, this is not a valid operation." << endl;
         }
         break;
@@ -466,6 +467,7 @@ void Submain::TA()
             businessPtr->payForTicket(str1, t1);
         }
         catch (logic_error err){
+            cout << err.what();
             cout << "Sorry, this is not a valid operation." << endl;
         }
         break;
@@ -485,6 +487,7 @@ void Submain::TA()
             businessPtr->payForTicket(str1, str2,t1 ,n1, n2);
         }
         catch (logic_error err){
+            cout << err.what();
             cout << "Sorry, this is not a valid operation." << endl;
         }
         break;
@@ -504,9 +507,16 @@ void Submain::TA()
         cout << "please input end time, to use current time please input '-2'" << endl;
         t2 = readTime(1);
         if (t2 == -2){ t2 = currentTime; }
-        n1 = businessPtr->getSellTicketNumbers(currentUserPtr->getUserID(),currentTime,t1,t2);
-        cout << currentUserPtr->getUserName() << " has selled " << n1 << " Ticket(s)" << endl;
+        try{
+            n1 = businessPtr->getSellTicketNumbers(currentUserPtr->getUserID(), currentTime, t1, t2);
+            cout << currentUserPtr->getUserName() << " has selled " << n1 << " Ticket(s)" << endl;
+        }
+        catch (logic_error err){
+            cout << err.what();
+            cout << "Sorry, this is not a valid operation." << endl;
+        }
         break;
+
     case 8:
         system("@type Tickets.txt");
         cout << endl;
@@ -557,18 +567,31 @@ void Submain::manager(){
             t1 = readTime(1);
             cout << "Please input the end time of Revenue statistics" << endl;
             t2 = readTime(1);
-            n1 = businessPtr->getRevenue(t1, t2);
-            cout << "Revenue from ";
-            showTime(t1);
-            cout << " to ";
-            showTime(t2);
-            cout << " is " << n1 << endl;
+            try{
+                n1 = businessPtr->getRevenue(t1, t2);
+                cout << "Revenue from ";
+                showTime(t1);
+                cout << " to ";
+                showTime(t2);
+                cout << " is " << n1 << endl;
+            }
+            catch (logic_error err){
+                cout << err.what();
+                cout << "Sorry, this is not a valid operation." << endl;
+            }
             break;
         case 2:
             cout << "Please input FlightID to check" << endl;
             str1 = readString();
-            n1 = businessPtr->getPassagerOnFlight(str1, currentTime);
-            cout << "their are " << n1 << " Passages on flight " << str1 << endl;
+            try{
+                n1 = businessPtr->getPassagerOnFlight(str1, currentTime);
+                cout << "their are " << n1 << " Passages on flight " << str1 << endl;
+            }
+            catch (logic_error err){
+                cout << err.what();
+                cout << "Sorry, this is not a valid operation." << endl;
+            }
+            break;
         case 3:
             system("@type Airports.txt");
             cout << endl;
@@ -592,8 +615,14 @@ void Submain::manager(){
         case 8:
             cout << "Please Input Plane Type You would like to check" << endl;
             str1 = readString();
-            n1 = businessPtr->getPlanesQTY(str1);
-            cout << str1 << " has " << n1 << " planes " << endl;
+            try{
+                n1 = businessPtr->getPlanesQTY(str1);
+                cout << str1 << " has " << n1 << " planes " << endl;
+            }
+            catch (logic_error err){
+                cout << err.what();
+                cout << "Sorry, this is not a valid operation." << endl;
+            }
             break;
         default:
             cout << "Your choice is not valid. Please try again!" << endl;
