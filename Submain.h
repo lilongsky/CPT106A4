@@ -136,6 +136,7 @@ void Submain::admin()
     cout << "14 Add a flight." << endl;
     cout << "15 Delete a flight." << endl;
     cout << "16 Show tickets." << endl;
+    cout << "Please use \"_\" instead of " " when trying to input a white space." << endl;
 
     cout << "Please input your choice:" << endl;
     int choice = readInt();
@@ -237,7 +238,7 @@ void Submain::admin()
       str1 = readString(); // TKOF_AP_name
       cout << "Please input destination airport of this route" << endl;
       str2 = readString(); // land_AP_name
-      cout << "Please input the fly time in SECOND of this route:" << endl;
+      cout << "Please input the fly time in \033[31mSECOND\033[0m of this route:" << endl;
       n1 = readInt();      // duration
       try
       {

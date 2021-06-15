@@ -172,17 +172,15 @@ void Business::addNewUser(std::string p_userId, std::string p_realname, std::str
 		&&(p_role != "manager")
 		&&(p_role != "customer"))
 	{
-		throw std::logic_error("The role you input is not valid.");
+		throw std::logic_error("The role you input is not valid.\n");
 	}
 	if (dataOpPtr->searchUser(p_userId).size() != 0){
-		throw std::logic_error("User ID can not be duplicate.");
+		throw std::logic_error("The user ID can not be duplicate.\n");
 	}
 	else{
 		dataOpPtr->addUser(p_userId, p_realname, p_role);
-		fileOpPtr->updateUsersFile();
-		
+		fileOpPtr->updateUsersFile();	
 	}
-
 }
 void Business::addNewAirport(std::string p_name){
 	if (dataOpPtr->searchAirport(p_name).size()==0){
@@ -190,51 +188,49 @@ void Business::addNewAirport(std::string p_name){
 		fileOpPtr->updateAirportsFile();
 	}
 	else{
-		throw std::logic_error("");
+		throw std::logic_error("The airport has already existed.\n");
 	}
 }
 void Business::addNewRoute(std::string p_src, std::string p_dest, double p_durition){
 	
 	if (dataOpPtr->searchRoute(p_src,p_dest,p_durition).size() != 0){
-		throw std::logic_error("");
+		throw std::logic_error("The route has already existed.\n");
 	}
 	else if(p_src == p_dest){
-		throw std::logic_error("");
+		throw std::logic_error("The source and destination airport can not be the same.\n");
 	}
 	dataOpPtr->addRoute(p_src, p_dest, p_durition);
 	fileOpPtr->updateRoutesFile();
 }
 void Business::addNewPlane(std::string p_planeID, std::string p_type){
 	if (dataOpPtr->searchPlane(p_planeID).size() != 0){
-		throw std::logic_error("");
+		throw std::logic_error("The plane ID can not be duplicate.\n");
 	}
 	dataOpPtr->addPlane(p_planeID, p_type);
 	fileOpPtr->updatePlanesFile();
 }
 
 void Business::creatNewFlight(std::string p_PlaneId,
-
 	std::string src,
-
 	std::string dest,
-
 	time_t p_TakeOffTIme,
-
 	time_t p_LandingTime,
-
 	int price){
 	//PlaneID check
 	if ((dataOpPtr->searchPlane(p_PlaneId).size()) == 0){
-		throw std::logic_error("");
+		throw std::logic_error("There is no plane with this plane ID.\n");
 	}//no plane id
 	//TKOFT and LANDT Time Check
 	if (p_TakeOffTIme > p_LandingTime){
-		throw std::logic_error("");
+		throw std::logic_error("The time of taking off should not be later than the time of landing.\n");
 	}
 	// FlyTimeCheck
+	if (dataOpPtr->searchRoute(src, dest).size() == 0) {
+		throw std::logic_error("The route of this flight does not exist.\n");
+	}
 	double tempDurition = dataOpPtr->searchRoute(src, dest).at(0).getDuration();
 	if (difftime(p_TakeOffTIme, p_LandingTime) >= tempDurition){
-		throw std::logic_error("");
+		throw std::logic_error("The duration of the flight can not be shorter than the duration of the route.\n");
 	}
 	//plane Time Check
 	std::vector<Flight> tempFlights;
@@ -251,10 +247,10 @@ void Business::creatNewFlight(std::string p_PlaneId,
 		}
 	}//Search for latest LandT
 	if ((p_TakeOffTIme < MaxLandT)){
-		throw std::logic_error("");
-	}//No plane use in that Time 
+		throw std::logic_error("The plane is invalid for this duration.\n");
+	}//No plane use in that Time
 	if (tempPlaneLastDest.isSameAirport(tempSrc)){
-		throw std::logic_error("");
+		throw std::logic_error("The plane is not at the source airport before taking off.\n");
 	}//no plane in airport
 	//change take off time to string
 	char StringTkofT[13];
@@ -282,7 +278,7 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 		throw std::logic_error("");
 	}
 	if (tempUser.at(0).getUserRole() != "customer"){
-		throw std::logic_error("");
+		throw std::logic_error("The role of this user is not customer.\n");
 	}
 	tempUser.clear();
 	tempUser = dataOpPtr->searchUser(p_UserIdTA);
@@ -294,7 +290,7 @@ void Business::bookTicket(std::string p_UserIdC, std::string p_flightId, time_t 
 	}
 	//confirm their is a seat for the flight
 	if ((tempFlight.at(0).getSeatsPtr()->getSeatStatus(p_row, p_col)) == 'I'){
-		throw std::logic_error("");
+		throw std::logic_error("The seat is not valid.\n");
 	}//seat UnBookable
 
 	//set expiration time
@@ -336,7 +332,6 @@ void Business::payForTicket(std::string p_FlightId, std::string p_UserId, time_t
 	dataOpPtr->editTicketPayTime(tempTickets.at(0), p_PayTime);
 	//updateFile
 	fileOpPtr->updateTicketsFile();
-
 }
 
 void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
@@ -351,7 +346,7 @@ void Business::payForTicket(std::string p_TicketId, time_t p_PayTime){
 	tempExpTime = tempTickets.at(0).getExpireTime();
 	if (p_PayTime > tempExpTime){
 		throw std::logic_error("");
-	};
+	}
 	if (p_PayTime < tempTickets.at(0).getBookTime()){
 		throw std::logic_error("");
 	}
@@ -364,23 +359,22 @@ inline void Business::deleteUser(std::string p_userID){
 	std::vector<User> tempUser;
 	tempUser = dataOpPtr->searchUser(p_userID);
 	if (tempUser.size() != 1){
-		throw std::logic_error("");
+		throw std::logic_error("The user you want to delete does not exist.\n");
 	}//more thane on user in file
 	if (dataOpPtr->ticketsPtr->isUserIncluded(tempUser.at(0))){
-		throw std::logic_error("");
+		throw std::logic_error("The user has been used in tickets.\n");
 	}
 	dataOpPtr->delUser(tempUser.at(0));
 	fileOpPtr->updateUsersFile();
-
 }
 void Business::deleteAirport(std::string p_name){
 	std::vector<Airport> tempAirPort;
 	tempAirPort = dataOpPtr->searchAirport(p_name);
 	if (tempAirPort.size() != 1){
-		throw std::logic_error("");
+		throw std::logic_error("The airport you want to delete does not exist.\n");
 	}
 	if (dataOpPtr->routesPtr->isSameAPIncluded(tempAirPort.at(0))){
-		throw std::logic_error("");
+		throw std::logic_error("The airport has been used in routes.\n");
 	}
 	dataOpPtr->delAirport(tempAirPort.at(0));
 	fileOpPtr->updateAirportsFile();
@@ -390,10 +384,10 @@ inline void Business::deleteRoute(std::string p_src, std::string p_dest){
 	std::vector<Route> tempRoute;
 	tempRoute = dataOpPtr->searchRoute(p_src, p_dest,-2.0);
 	if (tempRoute.size() != 1){
-		throw std::logic_error("");
+		throw std::logic_error("The route you want to delete does not exist.\n");
 	}
 	if (dataOpPtr->flightsPtr->isRouteIncluded(tempRoute.at(0))){
-		throw std::logic_error("");
+		throw std::logic_error("The route has been used in flights.\n");
 	}
 	dataOpPtr->delRoute(tempRoute.at(0));
 	fileOpPtr->updateRoutesFile();
@@ -403,10 +397,10 @@ inline void Business::deletePlane(std::string p_planeId){
 	std::vector<Plane> tempPlane;
 	tempPlane = dataOpPtr->searchPlane(p_planeId);
 	if (tempPlane.size() != 1){
-		throw std::logic_error("");
+		throw std::logic_error("The plane you want to delete does not exist.\n");
 	}
 	if (dataOpPtr->flightsPtr->isPlaneIncluded(tempPlane.at(0))){
-		throw std::logic_error("");
+		throw std::logic_error("The plane has been used in flights.\n");
 	}
 	dataOpPtr->delPlane(tempPlane.at(0));
 	fileOpPtr->updatePlanesFile();
@@ -416,10 +410,10 @@ inline void Business::deleteFlight(std::string p_PlaneId){
 	std::vector<Flight> tempFlight;
 	tempFlight = dataOpPtr->searchFlight(p_PlaneId);
 	if (tempFlight.size() != 1){
-		throw std::logic_error("");
+		throw std::logic_error("The flight you want to delete does not exist.\n");
 	}
 	if (dataOpPtr->ticketsPtr->isFlightIncluded(tempFlight.at(0))){
-		throw std::logic_error("");
+		throw std::logic_error("The flight has been used in tickets.\n");
 	}
 	dataOpPtr->delFlight(tempFlight.at(0));
 	fileOpPtr->updateFlightsFile();
@@ -429,7 +423,7 @@ void Business::deleteTicket(std::string p_ticketId){
 	std::vector<Ticket> tempTicket;
 	tempTicket = dataOpPtr->searchTicket(p_ticketId);
 	if (tempTicket.size() != 1){
-		throw std::logic_error("");
+		throw std::logic_error("The ticket you want to delete does not exist.\n");
 	}
 	dataOpPtr->delTicket(tempTicket.at(0));
 	fileOpPtr->updateTicketsFile();
